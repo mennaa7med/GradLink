@@ -1,0 +1,105 @@
+.features-section {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .features-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 3rem;
+  }
+  
+  .feature-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .student-block .feature-text {
+    order: 1;
+  }
+  
+  .student-block .feature-image {
+    order: 2;
+  }
+  
+  .graduate-block .feature-image {
+    order: 1;
+  }
+  
+  .graduate-block .feature-text {
+    order: 2;
+  }
+  
+  .feature-text {
+    flex: 1;
+  }
+  
+  .feature-text h2 {
+    color: #000000;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  
+  .feature-text ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    line-height: 1.7;
+    color: #000000;
+  }
+  
+  .feature-image {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .feature-image img {
+    max-width: 100%;
+    height: auto;
+    border-top-left-radius: 190px;
+    border-bottom-right-radius: 190px;
+
+  }
+  .view-more-wrapper {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .view-more-btn {
+    background-color: #FFCB66;
+    color: #000000;
+    padding: 14px 28px;
+        font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .feature-block {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .feature-text, .feature-image {
+      order: unset !important;
+      width: 100%;
+    }
+  
+    .feature-text ul {
+      text-align: left;
+    }
+  }
+  

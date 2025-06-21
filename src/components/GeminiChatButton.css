@@ -1,0 +1,114 @@
+.chatbot-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #FFD95A;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  z-index: 999;
+}
+.chatbot-toggle:hover {
+  transform: scale(1.1);
+}
+
+.chat-container {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 350px;
+  max-height: 500px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.chat-container h2 {
+  margin: 10px 0;
+  background-color: #FFD95A;
+  color: #333;
+  text-align: center;
+  padding: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
+}
+
+.messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+.msg {
+  margin: 6px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 80%;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.msg.user {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.msg.bot {
+  background-color: #ffe2e2;
+  align-self: flex-start;
+  text-align: left;
+}
+
+.input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.input-area button {
+  margin-left: 8px;
+  padding: 10px 16px;
+  background-color: #0C2737;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.input-area button:hover {
+  background-color: #0C2737;
+}
+.typing::after {
+  content: ' ▌';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

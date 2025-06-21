@@ -1,0 +1,118 @@
+.mentors-container {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.mentors-header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.mentors-header p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.mentor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.mentor-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.mentor-card:hover {
+  transform: translateY(-5px);
+}
+
+.mentor-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.mentor-card h2 {
+  font-size: 20px;
+  margin: 10px 0 5px;
+}
+
+.mentor-field {
+  font-size: 14px;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.mentor-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.mentor-buttons .btn {
+  margin: 5px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.profile-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.profile-btn:hover {
+  background-color: #0056b3;
+}
+
+.chat-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.chat-btn:hover {
+  background-color: #1e7e34;
+}
+
+.become-mentor {
+  margin-top: 60px;
+}
+
+.become-mentor h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.apply-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.apply-btn:hover {
+  background-color: #e64a19;
+}

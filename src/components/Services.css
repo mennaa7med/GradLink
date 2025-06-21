@@ -1,0 +1,95 @@
+.services-page {
+  padding: 3rem 2rem;
+  background-color: #C7D9E5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-bottom-right-radius: 150px;
+}
+
+/* Main title section */
+.main-section-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.main-section-title h1 {
+  font-size: 2.8rem;
+  color: #1F1F1F;
+  margin-bottom: 2rem;
+  margin-top: 10rem;
+
+}
+
+
+.services-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.service-column {
+  flex: 1;
+  min-width: 300px;
+  max-width: 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.service-title {
+  font-size: 2rem;
+  color: #000000;
+  font-weight: bold;
+  text-align: center;
+}
+
+.service-card {
+  background: #59849E;
+  border-radius: 20px;
+  padding: 4rem;
+  transition: all 0.3s ease;
+  border-left: 1px solid rgba(0,0,0,0.05);
+  border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+
+
+
+.service-card p {
+  color: #1F1F1F;
+  line-height: 1.6;
+  font-size: 3rem;
+  font-size: large;
+  font-family: math;
+
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .services-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-column {
+    max-width: 100%;
+  }
+
+  .service-card {
+    width: 100%;
+    text-align: left;
+  }
+
+  .service-title,
+  .service-title.right {
+    text-align: left;
+  }
+
+  .main-section-title h1 {
+    font-size: 2rem;
+  }
+}

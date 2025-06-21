@@ -1,0 +1,127 @@
+.login-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.login-box {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.header-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 70px; /* Adjust size as needed */
+  height: auto;
+  margin-right: 10px; /* Space between logo and text */
+}
+
+.login-box h2 {
+  font-size: 28px;
+  color: #333;
+  margin-right: 20px;
+}
+
+.login-box p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #0C2737;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0C2737;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login-btn:hover {
+  background: #0C2737; /* No change in hover color as per your CSS */
+}
+
+.forgot-password {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.forgot-password a {
+  color: #0C2737;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    margin: 20px;
+    padding: 20px;
+  }
+  .header-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .logo {
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,71 @@
+.project-page {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #0C2737;
+
+  /* ✅ لتوسيط الكارد أفقيًا وعموديًا */
+  display: flex;
+  justify-content: center;  /* توسيط أفقي */
+  align-items: center;      /* توسيط عمودي */
+  min-height: 100vh;        /* تخلي الصفحة بطول الشاشة بالكامل */
+  padding: 20px;            /* هامشي داخلي لتجنب الالتصاق بالحواف */
+}
+.project-ccard {
+  background-color: #EEEFF0;
+  border-radius: 20px;
+  padding: 30px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+
+.label {
+  color: #7E7E7E;
+  margin-bottom: 5px;
+  text-align: center;
+  display: block;
+  font-size: 25px;
+}
+
+.project-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center; /* optional: center project title too */
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  flex-wrap: wrap; /* optional: responsive rows */
+}
+
+.link-text {
+  color: #226F9D;
+}
+
+.descriptionn {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  text-align: justify; /* optional: better reading flow */
+}
+
+.download-btnn {
+  background-color: #FFCB66;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-left: auto;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.download-btnn:hover {
+  background-color: #e6b65c;
+}

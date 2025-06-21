@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+  
+  }
+  
+  .home-container {
+  display: flex;
+  height: 100vh;
+
+  padding: 0 50px;
+  background-color: #0C2737;
+}
+
+  
+  .text-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    padding-right: 70px;
+  }
+  
+  .text-section h1 {
+    font-size: 4em; /* حجم أكبر للعنوان */
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  
+  .description {
+    font-size: 1.2em; /* حجم أكبر للنص */
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+    
+  .buttons {
+    display: flex;
+    gap: 15px;
+    
+  }
+  
+  .start-btn,
+  .join-btn {
+    padding: 14px 28px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFCB66;
+    color: black;
+      text-decoration: none; /* لإزالة الخط */
+
+  }
+  
+  
+  .image-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     margin-top: 70px;
+  }
+  
+  .image {
+    width: 560px; /* صورة أصغر */
+    height: auto;
+    margin: auto;
+  }
+              
+.highlight-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.highlight {
+    position: relative;
+    z-index: 2;
+    padding: 0 5px;
+}
+
+.circle-image {
+    position: absolute;
+    top: 66%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    height: 100px;
+    z-index: 1;
+}
+
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+}
+

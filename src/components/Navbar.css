@@ -1,0 +1,82 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0C2737;
+  padding: 10px 40px;
+}
+
+.navbar-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+}
+
+.site-name {
+  font-weight: bold;
+  font-size: 20px;
+  color: #ffffff;
+  font-family: 'Ramaraja', serif;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-right: 100px; 
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.signin-btn {
+  background: #0C2737;
+  border: 1px solid #ffffff;
+  font-size: 16px;
+  padding: 6px 12px;
+  color: #ffffff;
+  border-radius: 7px;
+  text-decoration: none;
+  margin-right: 10px; 
+}
+
+.signup-btnn {
+  background-color: #FFCB66;
+  color: #012031;
+  padding: 6px 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  text-decoration: none;
+}
+
+.nav-button {
+  display: flex;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+    color: #ffffff;
+text-decoration: none;
+  color: #ffffff;
+  font-weight: 500;
+  margin: 0 10px;
+  text-decoration: none;
+}
