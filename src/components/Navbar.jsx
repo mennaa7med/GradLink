@@ -48,6 +48,7 @@ const Navbar = () => {
           <li>
             <Link to="/Opportunities">Opportunities</Link>
           </li>
+          
         </ul>
 
         <div className="nav-buttons">

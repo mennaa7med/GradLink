@@ -38,8 +38,8 @@
 }
 
 .nav-item.active {
-  background-color: #FFCB66;
-  color: #0C2737;
+  background-color: #0c2737;
+  color: #ffffff;
   font-weight: 600;
   box-shadow: 0 6px 15px rgba(255, 203, 102, 0.4);
   transform: translateY(-3px) scale(1.05);
@@ -83,13 +83,13 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-.search-boox {
+.search--box {
   flex-grow: 1;
   max-width: 500px;
   position: relative;
 }
 
-.search-boox input {
+.search--box input {
   width: 100%;
   padding: 14px 20px 14px 50px;
   border: 2px solid #eee;
@@ -99,7 +99,7 @@
   background-color: #f8f8f8;
 }
 
-.search-boox input:focus {
+.search--box input:focus {
   outline: none;
   border-color: #FFCB66;
   box-shadow: 0 0 0 3px rgba(255, 203, 102, 0.2);
@@ -138,8 +138,8 @@
 }
 
 .add-resource-btn {
-  background-color: #FFCB66;
-  color: #0C2737;
+  background-color: #0C2737;
+  color: #ffffff;
   border: none;
   box-shadow: 0 4px 10px rgba(255, 203, 102, 0.3);
 }
@@ -244,8 +244,8 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background-color: #FFCB66;
-  color: #0C2737;
+  background-color: #0C2737;
+  color: #ffffff;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -351,8 +351,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: #FFCB66;
-  color: #0C2737;
+  background-color: #0C2737;
+  color: #ffffff;
   text-decoration: none;
   padding: 14px 0;
   font-weight: 600;
@@ -382,7 +382,7 @@
 }
 
 .download-btn:hover, .external-link-btn:hover {
-  background-color: #ffd980;
+  background-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(255, 203, 102, 0.3);
 }

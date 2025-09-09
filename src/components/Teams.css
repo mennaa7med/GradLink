@@ -1,7 +1,8 @@
 .teams-page {
   padding: 24px;
-  max-width: 1200px;
   margin: 0 auto;
+  background-color: #EEEFF0;
+  border-radius: 15px;
 }
 
 .teams-header {
@@ -70,27 +71,29 @@
   gap: 16px;
 }
 
-.search-container {
+.search-containeer {
   position: relative;
   flex: 1;
   max-width: 400px;
 }
-
 .search-iconnn {
   position: absolute;
-  left: 12px;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: #666;
+  font-size: 16px;
+  color: #888;
+  pointer-events: none; /* علشان الكليك يعدي على الأيقونة */
+  transition: color 0.2s ease;
 }
 
 .searchinput {
   width: 100%;
-  padding: 10px 10px 10px 40px;
+  padding: 10px 12px 10px 40px; 
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 14px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .searchinput:focus {
@@ -98,6 +101,8 @@
   box-shadow: 0 0 0 2px rgba(12, 39, 55, 0.1);
   outline: none;
 }
+
+
 
 .advanced-filters {
   display: flex;
@@ -328,7 +333,7 @@
   gap: 10px;
 }
 
-.view-details-btn, .message-btn, .delete-btn {
+.view-details-btn, .message-btn, .deletee-btn {
   padding: 8px;
   border: none;
   border-radius: 6px;
@@ -345,46 +350,15 @@
 
 .message-btn {
   background-color: #0c2737;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
+  color: #EEEFF0;
+    padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.delete-btn {
-  background-color: #f8d7da;
-  color: #dc3545;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-}
 
-.view-details-btn:hover {
-  background-color: #e0e0e0;
-}
-
-.message-btn:hover {
-  background-color: #1a3a4f;
-  transform: translateY(-2px);
-}
-
-.delete-btn:hover {
-  background-color: #f5c2c7;
-  transform: translateY(-2px);
-}
-
-.no-members {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 40px;
-  color: #666;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-}
 
 /* Modal styles */
 .modal-overlay {
@@ -673,7 +647,7 @@
     gap: 16px;
   }
   
-  .search-container {
+  .search-containeer {
     max-width: 100%;
     width: 100%;
   }

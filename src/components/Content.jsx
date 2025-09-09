@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Content.css';
-import { FiArrowUpRight, FiPlus, FiPause, FiSquare, FiVideo } from 'react-icons/fi';
+import { FiArrowUpRight, FiPlus, FiPause, FiSquare, FiVideo, FiPlay } from 'react-icons/fi';
+
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const Content = () => {
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((prev) => prev + 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive]);
+
+  const handleStartPause = () => {
+    setIsActive(!isActive);
+  };
+
+  const handleReset = () => {
+    setIsActive(false);
+    setSeconds(0);
+  };
+
+  const formatTime = (secs) => {
+    const hours = String(Math.floor(secs / 3600)).padStart(2, "0");
+    const minutes = String(Math.floor((secs % 3600) / 60)).padStart(2, "0");
+    const secsRemain = String(secs % 60).padStart(2, "0");
+    return `${hours}:${minutes}:${secsRemain}`;
+  };
+
   const lineChartData = [
     { name: 'Jan', completed: 4, inProgress: 6 },
     { name: 'Feb', completed: 3, inProgress: 7 },
@@ -34,7 +66,6 @@ const Content = () => {
           <p className="content-subtitle">plan, prioritize, and accomplish your tasks with ease.</p>
         </div>
         <div className="button-group">
-          
           <button className="import-bbtn">Import Data</button>
         </div>
       </div>
@@ -98,9 +129,13 @@ const Content = () => {
           <div className="meeting-info">
             <h4>Meeting with your team</h4>
             <p className="meeting-time">Time: 02:34 PM-04:00 PM</p>
-            <button className="meeting-btn">
-              <FiVideo className="camera-icon" /> Start Meeting
-            </button>
+           <button 
+  className="meeting-btn"
+  onClick={() => window.open("https://teams.microsoft.com/l/meetup-join/your-meeting-link", "_blank")}
+>
+  <FiVideo className="camera-icon" /> Start Meeting
+</button>
+
           </div>
         </div>
 
@@ -320,17 +355,17 @@ const Content = () => {
         </div>
 
         <div className="flex-item time-tracker">
-          <h3>Time Tracker</h3>
-          <div className="timer">01:24:08</div>
-          <div className="timer-controls">
-            <button className="timer-btn">
-              <FiPause />
-            </button>
-            <button className="timer-btn">
-              <FiSquare />
-            </button>
-          </div>
-        </div>
+  <h3>Time Tracker</h3>
+  <div className="timer">{formatTime(seconds)}</div>
+  <div className="timer-controls">
+    <button className="timer-btn" onClick={handleStartPause}>
+      {isActive ? <FiPause /> : <FiPlay />}
+    </button>
+    <button className="timer-btn reset" onClick={handleReset}>
+      <FiSquare />
+    </button>
+  </div>
+</div>
       </div>
     </div>
   );

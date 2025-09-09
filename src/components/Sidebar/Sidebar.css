@@ -9,7 +9,10 @@
   z-index: 10;
   flex-shrink: 0;
   border-radius: 25px;
+  margin-top: 15px; /* بدل padding-top */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
 }
+
 
 .sidebar-indicator {
   position: absolute;
@@ -82,7 +85,7 @@
 }
 
 .badge {
-  background-color: #ff5252;
+  background-color: #FFCB66;
   color: white;
   font-size: 10px;
   padding: 2px 6px;

@@ -221,8 +221,8 @@ const Teams = () => {
       </div>
 
       <div className="filter-section">
-        <div className="search-container">
-          <FiSearch className="ssearch-icon" />
+        <div className="search-containeer">
+          <FiSearch className="search-iconnn" />
           <input
             type="text"
             placeholder="Search members..."
@@ -341,7 +341,6 @@ const Teams = () => {
               
               <div className="member-actions">
                 <button className="view-details-btn" onClick={() => viewMemberDetails(member)}>View Details</button>
-                <button className="message-btn" onClick={() => handleMessageButtonClick(member)}><FiMail /></button>
                 <button className="delete-btn" onClick={() => handleDeleteMember(member.id)}><FiTrash2 /></button>
               </div>
             </div>

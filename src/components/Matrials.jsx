@@ -753,7 +753,7 @@ const Matrials = () => {
       </div>
       
       <div className="search-filter-container">
-        <div className="search-box">
+        <div className="search--box">
           <FiSearch className="search-iconn" />
           <input 
             type="text" 

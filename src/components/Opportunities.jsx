@@ -128,7 +128,7 @@ const Opportunities = () => {
       <h1 className="opportunities-title">Opportunities</h1>
 
       <div className="opportunities-search-container">
-        <div className="search-box">
+        <div className="search-boxx">
           <FiSearch className="searchicon" />
           <input
             type="text"

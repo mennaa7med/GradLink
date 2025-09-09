@@ -1,0 +1,36 @@
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+  transition: opacity 1.5s ease;
+  opacity: 1;
+}
+
+.logout-container.fade-out {
+  opacity: 0;
+}
+
+.logout-box {
+  text-align: center;
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.brand {
+  font-weight: bold;
+  color: #0c2737;
+}
+
+.logout-btn {
+  background-color: #0c2737;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+}

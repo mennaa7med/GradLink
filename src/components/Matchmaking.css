@@ -1,3 +1,4 @@
+/* ===== General Container ===== */
 .matchmaking-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -15,6 +16,7 @@
   align-self: flex-start;
 }
 
+/* ===== Project Card ===== */
 .projectcard {
   background-color: white;
   border-radius: 15px;
@@ -77,6 +79,7 @@
   background-color: #e09d43;
 }
 
+/* ===== Create Team Button ===== */
 .create-team-container {
   margin-top: 20px;
 }
@@ -104,72 +107,70 @@
   .project-card {
     flex-direction: column;
   }
-  
   .project-info {
     padding-right: 0;
     margin-bottom: 20px;
   }
-  
   .project-actions {
-    align-items: flex-start;}
+    align-items: flex-start;
   }
+}
 
-/* Modal styles for join request */
+/* ===== Modal Overlay ===== */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(12, 39, 55, 0.8);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
 }
 
+/* ===== Join Modal ===== */
 .join-modal-content {
-  background-color: #C7D9E5;
-  width: 600px;
-  border-radius: 30px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  box-sizing: border-box;
-  color: #0C2737;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-.join-modal-header, .join-modal-body {
-  margin-bottom: 20px;
+.join-modal-content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #0c2737;
 }
 
-.modal-label {
-  color: #7E7E7E;
-  font-size: 22px;
-  margin: 0 0 10px 0;
+.join-form input,
+.join-form textarea {
+  width: 100%;
+  padding: 0.75rem 0rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9fafb;
+  margin-bottom: 1rem;
+  transition: border 0.2s ease;
 }
 
-.modal-project-name {
-  font-size: 32px;
-  font-weight: bold;
-  margin: 0 0 20px 0;
-}
-
-.modal-description {
-  font-size: 18px;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.join-modal-footer {
-  display: flex;
-  justify-content: flex-end;
+.join-form input:focus,
+.join-form textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  outline: none;
 }
 
 .add-btn {
-  background-color: #FFCB66;
-  color: #000000;
+  background-color: #3b82f6;
+  color: white;
   border: none;
   padding: 12px 40px;
   font-size: 18px;
@@ -180,5 +181,70 @@
 }
 
 .add-btn:hover {
-  background-color: #e6b65c;
+  background-color: #2563eb;
+}
+
+/* ===== Team Modal ===== */
+.create-modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.create-modal-content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #0c2737;
+}
+
+.create-team-form input,
+.create-team-form textarea {
+  width: 100%;
+  padding: 0.75rem 0rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9fafb;
+  margin-bottom: 1rem;
+  transition: border 0.2s ease;
+}
+
+.create-team-form input:focus,
+.create-team-form textarea:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  outline: none;
+}
+
+.create-team-form .add-btn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-team-form .add-btn:hover {
+  background-color: #059669;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

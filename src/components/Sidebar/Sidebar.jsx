@@ -55,7 +55,7 @@ const Sidebar = () => {
     { type: "section", label: "GENERAL" },
     { icon: <FiSettings />, label: "Settings", path: "/dashboard/settings" },
     { icon: <FiHelpCircle />, label: "Help", path: "/dashboard/help" },
-    { icon: <FiLogOut />, label: "Logout", path: "/" }
+    { icon: <FiLogOut />, label: "Logout", path: "/dashboard/logout" }
   ];
 
   const handleMenuClick = (index, item) => {

@@ -23,7 +23,7 @@ const GeminiChatButton = () => {
 
   useEffect(() => {
     if (open && chatLog.length === 0) {
-      setChatLog([{ from: "gemini", text: "أهلاً! إزاي أقدر أساعدك؟ 😊" }]);
+      setChatLog([{ from: "gemini", text: "Hello! How can I help you?😊" }]);
     }
   }, [open]);
 

@@ -6,13 +6,8 @@ import img12 from '../assets/images/mask.png';
 const Topbar = () => {
   return (
     <div className="top-bar">
-      <div className="search-container">
-        <FiSearch className="seearch-icon" />
-        <input
-          type="text"
-          placeholder="select task"
-          className="search-input"
-        />
+      <div className="">
+        
       </div>
       <div className="right-section">
         <div className="icon-container">

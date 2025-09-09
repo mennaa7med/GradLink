@@ -17,7 +17,10 @@ import Materials from './components/Matrials';
 import Teams from './components/Teams';
 import Sponsors from './components/Sponsors';
 import Mentors from './components/Mentors';
-
+import Settings from './components/Settings';
+import Help from './components/Help';
+import Logout from './components/Logout';
+import AllFeatures from './components/AllFeatures';
 function App() {
   return (
     <Router>
@@ -32,7 +35,14 @@ function App() {
         <Route path="/Detailsproject" element={<Detailsproject />} />
         <Route path="/Opportunities" element={<Opportunities />} />
         <Route path="/GeminiChatButton" element={<GeminiChatButton />} />
-        
+        <Route path="/Settings" element={<Settings />} />
+        <Route path="/Help" element={<Help />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/AllFeatures" element={<AllFeatures />} />
+
+
+
+
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="tasks" element={<TaskManager />} />
@@ -40,8 +50,14 @@ function App() {
           <Route path="teams" element={<Teams />} />
           <Route path="mentors" element={<Mentors />} />
           <Route path="sponsors" element={<Sponsors />} />
+          <Route path="Settings" element={<Settings />} />
+          <Route path="help" element={<Help />} />
+          <Route path="logout" element={<Logout />} />
+
+
+
         </Route>
-        
+
         <Route path="/Dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
         </Route>
@@ -50,6 +66,11 @@ function App() {
         <Route path="/Teams" element={<Teams />} />
         <Route path="/Sponsors" element={<Sponsors />} />
         <Route path="/Mentors" element={<Mentors />} />
+        <Route path="/Settings" element={<Settings />} />
+        <Route path="/Help" element={<Help />} />
+        <Route path="/Logout" element={<Logout />} />
+
+
       </Routes>
     </Router>
   );
