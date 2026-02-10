@@ -32,11 +32,25 @@ def index():
     key_status = "configured" if api_key else "NOT SET"
     key_preview = f"{api_key[:10]}..." if api_key and len(api_key) > 10 else "none"
     
+    # Try to list available models
+    available_models = []
+    if api_key:
+        try:
+            import google.generativeai as genai
+            genai.configure(api_key=api_key)
+            for model in genai.list_models():
+                if 'generateContent' in model.supported_generation_methods:
+                    available_models.append(model.name)
+        except Exception as e:
+            available_models = [f"Error listing models: {str(e)}"]
+    
     return jsonify({
         "status": "success",
         "message": "Resume Analyzer API is running",
         "gemini_api_key_status": key_status,
         "gemini_api_key_preview": key_preview,
+        "available_models": available_models[:5],
+        "current_model": "gemini-pro",
         "endpoints": {
             "analyze": "/api/analyze (POST)",
             "health": "/ (GET)"

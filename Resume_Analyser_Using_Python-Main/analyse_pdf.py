@@ -25,9 +25,9 @@ def analyse_resume_gemini(resume_content, job_description):
         "max_output_tokens": 8192
     }
     
-    # Create model instance
+    # Create model instance - using stable gemini-pro model
     model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
+        model_name="gemini-pro",
         generation_config=generation_config
     )
     
