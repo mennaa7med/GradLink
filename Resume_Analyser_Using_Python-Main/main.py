@@ -50,7 +50,8 @@ def index():
         "gemini_api_key_status": key_status,
         "gemini_api_key_preview": key_preview,
         "available_models": available_models[:5],
-        "current_model": "models/gemini-2.0-flash",
+        "mode": "DEMO (Mock Response)",
+        "current_model": "models/gemini-2.0-flash (disabled)",
         "endpoints": {
             "analyze": "/api/analyze (POST)",
             "health": "/ (GET)"
