@@ -18,6 +18,10 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Railway: Configure port from environment variable
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // Add Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
@@ -286,46 +290,43 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Enable Swagger in all environments for Railway
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "GradLink API v1");
-        c.DocumentTitle = "GradLink API Documentation";
-        c.DefaultModelsExpandDepth(2);
-        c.DefaultModelExpandDepth(2);
-        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
-        c.EnableDeepLinking();
-        c.DisplayRequestDuration();
-        c.EnableFilter();
-        c.ShowExtensions();
-        c.EnableTryItOutByDefault();
-        
-        // Custom CSS for professional look
-        c.InjectStylesheet("/swagger-ui/custom.css");
-        c.HeadContent = @"
-            <style>
-                .swagger-ui .topbar { display: none; }
-                .swagger-ui .info { margin: 30px 0; }
-                .swagger-ui .info .title { font-size: 36px; color: #3b4151; }
-                .swagger-ui .info .description { font-size: 14px; }
-                .swagger-ui .info .description p { margin: 10px 0; }
-                .swagger-ui .opblock-tag { font-size: 18px !important; border-bottom: 2px solid #6366f1 !important; margin: 20px 0 10px 0 !important; padding-bottom: 10px !important; }
-                .swagger-ui .opblock.opblock-get { background: rgba(97, 175, 254, 0.1); border-color: #61affe; }
-                .swagger-ui .opblock.opblock-post { background: rgba(73, 204, 144, 0.1); border-color: #49cc90; }
-                .swagger-ui .opblock.opblock-put { background: rgba(252, 161, 48, 0.1); border-color: #fca130; }
-                .swagger-ui .opblock.opblock-delete { background: rgba(249, 62, 62, 0.1); border-color: #f93e3e; }
-                .swagger-ui .btn.authorize { background-color: #6366f1; border-color: #6366f1; }
-                .swagger-ui .btn.authorize svg { fill: #fff; }
-                .swagger-ui .scheme-container { background: #f8fafc; padding: 20px; border-radius: 8px; }
-                .swagger-ui .model-box { background: #f8fafc; }
-                .swagger-ui section.models { border: 1px solid #e2e8f0; border-radius: 8px; }
-                .swagger-ui section.models h4 { color: #3b4151; }
-            </style>
-        ";
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "GradLink API v1");
+    c.DocumentTitle = "GradLink API Documentation";
+    c.DefaultModelsExpandDepth(2);
+    c.DefaultModelExpandDepth(2);
+    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
+    c.EnableDeepLinking();
+    c.DisplayRequestDuration();
+    c.EnableFilter();
+    c.ShowExtensions();
+    c.EnableTryItOutByDefault();
+    
+    // Custom CSS for professional look
+    c.HeadContent = @"
+        <style>
+            .swagger-ui .topbar { display: none; }
+            .swagger-ui .info { margin: 30px 0; }
+            .swagger-ui .info .title { font-size: 36px; color: #3b4151; }
+            .swagger-ui .info .description { font-size: 14px; }
+            .swagger-ui .info .description p { margin: 10px 0; }
+            .swagger-ui .opblock-tag { font-size: 18px !important; border-bottom: 2px solid #6366f1 !important; margin: 20px 0 10px 0 !important; padding-bottom: 10px !important; }
+            .swagger-ui .opblock.opblock-get { background: rgba(97, 175, 254, 0.1); border-color: #61affe; }
+            .swagger-ui .opblock.opblock-post { background: rgba(73, 204, 144, 0.1); border-color: #49cc90; }
+            .swagger-ui .opblock.opblock-put { background: rgba(252, 161, 48, 0.1); border-color: #fca130; }
+            .swagger-ui .opblock.opblock-delete { background: rgba(249, 62, 62, 0.1); border-color: #f93e3e; }
+            .swagger-ui .btn.authorize { background-color: #6366f1; border-color: #6366f1; }
+            .swagger-ui .btn.authorize svg { fill: #fff; }
+            .swagger-ui .scheme-container { background: #f8fafc; padding: 20px; border-radius: 8px; }
+            .swagger-ui .model-box { background: #f8fafc; }
+            .swagger-ui section.models { border: 1px solid #e2e8f0; border-radius: 8px; }
+            .swagger-ui section.models h4 { color: #3b4151; }
+        </style>
+    ";
+});
 
 app.UseSerilogRequestLogging();
 

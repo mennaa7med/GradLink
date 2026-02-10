@@ -32,8 +32,11 @@ RUN mkdir -p /app/data /app/uploads /app/logs
 
 COPY --from=publish /app/publish .
 
+# Railway uses PORT environment variable
+ENV ASPNETCORE_URLS=http://+:${PORT:-8080}
+ENV ASPNETCORE_ENVIRONMENT=Production
+
 EXPOSE 8080
-EXPOSE 8081
 
 ENTRYPOINT ["dotnet", "GradLink.Api.dll"]
 
