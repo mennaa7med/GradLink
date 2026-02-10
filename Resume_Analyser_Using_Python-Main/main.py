@@ -50,7 +50,7 @@ def index():
         "gemini_api_key_status": key_status,
         "gemini_api_key_preview": key_preview,
         "available_models": available_models[:5],
-        "current_model": "gemini-pro",
+        "current_model": "models/gemini-pro",
         "endpoints": {
             "analyze": "/api/analyze (POST)",
             "health": "/ (GET)"
