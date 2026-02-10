@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import api from '../api/client';
 import './Chat.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 export default function Chat() {
   const { user } = useAuth();

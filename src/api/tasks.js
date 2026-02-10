@@ -85,7 +85,7 @@ export const deleteTaskAttachment = async (taskId, attachmentId) => {
 };
 
 export const getAttachmentDownloadUrl = (taskId, attachmentId) => {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5080';
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
   return `${baseUrl}/api/tasks/${taskId}/attachments/${attachmentId}/download`;
 };
 
