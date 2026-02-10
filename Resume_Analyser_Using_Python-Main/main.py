@@ -28,11 +28,15 @@ def extract_text_from_resume(pdf_path):
 @app.route("/", methods=["GET"])
 def index():
     """Health check endpoint"""
-    api_key = os.environ.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+    api_key = os.environ.get("GEMINI_API_KEY", "")
+    key_status = "configured" if api_key else "NOT SET"
+    key_preview = f"{api_key[:10]}..." if api_key and len(api_key) > 10 else "none"
+    
     return jsonify({
         "status": "success",
         "message": "Resume Analyzer API is running",
-        "gemini_configured": bool(api_key),
+        "gemini_api_key_status": key_status,
+        "gemini_api_key_preview": key_preview,
         "endpoints": {
             "analyze": "/api/analyze (POST)",
             "health": "/ (GET)"

@@ -1,41 +1,35 @@
-import google.generativeai as genai
-from dotenv import load_dotenv
 import os
 
-# تحميل متغيرات البيئة من .env (للتطوير المحلي)
-load_dotenv()
+# Disable Google Cloud credentials - use API key only
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = ""
 
-def get_gemini_model():
-    """Initialize and return Gemini model with API key"""
-    api_key = os.environ.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+import google.generativeai as genai
+
+def analyse_resume_gemini(resume_content, job_description):
+    """Analyze resume against job description using Gemini AI"""
+    
+    # Get API key from environment
+    api_key = os.environ.get("GEMINI_API_KEY")
     
     if not api_key:
-        raise ValueError("GEMINI_API_KEY environment variable is not set")
+        raise ValueError("GEMINI_API_KEY environment variable is not set. Please set it in Railway Variables.")
     
-    # تهيئة المكتبة
+    # Configure Gemini with API key (not Google Cloud credentials)
     genai.configure(api_key=api_key)
     
-    # إعدادات التوليد
-    configuration = {
+    # Generation configuration
+    generation_config = {
         "temperature": 0.7,
         "top_p": 0.95,
         "top_k": 40,
         "max_output_tokens": 8192
     }
     
-    # إنشاء الموديل
+    # Create model instance
     model = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
-        generation_config=configuration
+        generation_config=generation_config
     )
-    
-    return model
-
-def analyse_resume_gemini(resume_content, job_description):
-    """Analyze resume against job description using Gemini AI"""
-    
-    # Get model (this ensures API key is loaded)
-    model = get_gemini_model()
     
     prompt = f"""
     You are a professional resume analyzer. Analyze the following resume against the job description.
@@ -70,6 +64,6 @@ def analyse_resume_gemini(resume_content, job_description):
     [Write a 2-3 sentence summary here]
     """
     
-    # استدعاء الموديل
+    # Generate response
     response = model.generate_content(prompt)
     return response.text
