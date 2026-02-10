@@ -11,18 +11,17 @@ api_key = os.getenv("GEMINI_API_KEY")
 # تهيئة المكتبة
 genai.configure(api_key=api_key)
 
-# إعدادات التوليد
+# إعدادات التوليد - متوافقة مع Gemini SDK الحالي
 configuration = {
-    "temperature": 1,
+    "temperature": 0.7,
     "top_p": 0.95,
     "top_k": 40,
-    "max_output_tokens": 8192,
-    "response_mime_type": "text/plain"
+    "max_output_tokens": 8192
 }
 
-# ✅ استخدمي النسخة المدعومة من الموديل الجديد
+# استخدام موديل Gemini المستقر
 model = genai.GenerativeModel(
-    model_name="models/gemini-2.5-flash",
+    model_name="gemini-1.5-flash",
     generation_config=configuration
 )
 
