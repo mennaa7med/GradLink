@@ -28,9 +28,11 @@ def extract_text_from_resume(pdf_path):
 @app.route("/", methods=["GET"])
 def index():
     """Health check endpoint"""
+    api_key = os.environ.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
     return jsonify({
         "status": "success",
         "message": "Resume Analyzer API is running",
+        "gemini_configured": bool(api_key),
         "endpoints": {
             "analyze": "/api/analyze (POST)",
             "health": "/ (GET)"
