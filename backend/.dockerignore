@@ -1,0 +1,15 @@
+**/.vs
+**/.vscode
+**/.idea
+**/bin
+**/obj
+**/.git
+**/.gitignore
+**/node_modules
+**/*.db
+**/*.db-shm
+**/*.db-wal
+**/uploads
+**/logs
+**/README.md
+

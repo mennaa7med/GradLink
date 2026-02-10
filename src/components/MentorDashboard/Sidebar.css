@@ -1,0 +1,195 @@
+/* =============================================
+   Mentor Dashboard - Sidebar
+   ============================================= */
+
+.mentor-sidebar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #EEEFF0 100%);
+}
+
+/* Logo Section */
+.mentor-sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 24px;
+}
+
+.mentor-logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #FFCB66, #f0b04e);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0C2737;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.mentor-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.mentor-logo-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.mentor-logo-subtitle {
+  font-size: 12px;
+  color: #0C2737;
+  font-weight: 500;
+}
+
+/* Navigation */
+.mentor-sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mentor-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+
+.mentor-nav-item:hover {
+  background: rgba(12, 39, 55, 0.08);
+  color: #0C2737;
+}
+
+.mentor-nav-item.active {
+  background: linear-gradient(135deg, rgba(12, 39, 55, 0.15), rgba(1, 31, 50, 0.1));
+  color: #0C2737;
+}
+
+.mentor-nav-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mentor-nav-label {
+  white-space: nowrap;
+}
+
+.mentor-nav-indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(180deg, #FFCB66, #f0b04e);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Profile Card */
+.mentor-sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  background: linear-gradient(135deg, rgba(12, 39, 55, 0.1), rgba(1, 31, 50, 0.05));
+  border-radius: 14px;
+  border: 1px solid rgba(12, 39, 55, 0.2);
+}
+
+.mentor-profile-avatar {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #0C2737, #011F32);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.mentor-profile-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mentor-profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mentor-profile-role {
+  font-size: 12px;
+  color: #0C2737;
+  font-weight: 500;
+}
+
+/* Logout Button */
+.mentor-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.mentor-logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mentor-sidebar {
+    padding: 16px 8px;
+  }
+  
+  .mentor-sidebar-logo {
+    justify-content: center;
+  }
+}
+
+
+
+
+
+

@@ -1,0 +1,431 @@
+/* ===================================
+   Feature Details Page Styles
+   =================================== */
+
+.feature-details-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* ===================================
+   Hero Section
+   =================================== */
+.feature-details-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0C2737 0%, #1a3a4f 50%, #0C2737 100%);
+  padding: 100px 24px 80px;
+  text-align: center;
+}
+
+.feature-details-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 203, 102, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 203, 102, 0.08) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.back-button {
+  position: absolute;
+  top: 90px;
+  left: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-4px);
+}
+
+.feature-details-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.feature-details-icon-wrapper {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #FFCB66 0%, #f5bc4c 100%);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 28px;
+  box-shadow: 0 10px 40px rgba(255, 203, 102, 0.3);
+}
+
+.feature-details-icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.feature-details-title {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.feature-details-subtitle {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ===================================
+   Main Content
+   =================================== */
+.feature-details-main {
+  padding: 60px 24px;
+}
+
+.feature-details-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Feature Section */
+.feature-section {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(12, 39, 55, 0.05);
+  border: 1px solid rgba(12, 39, 55, 0.06);
+}
+
+.section-title {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0C2737;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #FFCB66;
+  display: inline-block;
+}
+
+.section-text {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.1rem;
+  color: #4a5568;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Benefits List */
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.05rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.benefit-check {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  color: #2e7d32;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Steps List */
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: step-counter;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 20px 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.step-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #0C2737 0%, #1a3a4f 100%);
+  color: #FFCB66;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.step-text {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.05rem;
+  color: #4a5568;
+  line-height: 1.6;
+  padding-top: 8px;
+}
+
+/* ===================================
+   CTA Section
+   =================================== */
+.feature-cta-section {
+  background: linear-gradient(135deg, #0C2737 0%, #153347 100%);
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.feature-cta-title {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px;
+}
+
+.feature-cta-text {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 28px;
+}
+
+.feature-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.feature-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-cta-btn.primary {
+  background: linear-gradient(135deg, #FFCB66 0%, #f5bc4c 100%);
+  color: #0C2737;
+  box-shadow: 0 4px 20px rgba(255, 203, 102, 0.3);
+}
+
+.feature-cta-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 203, 102, 0.4);
+}
+
+.feature-cta-btn.secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.feature-cta-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===================================
+   Not Found State
+   =================================== */
+.feature-not-found {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.feature-not-found h1 {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 2rem;
+  color: #0C2737;
+  margin: 0 0 12px;
+}
+
+.feature-not-found p {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  color: #5a6a7a;
+  margin: 0 0 24px;
+}
+
+.back-to-features-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #FFCB66 0%, #f5bc4c 100%);
+  color: #0C2737;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.back-to-features-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 203, 102, 0.3);
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+@media (max-width: 768px) {
+  .feature-details-hero {
+    padding: 90px 16px 60px;
+  }
+
+  .back-button {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 24px;
+  }
+
+  .feature-details-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+  }
+
+  .feature-details-icon {
+    font-size: 40px;
+  }
+
+  .feature-details-title {
+    font-size: 1.75rem;
+  }
+
+  .feature-details-subtitle {
+    font-size: 1rem;
+  }
+
+  .feature-details-main {
+    padding: 40px 16px;
+  }
+
+  .feature-section {
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .section-text {
+    font-size: 1rem;
+  }
+
+  .benefit-item,
+  .step-text {
+    font-size: 0.95rem;
+  }
+
+  .step-number {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .feature-cta-section {
+    padding: 40px 24px;
+    border-radius: 20px;
+  }
+
+  .feature-cta-title {
+    font-size: 1.5rem;
+  }
+
+  .feature-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-cta-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-details-hero {
+    padding: 80px 12px 50px;
+  }
+
+  .feature-section {
+    padding: 24px 16px;
+  }
+
+  .benefit-check {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+

@@ -4,17 +4,47 @@
   background-color: #ffffff;
   font-family: 'Arial', sans-serif;
   overflow: hidden;
+  gap: 0;
 }
 
 .main-content {
   flex: 1;
   padding: 20px;
+  padding-left: 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .outlet-container {
   flex: 1;
   overflow-y: auto;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 15px;
+    padding-left: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .main-content {
+    padding: 12px;
+    overflow-y: visible;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 10px;
+  }
 } 

@@ -1,0 +1,154 @@
+.profile-picture-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-picture-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 4px solid #f0f0f0;
+  transition: border-color 0.3s;
+}
+
+.profile-picture-container:hover {
+  border-color: #667eea;
+}
+
+.profile-picture-container.uploading {
+  pointer-events: none;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-icon {
+  font-size: 50px;
+  opacity: 0.8;
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.profile-picture-container:hover .upload-overlay,
+.profile-picture-container.uploading .upload-overlay {
+  opacity: 1;
+}
+
+.upload-icon {
+  font-size: 30px;
+}
+
+.upload-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.file-input {
+  display: none;
+}
+
+.profile-picture-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.upload-btn {
+  padding: 8px 16px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background: #5a6fd6;
+}
+
+.upload-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.remove-btn {
+  padding: 8px 16px;
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.remove-btn:hover:not(:disabled) {
+  background: #dc2626;
+  color: white;
+}
+
+.remove-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.upload-error {
+  color: #dc2626;
+  font-size: 13px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

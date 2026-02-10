@@ -1,94 +1,357 @@
 .sidebar {
   width: 250px;
-  background-color: #EEEFF0;
-  height: 90vh;
-  padding: 20px;
+  background: linear-gradient(135deg, #EEEFF0 0%, #E8E9EA 100%);
+  height: 95vh;
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 10;
   flex-shrink: 0;
   border-radius: 25px;
-  margin-top: 15px; /* بدل padding-top */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  margin-top: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
+.sidebar:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
 
 .sidebar-indicator {
   position: absolute;
   left: 0;
-  width: 6px;
-  height: 40px;
+  width: 4px;
+  height: 36px;
   background-color: #0c2737;
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 4px 4px 0;
   transition: top 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 0 30px 0;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0 20px 0;
+  border-bottom: 1px solid rgba(12, 39, 55, 0.08);
+  margin-bottom: 8px;
 }
 
 .logo-dashboard {
-  width: 100px;
-  height: 100px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
 }
 
 .logo-text {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 700;
   color: #0c2737;
+  letter-spacing: -0.5px;
 }
 
 .menu-section {
   display: flex;
   flex-direction: column;
   flex: 1;
+  padding: 0 4px;
+  overflow-y: auto;
 }
 
 .menu-title {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: #888;
   text-transform: uppercase;
-  margin: 20px 0 10px 0;
-  padding-left: 10px;
+  letter-spacing: 0.5px;
+  margin: 16px 0 8px 12px;
+}
+
+.menu-title:first-child {
+  margin-top: 8px;
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 10px;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   color: #555;
+  position: relative;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(240, 173, 78, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.menu-item:hover::before {
+  left: 100%;
 }
 
 .menu-item.active {
-  background-color: rgba(12, 39, 55, 0.05);
+  background: linear-gradient(135deg, rgba(12, 39, 55, 0.1) 0%, rgba(12, 39, 55, 0.06) 100%);
   color: #0c2737;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .menu-item:hover:not(.active) {
-  background-color: rgba(12, 39, 55, 0.02);
+  background-color: rgba(12, 39, 55, 0.04);
+  transform: translateX(2px);
 }
 
 .menu-item svg {
-  font-size: 20px;
+  font-size: 18px;
+  min-width: 18px;
+  flex-shrink: 0;
+}
+
+.menu-item span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .badge {
   background-color: #FFCB66;
   color: white;
   font-size: 10px;
-  padding: 2px 6px;
+  font-weight: 600;
+  padding: 2px 8px;
   border-radius: 10px;
   margin-left: auto;
-} 
+  flex-shrink: 0;
+}
+
+/* RTL Support */
+.rtl .sidebar {
+  border-radius: 20px 0 0 20px;
+}
+
+.rtl .sidebar-indicator {
+  left: auto;
+  right: 0;
+  border-radius: 4px 0 0 4px;
+}
+
+.rtl .menu-item {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.rtl .menu-item::before {
+  left: auto;
+  right: -100%;
+}
+
+.rtl .menu-item:hover::before {
+  right: 100%;
+}
+
+.rtl .menu-item:hover:not(.active) {
+  transform: translateX(-2px);
+}
+
+.rtl .badge {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.rtl .logo-section {
+  flex-direction: row-reverse;
+}
+
+.rtl .menu-title {
+  text-align: right;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Small Laptop */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 220px;
+    padding: 14px 10px;
+  }
+  
+  .menu-item {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+  
+  .logo-text {
+    font-size: 18px;
+  }
+  
+  .logo-dashboard {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 80px;
+    padding: 12px 8px;
+    border-radius: 20px;
+  }
+  
+  .logo-section {
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 0 16px 0;
+  }
+  
+  .logo-text {
+    font-size: 10px;
+    text-align: center;
+  }
+  
+  .logo-dashboard {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .menu-item {
+    justify-content: center;
+    padding: 12px;
+  }
+  
+  .menu-item span {
+    display: none;
+  }
+  
+  .menu-item svg {
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  .menu-title {
+    display: none;
+  }
+  
+  .badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidebar-indicator {
+    width: 3px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    height: 100vh;
+    width: 260px;
+    margin-top: 0;
+    border-radius: 0 20px 20px 0;
+    z-index: 1000;
+    transition: left 0.3s ease-in-out;
+  }
+  
+  .sidebar.mobile-open {
+    left: 0;
+  }
+  
+  .logo-section {
+    flex-direction: row;
+    padding: 16px 0 20px 0;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+    display: block;
+  }
+  
+  .logo-dashboard {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .menu-item {
+    justify-content: flex-start;
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+  
+  .menu-item span {
+    display: inline;
+  }
+  
+  .menu-item svg {
+    font-size: 18px;
+  }
+  
+  .menu-title {
+    display: block;
+    font-size: 12px;
+  }
+  
+  .badge {
+    position: static;
+    min-width: auto;
+    height: auto;
+    padding: 2px 8px;
+    font-size: 10px;
+  }
+  
+  /* Mobile sidebar overlay */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  .sidebar-overlay.active {
+    display: block;
+  }
+}
+
+/* RTL Responsive */
+@media (max-width: 768px) {
+  .rtl .sidebar {
+    left: auto;
+    right: -100%;
+    border-radius: 20px 0 0 20px;
+  }
+  
+  .rtl .sidebar.mobile-open {
+    right: 0;
+    left: auto;
+  }
+}

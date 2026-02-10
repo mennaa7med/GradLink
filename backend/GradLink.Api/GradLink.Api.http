@@ -1,0 +1,6 @@
+@GradLink.Api_HostAddress = http://localhost:5150
+
+GET {{GradLink.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

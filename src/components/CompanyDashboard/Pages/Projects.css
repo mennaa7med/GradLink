@@ -1,0 +1,372 @@
+/* Projects Page Styles */
+.projects-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.projects-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.projects-page-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.projects-page-description {
+  color: #9ca3af;
+  margin: 0;
+}
+
+.projects-add-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2563eb;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.projects-add-button:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.05);
+}
+
+.projects-add-button:active {
+  transform: scale(0.95);
+}
+
+.projects-add-icon {
+  font-size: 20px;
+}
+
+/* Projects Table */
+.projects-table-container {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f3f4f6;
+  overflow: hidden;
+}
+
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projects-table-header {
+  background-color: #f9fafb;
+  background: #f9fafb;
+}
+
+.projects-table-header th {
+  padding: 16px 24px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  background-color: #f9fafb;
+}
+
+.projects-table-row {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s;
+}
+
+.projects-table-row:hover {
+  background-color: #f9fafb;
+}
+
+.projects-table-row:last-child {
+  border-bottom: none;
+}
+
+.projects-table-cell {
+  padding: 16px 24px;
+}
+
+/* Project Info */
+.project-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-title {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.project-description {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0 0 8px 0;
+}
+
+.project-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.project-skill-tag {
+  padding: 2px 8px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+/* Project Details */
+.project-duration {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1f2937;
+}
+
+.project-duration-icon {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.project-applicants {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1f2937;
+}
+
+.project-applicants-icon {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+/* Status Badge */
+.project-status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.project-status.active {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.project-status.completed {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.project-status.paused {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.project-status.cancelled {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Actions */
+.project-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-action-button {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-action-button:hover {
+  transform: scale(1.1);
+}
+
+.project-action-button:active {
+  transform: scale(0.9);
+}
+
+.project-action-button.view {
+  color: #2563eb;
+}
+
+.project-action-button.view:hover {
+  background-color: #eff6ff;
+}
+
+.project-action-button.edit {
+  color: #059669;
+}
+
+.project-action-button.edit:hover {
+  background-color: #ecfdf5;
+}
+
+.project-action-button.delete {
+  color: #dc2626;
+}
+
+.project-action-button.delete:hover {
+  background-color: #fef2f2;
+}
+
+.project-action-icon {
+  font-size: 16px;
+}
+
+/* Add Project Modal */
+.projects-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.projects-modal-content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 512px;
+  margin: 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.projects-modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 24px 0;
+}
+
+.projects-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.projects-modal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.projects-modal-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-modal-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.projects-modal-input,
+.projects-modal-select,
+.projects-modal-textarea {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.projects-modal-input:focus,
+.projects-modal-select:focus,
+.projects-modal-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.projects-modal-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.projects-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.projects-modal-button {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.projects-modal-button.cancel {
+  border: 1px solid #d1d5db;
+  background-color: white;
+  color: #374151;
+}
+
+.projects-modal-button.cancel:hover {
+  background-color: #f9fafb;
+}
+
+.projects-modal-button.submit {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+}
+
+.projects-modal-button.submit:hover {
+  background-color: #1d4ed8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .projects-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .projects-modal-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .projects-table-container {
+    overflow-x: auto;
+  }
+  
+  .projects-table {
+    min-width: 600px;
+  }
+  
+  .projects-table-header th,
+  .projects-table-cell {
+    padding: 12px 16px;
+  }
+}

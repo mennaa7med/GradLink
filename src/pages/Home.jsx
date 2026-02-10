@@ -7,17 +7,11 @@ import img2 from '../assets/images/circle.png';
 import Services from '../components/Services';
 import Features from '../components/Features';
 import About from '../components/About';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import GeminiChatButton from '../components/GeminiChatButton'; // ✅ استدعاء الزر العائم
 
 const Home = () => {
     return (
         <>
-            <div id="navbar">
-                <Navbar />
-            </div>
-
             <div id="home">
                 <div className="home-container">
                     <div className="text-section">
@@ -38,7 +32,7 @@ const Home = () => {
 
                         <div className="buttons">
                             <Link to="/signin" className="start-btn">Start signing</Link>
-                            <Link to="/Matchmaking" className="join-btn">Join Team</Link>
+                            <Link to="/matchmaking" className="join-btn">Join Team</Link>
                         </div>
                     </div>
                     <div className="image-section">
@@ -58,9 +52,6 @@ const Home = () => {
             <div id="about">
                 <About />
             </div>
-
-            {/* ✅ الزر العائم الخاص بالشات */}
-            <GeminiChatButton />
 
             <div id="footer">
                 <Footer />

@@ -1,0 +1,219 @@
+/* =============================================
+   Company Dashboard - Sidebar
+   ============================================= */
+
+.sidebar-content {
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e2e8f0;
+}
+
+/* =============================================
+   Logo Section
+   ============================================= */
+.sidebar-logo {
+  padding: 20px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.sidebar-logo-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-logo-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: linear-gradient(135deg, #FFCB66, #f0b04e);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0C2737;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(255, 203, 102, 0.3);
+  overflow: hidden;
+}
+
+.sidebar-logo-text {
+  overflow: hidden;
+  flex: 1;
+}
+
+.sidebar-brand-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-brand-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 3px 0 0 0;
+  white-space: nowrap;
+}
+
+/* =============================================
+   Navigation Menu
+   ============================================= */
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 12px;
+  overflow-y: auto;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-menu-item {
+  margin: 0;
+}
+
+.sidebar-menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 12px;
+  font-family: inherit;
+}
+
+.sidebar-menu-button:hover {
+  background-color: #f1f5f9;
+}
+
+.sidebar-menu-button.active {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.sidebar-menu-button:not(.active) {
+  color: #6b7280;
+  border: 1px solid transparent;
+}
+
+.sidebar-menu-button:not(.active):hover {
+  color: #1e293b;
+}
+
+.sidebar-menu-icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sidebar-menu-text {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =============================================
+   Company Info Card
+   ============================================= */
+.sidebar-company-info {
+  padding: 16px 12px;
+  border-top: 1px solid #e2e8f0;
+  margin-top: auto;
+}
+
+.sidebar-company-card {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid #bae6fd;
+}
+
+.sidebar-company-card-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-company-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background: linear-gradient(135deg, #FFCB66, #f0b04e);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0C2737;
+  font-size: 14px;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.sidebar-company-details {
+  overflow: hidden;
+  flex: 1;
+}
+
+.sidebar-company-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-company-plan {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 2px 0 0 0;
+}
+
+/* =============================================
+   Responsive
+   ============================================= */
+@media (max-width: 768px) {
+  .sidebar-logo-text,
+  .sidebar-menu-text,
+  .sidebar-company-info {
+    display: none !important;
+  }
+  
+  .sidebar-menu-button {
+    justify-content: center;
+    padding: 14px;
+  }
+  
+  .sidebar-logo {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sidebar-logo-content {
+    justify-content: center;
+  }
+}

@@ -1,11 +1,9 @@
 import React from 'react';
 import './Detailsproject.css';
-import Navbar2 from '../Navbar2/Navbar2';
 
 const Detailsproject = () => {
   return (
     <>
-      <Navbar2 />
       <div className="project-page">
         <div className="project-ccard">
           <h4 className="label">Project name</h4>

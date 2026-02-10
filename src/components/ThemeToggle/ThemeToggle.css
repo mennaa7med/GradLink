@@ -1,0 +1,53 @@
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 20px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.theme-toggle.dark:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .toggle-icon {
+  transform: rotate(15deg);
+}
+
+/* Compact variant */
+.theme-toggle.compact {
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

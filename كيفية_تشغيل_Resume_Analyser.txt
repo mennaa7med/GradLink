@@ -1,0 +1,82 @@
+═══════════════════════════════════════════════════════
+   📋 كيفية تشغيل Resume Analyser (Flask API)
+═══════════════════════════════════════════════════════
+
+✅ الطريقة الأسهل - اضغط دبل كليك على:
+   
+   SIMPLE_START_RESUME.bat
+
+═══════════════════════════════════════════════════════
+
+📝 الطريقة اليدوية:
+
+1️⃣ افتح CMD أو PowerShell
+
+2️⃣ اذهب لمجلد المشروع:
+   cd "D:\كل المهم\viteProject\Newfolder\Resume_Analyser_Using_Python-Main"
+
+3️⃣ نصب الـ Dependencies:
+   python -m pip install -r requirements.txt
+
+4️⃣ شغل السيرفر:
+   python main.py
+
+═══════════════════════════════════════════════════════
+
+🔑 مهم جداً - Gemini API Key:
+
+⚠️  لازم يكون عندك API Key من Google Gemini!
+
+احصل عليه من:
+https://makersuite.google.com/app/apikey
+
+ثم ضعه في ملف .env:
+GEMINI_API_KEY=your_api_key_here
+
+═══════════════════════════════════════════════════════
+
+✅ التحقق من التشغيل:
+
+افتح المتصفح واذهب إلى:
+http://localhost:5005
+
+المفروض تشوف:
+{
+  "status": "success",
+  "message": "Resume Analyzer API is running"
+}
+
+═══════════════════════════════════════════════════════
+
+📡 API Endpoints:
+
+GET  http://localhost:5005/          (Health Check)
+POST http://localhost:5005/api/analyze  (Analyze Resume)
+
+═══════════════════════════════════════════════════════
+
+🛑 إيقاف السيرفر:
+اضغط Ctrl + C
+
+═══════════════════════════════════════════════════════
+
+📞 Ports المستخدمة في المشروع:
+
+✅ Frontend (Vite)       → http://localhost:5173
+✅ Backend (.NET)        → http://localhost:5000
+✅ Resume Analyser (Flask) → http://localhost:5005
+
+═══════════════════════════════════════════════════════
+
+💡 نصائح:
+
+- تأكد من Python مثبت (أي إصدار 3.7+)
+- تأكد من وجود ملف .env بالـ API Key
+- إذا Port 5005 مستخدم، غير الرقم في main.py
+
+═══════════════════════════════════════════════════════
+
+✅ تم! الآن Resume Analyser جاهز 🚀
+
+═══════════════════════════════════════════════════════
+

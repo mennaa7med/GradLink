@@ -1,0 +1,272 @@
+.resume-screener-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+}
+
+.screener-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.screener-header h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.screener-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.filter-section {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section label {
+  display: block;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.score-slider {
+  width: 100%;
+  margin-top: 0.5rem;
+  height: 8px;
+  border-radius: 5px;
+  background: #e0e0e0;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.score-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.score-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+  border: none;
+}
+
+.results-count {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.resumes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.resume-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.resume-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.file-icon {
+  color: #4CAF50;
+  font-size: 2rem;
+}
+
+.resume-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  word-break: break-word;
+}
+
+.score-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.score-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.score-inner {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.score-label {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.missing-skills {
+  margin: 1.5rem 0;
+}
+
+.missing-skills h4 {
+  font-size: 0.95rem;
+  color: #e74c3c;
+  margin-bottom: 0.5rem;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background: #ffe0e0;
+  color: #e74c3c;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.resume-actions {
+  margin-top: 1.5rem;
+}
+
+.btn-submit,
+.btn-improve {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-submit {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-submit:hover {
+  background: #45a049;
+  transform: scale(1.02);
+}
+
+.btn-improve {
+  background: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #999;
+}
+
+.no-results svg {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.no-results p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .resume-screener-page {
+    padding: 1rem;
+  }
+
+  .screener-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .screener-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .resumes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

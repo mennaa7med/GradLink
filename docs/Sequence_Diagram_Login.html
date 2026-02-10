@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradLink - Login Sequence Diagram</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+            min-height: 100vh;
+            padding: 30px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        
+        .diagram-container {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        
+        .diagram-container svg {
+            display: block;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+        
+        /* Participant styling */
+        .participant-box {
+            fill: #e3f2fd;
+            stroke: #1976d2;
+            stroke-width: 2;
+        }
+        
+        .participant-label {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            fill: #1976d2;
+            text-anchor: middle;
+        }
+        
+        .participant-type {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            fill: #6c757d;
+            text-anchor: middle;
+        }
+        
+        /* Lifeline */
+        .lifeline {
+            stroke: #adb5bd;
+            stroke-width: 2;
+            stroke-dasharray: 8, 4;
+        }
+        
+        /* Activation bar */
+        .activation {
+            fill: #e3f2fd;
+            stroke: #1976d2;
+            stroke-width: 1;
+        }
+        
+        /* Messages */
+        .message-line {
+            stroke: #495057;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        
+        .message-line-return {
+            stroke: #495057;
+            stroke-width: 1.5;
+            stroke-dasharray: 6, 3;
+            fill: none;
+        }
+        
+        .message-arrow {
+            fill: #495057;
+        }
+        
+        .message-label {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 12px;
+            fill: #212529;
+        }
+        
+        .message-number {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            fill: #1976d2;
+        }
+        
+        /* Alt fragment */
+        .fragment-box {
+            fill: none;
+            stroke: #6c757d;
+            stroke-width: 1.5;
+        }
+        
+        .fragment-label {
+            fill: #e9ecef;
+            stroke: #6c757d;
+            stroke-width: 1;
+        }
+        
+        .fragment-text {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            fill: #495057;
+        }
+        
+        .fragment-condition {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            fill: #6c757d;
+            font-style: italic;
+        }
+        
+        /* Actor */
+        .actor-head {
+            fill: none;
+            stroke: #28a745;
+            stroke-width: 2;
+        }
+        
+        .actor-body {
+            stroke: #28a745;
+            stroke-width: 2;
+        }
+        
+        .actor-label {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            fill: #28a745;
+            text-anchor: middle;
+        }
+        
+        /* Legend */
+        .legend {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-section {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 18px;
+        }
+        
+        .legend-section h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #495057;
+        }
+        
+        .legend-icon {
+            width: 40px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .footer p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .export-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px 24px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .export-btn:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GradLink System - Login Process</h1>
+            <p class="subtitle">UML Sequence Diagram</p>
+        </header>
+        
+        <div class="diagram-container">
+            <svg width="900" height="750" viewBox="0 0 900 750" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background -->
+                <rect x="0" y="0" width="900" height="750" fill="#ffffff"/>
+                
+                <!-- Arrow marker definitions -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#495057"/>
+                    </marker>
+                    <marker id="arrowhead-open" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polyline points="0 0, 10 3.5, 0 7" fill="none" stroke="#495057" stroke-width="1.5"/>
+                    </marker>
+                </defs>
+                
+                <!-- ==================== PARTICIPANTS ==================== -->
+                
+                <!-- Student (Actor) -->
+                <g transform="translate(100, 30)">
+                    <!-- Stick figure -->
+                    <circle cx="0" cy="15" r="12" class="actor-head"/>
+                    <line x1="0" y1="27" x2="0" y2="50" class="actor-body"/>
+                    <line x1="-15" y1="35" x2="15" y2="35" class="actor-body"/>
+                    <line x1="0" y1="50" x2="-12" y2="70" class="actor-body"/>
+                    <line x1="0" y1="50" x2="12" y2="70" class="actor-body"/>
+                    <text x="0" y="90" class="actor-label">Student</text>
+                </g>
+                
+                <!-- Frontend -->
+                <g transform="translate(300, 30)">
+                    <rect x="-60" y="0" width="120" height="50" rx="5" class="participant-box"/>
+                    <text x="0" y="22" class="participant-type">«boundary»</text>
+                    <text x="0" y="40" class="participant-label">Frontend</text>
+                    <text x="0" y="65" class="participant-type" style="font-size: 10px;">(React)</text>
+                </g>
+                
+                <!-- Backend -->
+                <g transform="translate(530, 30)">
+                    <rect x="-60" y="0" width="120" height="50" rx="5" class="participant-box"/>
+                    <text x="0" y="22" class="participant-type">«control»</text>
+                    <text x="0" y="40" class="participant-label">Backend API</text>
+                    <text x="0" y="65" class="participant-type" style="font-size: 10px;">(ASP.NET Core)</text>
+                </g>
+                
+                <!-- Database -->
+                <g transform="translate(760, 30)">
+                    <rect x="-60" y="0" width="120" height="50" rx="5" class="participant-box" style="fill: #fff3e0; stroke: #f57c00;"/>
+                    <text x="0" y="22" class="participant-type">«entity»</text>
+                    <text x="0" y="40" class="participant-label" style="fill: #f57c00;">Database</text>
+                    <text x="0" y="65" class="participant-type" style="font-size: 10px;">(SQL Server)</text>
+                </g>
+                
+                <!-- ==================== LIFELINES ==================== -->
+                <line x1="100" y1="120" x2="100" y2="720" class="lifeline"/>
+                <line x1="300" y1="100" x2="300" y2="720" class="lifeline"/>
+                <line x1="530" y1="100" x2="530" y2="720" class="lifeline"/>
+                <line x1="760" y1="100" x2="760" y2="720" class="lifeline"/>
+                
+                <!-- ==================== ACTIVATION BARS ==================== -->
+                <!-- Student activation -->
+                <rect x="95" y="140" width="10" height="560" class="activation" style="fill: #d4edda; stroke: #28a745;"/>
+                
+                <!-- Frontend activation -->
+                <rect x="295" y="160" width="10" height="520" class="activation"/>
+                
+                <!-- Backend activation (main) -->
+                <rect x="525" y="200" width="10" height="180" class="activation"/>
+                
+                <!-- Backend activation (token generation) -->
+                <rect x="525" y="440" width="10" height="100" class="activation"/>
+                
+                <!-- Database activation -->
+                <rect x="755" y="240" width="10" height="80" class="activation" style="fill: #fff3e0; stroke: #f57c00;"/>
+                
+                <!-- ==================== MESSAGES ==================== -->
+                
+                <!-- 1. Student enters credentials -->
+                <line x1="105" y1="160" x2="290" y2="160" class="message-line" marker-end="url(#arrowhead)"/>
+                <text x="115" y="150" class="message-number">1.</text>
+                <text x="135" y="150" class="message-label">Enter email & password</text>
+                
+                <!-- 2. Frontend sends login request -->
+                <line x1="305" y1="200" x2="520" y2="200" class="message-line" marker-end="url(#arrowhead)"/>
+                <text x="315" y="190" class="message-number">2.</text>
+                <text x="335" y="190" class="message-label">POST /api/auth/login</text>
+                <text x="335" y="205" class="message-label" style="font-size: 10px; fill: #6c757d;">{email, password}</text>
+                
+                <!-- 3. Backend validates and queries DB -->
+                <line x1="535" y1="250" x2="750" y2="250" class="message-line" marker-end="url(#arrowhead)"/>
+                <text x="545" y="240" class="message-number">3.</text>
+                <text x="565" y="240" class="message-label">SELECT user WHERE email = ?</text>
+                
+                <!-- 4. Database returns user data -->
+                <line x1="750" y1="290" x2="535" y2="290" class="message-line-return" marker-end="url(#arrowhead)"/>
+                <text x="545" y="280" class="message-number">4.</text>
+                <text x="565" y="280" class="message-label">User data (or null)</text>
+                
+                <!-- ==================== ALT FRAGMENT ==================== -->
+                <rect x="280" y="330" width="500" height="300" rx="3" class="fragment-box"/>
+                <rect x="280" y="330" width="40" height="20" class="fragment-label"/>
+                <text x="300" y="344" class="fragment-text">alt</text>
+                
+                <!-- [Valid credentials] -->
+                <text x="340" y="360" class="fragment-condition">[credentials valid]</text>
+                
+                <!-- 5. Backend verifies password hash -->
+                <rect x="535" y="375" width="80" height="25" rx="3" fill="#e8f5e9" stroke="#4caf50"/>
+                <text x="575" y="392" class="message-label" style="text-anchor: middle; font-size: 10px;">Verify Hash</text>
+                
+                <!-- 6. Generate JWT token -->
+                <line x1="535" y1="440" x2="535" y2="440" class="message-line"/>
+                <rect x="535" y="430" width="80" height="25" rx="3" fill="#e3f2fd" stroke="#1976d2"/>
+                <text x="575" y="447" class="message-label" style="text-anchor: middle; font-size: 10px;">Generate JWT</text>
+                
+                <!-- 7. Update last login -->
+                <line x1="535" y1="480" x2="750" y2="480" class="message-line" marker-end="url(#arrowhead)"/>
+                <text x="545" y="470" class="message-number">5.</text>
+                <text x="565" y="470" class="message-label">UPDATE lastLoginAt</text>
+                
+                <!-- 8. Success response -->
+                <line x1="520" y1="520" x2="305" y2="520" class="message-line-return" marker-end="url(#arrowhead)"/>
+                <text x="315" y="510" class="message-number">6.</text>
+                <text x="335" y="510" class="message-label">200 OK {token, user}</text>
+                
+                <!-- 9. Store token & redirect -->
+                <rect x="295" y="545" width="90" height="25" rx="3" fill="#e8f5e9" stroke="#4caf50"/>
+                <text x="340" y="562" class="message-label" style="text-anchor: middle; font-size: 10px;">Store Token</text>
+                
+                <!-- 10. Show dashboard -->
+                <line x1="290" y1="590" x2="105" y2="590" class="message-line-return" marker-end="url(#arrowhead)"/>
+                <text x="115" y="580" class="message-number">7.</text>
+                <text x="135" y="580" class="message-label">Redirect to Dashboard</text>
+                
+                <!-- Divider line for else -->
+                <line x1="285" y1="610" x2="775" y2="610" stroke="#6c757d" stroke-width="1" stroke-dasharray="4,2"/>
+                <text x="340" y="635" class="fragment-condition">[credentials invalid]</text>
+                
+                <!-- Error response -->
+                <line x1="520" y1="660" x2="305" y2="660" class="message-line-return" marker-end="url(#arrowhead)"/>
+                <text x="315" y="650" class="message-number">8.</text>
+                <text x="335" y="650" class="message-label" style="fill: #dc3545;">401 Unauthorized</text>
+                
+                <!-- Show error -->
+                <line x1="290" y1="690" x2="105" y2="690" class="message-line-return" marker-end="url(#arrowhead)"/>
+                <text x="115" y="680" class="message-number">9.</text>
+                <text x="135" y="680" class="message-label" style="fill: #dc3545;">Show error message</text>
+                
+            </svg>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-section">
+                <h3>📐 Diagram Elements</h3>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 40 24">
+                        <rect x="2" y="2" width="36" height="20" rx="3" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                    </svg>
+                    <span>Participant (Object/Component)</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 40 24">
+                        <line x1="20" y1="2" x2="20" y2="22" stroke="#adb5bd" stroke-width="2" stroke-dasharray="4,2"/>
+                    </svg>
+                    <span>Lifeline</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 40 24">
+                        <rect x="17" y="2" width="6" height="20" fill="#e3f2fd" stroke="#1976d2"/>
+                    </svg>
+                    <span>Activation Bar</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>➡️ Message Types</h3>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 40 24">
+                        <line x1="2" y1="12" x2="35" y2="12" stroke="#495057" stroke-width="2"/>
+                        <polygon points="35,12 28,8 28,16" fill="#495057"/>
+                    </svg>
+                    <span>Synchronous Message</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 40 24">
+                        <line x1="2" y1="12" x2="35" y2="12" stroke="#495057" stroke-width="2" stroke-dasharray="4,2"/>
+                        <polygon points="35,12 28,8 28,16" fill="#495057"/>
+                    </svg>
+                    <span>Return Message</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>📦 Fragment Types</h3>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 40 24">
+                        <rect x="2" y="2" width="36" height="20" rx="2" fill="none" stroke="#6c757d" stroke-width="1.5"/>
+                        <rect x="2" y="2" width="16" height="10" fill="#e9ecef" stroke="#6c757d"/>
+                        <text x="10" y="10" font-size="6" fill="#495057" text-anchor="middle">alt</text>
+                    </svg>
+                    <span>Alternative (if-else)</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>📋 Process Steps</h3>
+                <div class="legend-item">
+                    <span style="color: #28a745; font-weight: 600;">1-7</span>
+                    <span>Successful login flow</span>
+                </div>
+                <div class="legend-item">
+                    <span style="color: #dc3545; font-weight: 600;">8-9</span>
+                    <span>Failed login flow</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>GradLink System - UML Sequence Diagram | Login Process</p>
+            <p style="margin-top: 6px; font-size: 0.8rem; color: #6c757d;">Version 1.0 | February 2026</p>
+            <button class="export-btn" onclick="exportAsPNG()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export as PNG
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function exportAsPNG() {
+            const svg = document.querySelector('svg');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            canvas.width = 1800;
+            canvas.height = 1500;
+            
+            img.onload = function() {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                const link = document.createElement('a');
+                link.download = 'GradLink_Sequence_Diagram_Login.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+            
+            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

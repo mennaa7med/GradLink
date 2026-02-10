@@ -304,9 +304,58 @@ body {
 }
 
 /* Responsive */
+
+/* Small Laptop */
+@media (max-width: 1200px) {
+  .task-manager {
+    padding: 1.5rem;
+  }
+  
+  .kanban-column {
+    min-width: 280px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .task-manager {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+  
+  .task-title {
+    font-size: 1.75rem;
+  }
+  
+  .kanban-column {
+    min-width: 260px;
+  }
+  
+  .header-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
 @media (max-width: 768px) {
   .task-manager {
     padding: 1rem;
+  }
+  
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .task-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .add-task-button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
   }
 
   .kanban-board {
@@ -340,5 +389,87 @@ body {
   .cancel-button {
     padding: 0.65rem 1.25rem;
     font-size: 0.9rem;
+  }
+  
+  .modal-buttons {
+    flex-direction: column;
+  }
+  
+  .submit-button,
+  .cancel-button {
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .task-manager {
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
+  
+  .task-title {
+    font-size: 1.35rem;
+  }
+  
+  .filter-container {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .seaarch-input,
+  .filter-select,
+  .modal-input,
+  .modal-select,
+  .subtask-input {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+  
+  .add-task-button {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .kanban-column {
+    padding: 0.75rem;
+    border-radius: 0.4rem;
+  }
+  
+  .column-title {
+    font-size: 1.1rem;
+  }
+  
+  .task-item {
+    padding: 0.85rem;
+  }
+  
+  .task-name {
+    font-size: 1rem;
+  }
+  
+  .task-detail {
+    font-size: 0.8rem;
+  }
+  
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+  
+  .modal {
+    padding: 0.85rem;
+    max-height: 85vh;
+  }
+  
+  .modal-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .close-button {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.1rem;
   }
 }

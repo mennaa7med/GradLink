@@ -228,3 +228,143 @@ html, body {
 .done-btn:hover {
   background-color: #226F9D;
 }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .project-box {
+    width: 100%;
+    max-width: 900px;
+    padding: 20px 30px;
+  }
+  
+  .project-title {
+    font-size: 32px;
+  }
+  
+  .page-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 20px 15px;
+    margin-bottom: 80px;
+  }
+  
+  .header-section {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .page-title {
+    font-size: 24px;
+  }
+  
+  .search-bar {
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+  }
+  
+  .project-box {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .project-title {
+    font-size: 24px;
+  }
+  
+  .details-btn {
+    width: 100%;
+    padding: 12px 30px;
+    font-size: 16px;
+  }
+  
+  .add-project-btn {
+    padding: 12px 25px;
+    font-size: 16px;
+  }
+  
+  .modal-content {
+    width: 95%;
+    max-width: 500px;
+    height: auto;
+    min-height: 350px;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .project-name-box {
+    font-size: 28px;
+  }
+  
+  .upload-text {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 15px 10px;
+    margin-top: 10px;
+  }
+  
+  .page-title {
+    font-size: 20px;
+  }
+  
+  .project-box {
+    padding: 15px;
+    border-radius: 20px;
+  }
+  
+  .project-title {
+    font-size: 20px;
+  }
+  
+  .details-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .add-project-btn {
+    bottom: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    gap: 8px;
+  }
+  
+  .plus-icon {
+    font-size: 18px;
+  }
+  
+  .modal-content {
+    padding: 15px;
+    border-radius: 16px;
+  }
+  
+  .project-name-box {
+    font-size: 22px;
+  }
+  
+  .upload-text {
+    font-size: 18px;
+  }
+  
+  .upload-file-btn {
+    padding: 14px 28px;
+    font-size: 14px;
+  }
+  
+  .done-btn {
+    padding: 10px 30px;
+    font-size: 16px;
+  }
+}

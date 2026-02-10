@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import './Projectsbank.css';
 import { FiSearch } from 'react-icons/fi'; // أيقونة البحث
-import Navbar2 from '../Navbar2/Navbar2';
 
 const Projectsbank = () => {
   const navigate = useNavigate();
@@ -23,11 +22,6 @@ const Projectsbank = () => {
   return (
     <>
       <div className="idea-project-page">
-        {/* Navbar */}
-        <div id="Navbar2">
-          <Navbar2 />
-        </div>
-
         {/* Content */}
         <div className="content">
           {/* Title and Search */}

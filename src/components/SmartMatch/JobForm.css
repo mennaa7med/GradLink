@@ -1,0 +1,294 @@
+/* Job Form Page Styles */
+.job-form-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+.page-header {
+  background: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.page-header .container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #333;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* Main Content */
+.job-form-content {
+  padding: 2rem 0;
+}
+
+.form-container {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-icon {
+  font-size: 3rem;
+  color: #3498db;
+  margin-bottom: 1rem;
+}
+
+.form-header h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.form-header p {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Form Styles */
+.job-form {
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.job-description-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 300px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-description-textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.job-description-textarea::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.character-count {
+  text-align: right;
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.start-screening-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.start-screening-btn:hover:not(:disabled) {
+  background: #219a52;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.start-screening-btn:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Help Section */
+.help-section {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid #3498db;
+}
+
+.help-section h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.help-section ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.help-section li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.help-section li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .page-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .form-container {
+    padding: 2rem 1.5rem;
+    margin: 0 10px;
+  }
+  
+  .form-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .job-description-textarea {
+    min-height: 250px;
+    font-size: 0.95rem;
+  }
+  
+  .start-screening-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .form-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .form-icon {
+    font-size: 2.5rem;
+  }
+  
+  .job-description-textarea {
+    min-height: 200px;
+    padding: 0.8rem;
+  }
+  
+  .help-section {
+    padding: 1rem;
+  }
+  
+  .help-section h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Focus and Accessibility */
+.job-description-textarea:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+.start-screening-btn:focus-visible {
+  outline: 2px solid #27ae60;
+  outline-offset: 2px;
+}
+
+.back-button:focus-visible {
+  outline: 2px solid #666;
+  outline-offset: 2px;
+}

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradLink System - UML Use Case Diagram</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #fafbfc;
+            --bg-secondary: #ffffff;
+            --border-color: #e1e4e8;
+            --text-primary: #24292e;
+            --text-secondary: #586069;
+            --accent-blue: #0366d6;
+            --accent-purple: #6f42c1;
+            --accent-green: #28a745;
+            --accent-orange: #f66a0a;
+            --accent-red: #d73a49;
+            
+            /* Actor colors */
+            --student-color: #0366d6;
+            --mentor-color: #6f42c1;
+            --company-color: #28a745;
+            --admin-color: #d73a49;
+            
+            /* Use case colors */
+            --uc-auth: #fff3cd;
+            --uc-project: #cce5ff;
+            --uc-task: #d4edda;
+            --uc-comm: #e2d5f1;
+            --uc-career: #ffeeba;
+            --uc-admin: #f8d7da;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 30px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .badge-student { background: rgba(3, 102, 214, 0.1); color: var(--student-color); border: 1px solid rgba(3, 102, 214, 0.3); }
+        .badge-mentor { background: rgba(111, 66, 193, 0.1); color: var(--mentor-color); border: 1px solid rgba(111, 66, 193, 0.3); }
+        .badge-company { background: rgba(40, 167, 69, 0.1); color: var(--company-color); border: 1px solid rgba(40, 167, 69, 0.3); }
+        .badge-admin { background: rgba(215, 58, 73, 0.1); color: var(--admin-color); border: 1px solid rgba(215, 58, 73, 0.3); }
+        
+        .diagram-container {
+            background: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            overflow-x: auto;
+            overflow-y: visible;
+            min-height: 1150px;
+        }
+        
+        .diagram-container svg {
+            display: block;
+            width: 1400px;
+            height: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #ddd;
+        }
+        
+        /* Actor styling */
+        .actor-figure {
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .actor-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-anchor: middle;
+        }
+        
+        /* Use Case styling */
+        .use-case {
+            fill: #ffffff;
+            stroke-width: 2;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .use-case:hover {
+            filter: brightness(0.95);
+        }
+        
+        .use-case-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-anchor: middle;
+            fill: #24292e;
+        }
+        
+        /* Relationship lines */
+        .association {
+            stroke: #586069;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        
+        .include-line, .extend-line {
+            stroke: #586069;
+            stroke-width: 1.5;
+            stroke-dasharray: 6, 3;
+            fill: none;
+        }
+        
+        .stereotype {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 10px;
+            fill: #586069;
+        }
+        
+        /* System boundary */
+        .system-boundary {
+            fill: none;
+            stroke: #24292e;
+            stroke-width: 2;
+            stroke-dasharray: none;
+        }
+        
+        .system-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            fill: #24292e;
+        }
+        
+        /* Legend */
+        .legend {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 18px;
+        }
+        
+        .legend-section h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-icon {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+        
+        .legend-line {
+            width: 50px;
+            height: 2px;
+            flex-shrink: 0;
+        }
+        
+        .legend-line.solid { background: #586069; }
+        .legend-line.dashed { 
+            background: repeating-linear-gradient(90deg, #586069 0, #586069 6px, transparent 6px, transparent 10px);
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .export-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px 24px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .export-btn:hover {
+            background: #0256b9;
+            transform: translateY(-1px);
+        }
+        
+        /* Use case category backgrounds */
+        .uc-auth { fill: #fff8e1; stroke: #f9a825; }
+        .uc-project { fill: #e3f2fd; stroke: #1976d2; }
+        .uc-task { fill: #e8f5e9; stroke: #388e3c; }
+        .uc-comm { fill: #f3e5f5; stroke: #7b1fa2; }
+        .uc-career { fill: #fff3e0; stroke: #f57c00; }
+        .uc-admin { fill: #ffebee; stroke: #c62828; }
+        .uc-resume { fill: #e0f7fa; stroke: #00838f; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GradLink System</h1>
+            <p class="subtitle">UML Use Case Diagram</p>
+            <div class="badge-row">
+                <span class="badge badge-student">🎓 Student</span>
+                <span class="badge badge-mentor">👨‍🏫 Mentor</span>
+                <span class="badge badge-company">🏢 Company</span>
+                <span class="badge badge-admin">⚙️ Admin</span>
+            </div>
+        </header>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 1400 1100" width="1400" height="1100" xmlns="http://www.w3.org/2000/svg" style="background: #fff;">
+                <defs>
+                    <!-- Arrow markers -->
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10 L3,5 Z" fill="#586069"/>
+                    </marker>
+                    <marker id="arrow-open" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10" fill="none" stroke="#586069" stroke-width="1.5"/>
+                    </marker>
+                </defs>
+                
+                <!-- Background -->
+                <rect x="0" y="0" width="1400" height="1100" fill="#ffffff"/>
+                
+                <!-- ==================== SYSTEM BOUNDARY ==================== -->
+                <rect class="system-boundary" x="250" y="40" width="900" height="1020" rx="20"/>
+                <text class="system-title" x="700" y="75" text-anchor="middle">GradLink System</text>
+                
+                <!-- ==================== ACTORS ==================== -->
+                
+                <!-- Student Actor (Left) -->
+                <g transform="translate(100, 300)">
+                    <circle cx="0" cy="0" r="20" class="actor-figure" stroke="#0366d6"/>
+                    <line x1="0" y1="20" x2="0" y2="55" class="actor-figure" stroke="#0366d6"/>
+                    <line x1="-25" y1="35" x2="25" y2="35" class="actor-figure" stroke="#0366d6"/>
+                    <line x1="0" y1="55" x2="-20" y2="85" class="actor-figure" stroke="#0366d6"/>
+                    <line x1="0" y1="55" x2="20" y2="85" class="actor-figure" stroke="#0366d6"/>
+                    <text class="actor-label" x="0" y="105" fill="#0366d6">Student</text>
+                </g>
+                
+                <!-- Mentor Actor (Left) -->
+                <g transform="translate(100, 700)">
+                    <circle cx="0" cy="0" r="20" class="actor-figure" stroke="#6f42c1"/>
+                    <line x1="0" y1="20" x2="0" y2="55" class="actor-figure" stroke="#6f42c1"/>
+                    <line x1="-25" y1="35" x2="25" y2="35" class="actor-figure" stroke="#6f42c1"/>
+                    <line x1="0" y1="55" x2="-20" y2="85" class="actor-figure" stroke="#6f42c1"/>
+                    <line x1="0" y1="55" x2="20" y2="85" class="actor-figure" stroke="#6f42c1"/>
+                    <text class="actor-label" x="0" y="105" fill="#6f42c1">Mentor</text>
+                </g>
+                
+                <!-- Company Actor (Right) -->
+                <g transform="translate(1300, 350)">
+                    <circle cx="0" cy="0" r="20" class="actor-figure" stroke="#28a745"/>
+                    <line x1="0" y1="20" x2="0" y2="55" class="actor-figure" stroke="#28a745"/>
+                    <line x1="-25" y1="35" x2="25" y2="35" class="actor-figure" stroke="#28a745"/>
+                    <line x1="0" y1="55" x2="-20" y2="85" class="actor-figure" stroke="#28a745"/>
+                    <line x1="0" y1="55" x2="20" y2="85" class="actor-figure" stroke="#28a745"/>
+                    <text class="actor-label" x="0" y="105" fill="#28a745">Company</text>
+                </g>
+                
+                <!-- Admin Actor (Right) -->
+                <g transform="translate(1300, 750)">
+                    <circle cx="0" cy="0" r="20" class="actor-figure" stroke="#d73a49"/>
+                    <line x1="0" y1="20" x2="0" y2="55" class="actor-figure" stroke="#d73a49"/>
+                    <line x1="-25" y1="35" x2="25" y2="35" class="actor-figure" stroke="#d73a49"/>
+                    <line x1="0" y1="55" x2="-20" y2="85" class="actor-figure" stroke="#d73a49"/>
+                    <line x1="0" y1="55" x2="20" y2="85" class="actor-figure" stroke="#d73a49"/>
+                    <text class="actor-label" x="0" y="105" fill="#d73a49">Admin</text>
+                </g>
+                
+                <!-- ==================== USE CASES - AUTHENTICATION ==================== -->
+                
+                <!-- UC1: Register -->
+                <g>
+                    <ellipse class="use-case uc-auth" cx="400" cy="120" rx="85" ry="35"/>
+                    <text class="use-case-label" x="400" y="125">Register Account</text>
+                </g>
+                
+                <!-- UC2: Login -->
+                <g>
+                    <ellipse class="use-case uc-auth" cx="700" cy="120" rx="60" ry="35"/>
+                    <text class="use-case-label" x="700" y="125">Login</text>
+                </g>
+                
+                <!-- UC3: Manage Profile -->
+                <g>
+                    <ellipse class="use-case uc-auth" cx="1000" cy="120" rx="85" ry="35"/>
+                    <text class="use-case-label" x="1000" y="125">Manage Profile</text>
+                </g>
+                
+                <!-- ==================== USE CASES - STUDENT (Project Management) ==================== -->
+                
+                <!-- UC4: Create Graduation Project -->
+                <g>
+                    <ellipse class="use-case uc-project" cx="420" cy="220" rx="110" ry="35"/>
+                    <text class="use-case-label" x="420" y="215">Create Graduation</text>
+                    <text class="use-case-label" x="420" y="230">Project</text>
+                </g>
+                
+                <!-- UC5: View Dashboard -->
+                <g>
+                    <ellipse class="use-case uc-project" cx="420" cy="310" rx="85" ry="35"/>
+                    <text class="use-case-label" x="420" y="315">View Dashboard</text>
+                </g>
+                
+                <!-- UC6: Manage Tasks -->
+                <g>
+                    <ellipse class="use-case uc-task" cx="420" cy="400" rx="80" ry="35"/>
+                    <text class="use-case-label" x="420" y="405">Manage Tasks</text>
+                </g>
+                
+                <!-- UC7: Upload Project Files -->
+                <g>
+                    <ellipse class="use-case uc-project" cx="420" cy="490" rx="100" ry="35"/>
+                    <text class="use-case-label" x="420" y="495">Upload Project Files</text>
+                </g>
+                
+                <!-- UC8: Create Subtask (include) -->
+                <g>
+                    <ellipse class="use-case uc-task" cx="650" cy="400" rx="75" ry="30"/>
+                    <text class="use-case-label" x="650" y="405">Create Subtask</text>
+                </g>
+                
+                <!-- UC9: Track Progress (include) -->
+                <g>
+                    <ellipse class="use-case uc-task" cx="650" cy="310" rx="75" ry="30"/>
+                    <text class="use-case-label" x="650" y="315">Track Progress</text>
+                </g>
+                
+                <!-- ==================== USE CASES - COMMUNICATION ==================== -->
+                
+                <!-- UC10: Communicate with Mentor -->
+                <g>
+                    <ellipse class="use-case uc-comm" cx="420" cy="580" rx="110" ry="35"/>
+                    <text class="use-case-label" x="420" y="575">Communicate with</text>
+                    <text class="use-case-label" x="420" y="590">Mentor</text>
+                </g>
+                
+                <!-- UC11: Send Message (include) -->
+                <g>
+                    <ellipse class="use-case uc-comm" cx="650" cy="540" rx="75" ry="30"/>
+                    <text class="use-case-label" x="650" y="545">Send Message</text>
+                </g>
+                
+                <!-- UC12: View Notifications -->
+                <g>
+                    <ellipse class="use-case uc-comm" cx="650" cy="620" rx="90" ry="30"/>
+                    <text class="use-case-label" x="650" y="625">View Notifications</text>
+                </g>
+                
+                <!-- ==================== USE CASES - CAREER ==================== -->
+                
+                <!-- UC13: Apply for Job-Based Projects -->
+                <g>
+                    <ellipse class="use-case uc-career" cx="420" cy="680" rx="115" ry="35"/>
+                    <text class="use-case-label" x="420" y="675">Apply for Job-Based</text>
+                    <text class="use-case-label" x="420" y="690">Projects</text>
+                </g>
+                
+                <!-- UC14: Upload Resume -->
+                <g>
+                    <ellipse class="use-case uc-resume" cx="420" cy="770" rx="85" ry="35"/>
+                    <text class="use-case-label" x="420" y="775">Upload Resume</text>
+                </g>
+                
+                <!-- UC15: View Job Listings -->
+                <g>
+                    <ellipse class="use-case uc-career" cx="650" cy="720" rx="85" ry="30"/>
+                    <text class="use-case-label" x="650" y="725">View Job Listings</text>
+                </g>
+                
+                <!-- UC16: AI Resume Analysis (extend) -->
+                <g>
+                    <ellipse class="use-case uc-resume" cx="650" cy="810" rx="90" ry="30"/>
+                    <text class="use-case-label" x="650" y="815">AI Resume Analysis</text>
+                </g>
+                
+                <!-- ==================== USE CASES - MENTOR ==================== -->
+                
+                <!-- UC17: View Student Projects -->
+                <g>
+                    <ellipse class="use-case uc-project" cx="420" cy="880" rx="100" ry="35"/>
+                    <text class="use-case-label" x="420" y="885">View Student Projects</text>
+                </g>
+                
+                <!-- UC18: Provide Feedback -->
+                <g>
+                    <ellipse class="use-case uc-comm" cx="420" cy="970" rx="85" ry="35"/>
+                    <text class="use-case-label" x="420" y="975">Provide Feedback</text>
+                </g>
+                
+                <!-- ==================== USE CASES - COMPANY ==================== -->
+                
+                <!-- UC19: Post Job-Based Projects -->
+                <g>
+                    <ellipse class="use-case uc-career" cx="980" cy="250" rx="110" ry="35"/>
+                    <text class="use-case-label" x="980" y="245">Post Job-Based</text>
+                    <text class="use-case-label" x="980" y="260">Projects</text>
+                </g>
+                
+                <!-- UC20: Post Internships -->
+                <g>
+                    <ellipse class="use-case uc-career" cx="980" cy="340" rx="90" ry="35"/>
+                    <text class="use-case-label" x="980" y="345">Post Internships</text>
+                </g>
+                
+                <!-- UC21: View Student Applications -->
+                <g>
+                    <ellipse class="use-case uc-career" cx="980" cy="430" rx="110" ry="35"/>
+                    <text class="use-case-label" x="980" y="425">View Student</text>
+                    <text class="use-case-label" x="980" y="440">Applications</text>
+                </g>
+                
+                <!-- UC22: Screen Resumes -->
+                <g>
+                    <ellipse class="use-case uc-resume" cx="980" cy="520" rx="85" ry="35"/>
+                    <text class="use-case-label" x="980" y="525">Screen Resumes</text>
+                </g>
+                
+                <!-- UC23: AI Matching (include) -->
+                <g>
+                    <ellipse class="use-case uc-resume" cx="780" cy="480" rx="75" ry="30"/>
+                    <text class="use-case-label" x="780" y="485">AI Matching</text>
+                </g>
+                
+                <!-- ==================== USE CASES - ADMIN ==================== -->
+                
+                <!-- UC24: Manage Users -->
+                <g>
+                    <ellipse class="use-case uc-admin" cx="980" cy="700" rx="85" ry="35"/>
+                    <text class="use-case-label" x="980" y="705">Manage Users</text>
+                </g>
+                
+                <!-- UC25: Manage Content -->
+                <g>
+                    <ellipse class="use-case uc-admin" cx="980" cy="790" rx="90" ry="35"/>
+                    <text class="use-case-label" x="980" y="795">Manage Content</text>
+                </g>
+                
+                <!-- UC26: Monitor System Activities -->
+                <g>
+                    <ellipse class="use-case uc-admin" cx="980" cy="880" rx="115" ry="35"/>
+                    <text class="use-case-label" x="980" y="875">Monitor System</text>
+                    <text class="use-case-label" x="980" y="890">Activities</text>
+                </g>
+                
+                <!-- UC27: Generate Reports -->
+                <g>
+                    <ellipse class="use-case uc-admin" cx="980" cy="970" rx="90" ry="35"/>
+                    <text class="use-case-label" x="980" y="975">Generate Reports</text>
+                </g>
+                
+                <!-- ==================== ASSOCIATIONS - STUDENT ==================== -->
+                
+                <!-- Student -> Register -->
+                <line class="association" x1="125" y1="280" x2="320" y2="135"/>
+                
+                <!-- Student -> Login -->
+                <line class="association" x1="125" y1="290" x2="640" y2="130"/>
+                
+                <!-- Student -> Create Graduation Project -->
+                <line class="association" x1="130" y1="300" x2="315" y2="230"/>
+                
+                <!-- Student -> View Dashboard -->
+                <line class="association" x1="130" y1="310" x2="338" y2="310"/>
+                
+                <!-- Student -> Manage Tasks -->
+                <line class="association" x1="130" y1="330" x2="342" y2="390"/>
+                
+                <!-- Student -> Upload Project Files -->
+                <line class="association" x1="130" y1="350" x2="325" y2="475"/>
+                
+                <!-- Student -> Communicate with Mentor -->
+                <line class="association" x1="125" y1="370" x2="315" y2="565"/>
+                
+                <!-- Student -> Apply for Job-Based Projects -->
+                <line class="association" x1="120" y1="390" x2="310" y2="665"/>
+                
+                <!-- Student -> Upload Resume -->
+                <line class="association" x1="115" y1="400" x2="338" y2="760"/>
+                
+                <!-- ==================== ASSOCIATIONS - MENTOR ==================== -->
+                
+                <!-- Mentor -> Login -->
+                <line class="association" x1="130" y1="680" x2="645" y2="145"/>
+                
+                <!-- Mentor -> View Student Projects -->
+                <line class="association" x1="130" y1="710" x2="325" y2="870"/>
+                
+                <!-- Mentor -> Provide Feedback -->
+                <line class="association" x1="125" y1="730" x2="340" y2="960"/>
+                
+                <!-- Mentor -> Communicate with Mentor (same UC) -->
+                <line class="association" x1="130" y1="695" x2="315" y2="595"/>
+                
+                <!-- ==================== ASSOCIATIONS - COMPANY ==================== -->
+                
+                <!-- Company -> Login -->
+                <line class="association" x1="1275" y1="335" x2="755" y2="135"/>
+                
+                <!-- Company -> Post Job-Based Projects -->
+                <line class="association" x1="1275" y1="345" x2="1085" y2="265"/>
+                
+                <!-- Company -> Post Internships -->
+                <line class="association" x1="1275" y1="355" x2="1068" y2="345"/>
+                
+                <!-- Company -> View Student Applications -->
+                <line class="association" x1="1275" y1="365" x2="1088" y2="420"/>
+                
+                <!-- Company -> Screen Resumes -->
+                <line class="association" x1="1275" y1="380" x2="1062" y2="510"/>
+                
+                <!-- ==================== ASSOCIATIONS - ADMIN ==================== -->
+                
+                <!-- Admin -> Login -->
+                <line class="association" x1="1280" y1="730" x2="755" y2="140"/>
+                
+                <!-- Admin -> Manage Users -->
+                <line class="association" x1="1275" y1="745" x2="1062" y2="705"/>
+                
+                <!-- Admin -> Manage Content -->
+                <line class="association" x1="1275" y1="760" x2="1068" y2="785"/>
+                
+                <!-- Admin -> Monitor System Activities -->
+                <line class="association" x1="1275" y1="775" x2="1090" y2="865"/>
+                
+                <!-- Admin -> Generate Reports -->
+                <line class="association" x1="1275" y1="795" x2="1068" y2="960"/>
+                
+                <!-- ==================== INCLUDE RELATIONSHIPS ==================== -->
+                
+                <!-- Manage Tasks --include--> Create Subtask -->
+                <line class="include-line" x1="498" y1="395" x2="578" y2="400" marker-end="url(#arrow-open)"/>
+                <text class="stereotype" x="530" y="388">«include»</text>
+                
+                <!-- View Dashboard --include--> Track Progress -->
+                <line class="include-line" x1="503" y1="310" x2="578" y2="310" marker-end="url(#arrow-open)"/>
+                <text class="stereotype" x="530" y="300">«include»</text>
+                
+                <!-- Communicate with Mentor --include--> Send Message -->
+                <line class="include-line" x1="525" y1="565" x2="580" y2="548" marker-end="url(#arrow-open)"/>
+                <text class="stereotype" x="540" y="545">«include»</text>
+                
+                <!-- Screen Resumes --include--> AI Matching -->
+                <line class="include-line" x1="898" y1="505" x2="852" y2="490" marker-end="url(#arrow-open)"/>
+                <text class="stereotype" x="850" y="520">«include»</text>
+                
+                <!-- ==================== EXTEND RELATIONSHIPS ==================== -->
+                
+                <!-- AI Resume Analysis --extend--> Upload Resume -->
+                <line class="extend-line" x1="565" y1="798" x2="503" y2="780" marker-end="url(#arrow-open)"/>
+                <text class="stereotype" x="510" y="810">«extend»</text>
+                
+                <!-- View Notifications --extend--> Login -->
+                <line class="extend-line" x1="685" y1="592" x2="710" y2="155" marker-end="url(#arrow-open)"/>
+                <text class="stereotype" x="720" y="400">«extend»</text>
+                
+                <!-- View Job Listings --extend--> Apply for Job -->
+                <line class="extend-line" x1="570" y1="710" x2="530" y2="695" marker-end="url(#arrow-open)"/>
+                <text class="stereotype" x="520" y="725">«extend»</text>
+                
+                <!-- ==================== GENERALIZATION ==================== -->
+                
+                <!-- Manage Profile generalizes from Login -->
+                <line class="association" x1="760" y1="120" x2="915" y2="120"/>
+                <polygon points="915,120 905,115 905,125" fill="none" stroke="#586069" stroke-width="1.5"/>
+                
+            </svg>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-section">
+                <h3>👤 Actors</h3>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 36">
+                        <circle cx="18" cy="8" r="6" fill="none" stroke="#0366d6" stroke-width="2"/>
+                        <line x1="18" y1="14" x2="18" y2="24" stroke="#0366d6" stroke-width="2"/>
+                        <line x1="10" y1="18" x2="26" y2="18" stroke="#0366d6" stroke-width="2"/>
+                        <line x1="18" y1="24" x2="12" y2="34" stroke="#0366d6" stroke-width="2"/>
+                        <line x1="18" y1="24" x2="24" y2="34" stroke="#0366d6" stroke-width="2"/>
+                    </svg>
+                    <span>Actor - External entity interacting with the system</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>⭕ Use Cases</h3>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 50 30">
+                        <ellipse cx="25" cy="15" rx="22" ry="12" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                    </svg>
+                    <span>Use Case - System functionality</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>📏 Relationships</h3>
+                <div class="legend-item">
+                    <div class="legend-line solid"></div>
+                    <span>Association - Actor interacts with use case</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-line dashed"></div>
+                    <span>«include» - Required behavior</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-line dashed"></div>
+                    <span>«extend» - Optional/conditional behavior</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>🎨 Use Case Categories</h3>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 24">
+                        <ellipse cx="18" cy="12" rx="16" ry="10" fill="#fff8e1" stroke="#f9a825" stroke-width="2"/>
+                    </svg>
+                    <span>Authentication</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 24">
+                        <ellipse cx="18" cy="12" rx="16" ry="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                    </svg>
+                    <span>Project Management</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 24">
+                        <ellipse cx="18" cy="12" rx="16" ry="10" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+                    </svg>
+                    <span>Task Management</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 24">
+                        <ellipse cx="18" cy="12" rx="16" ry="10" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                    </svg>
+                    <span>Communication</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 24">
+                        <ellipse cx="18" cy="12" rx="16" ry="10" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                    </svg>
+                    <span>Career/Jobs</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 24">
+                        <ellipse cx="18" cy="12" rx="16" ry="10" fill="#e0f7fa" stroke="#00838f" stroke-width="2"/>
+                    </svg>
+                    <span>AI Resume Screening</span>
+                </div>
+                <div class="legend-item">
+                    <svg class="legend-icon" viewBox="0 0 36 24">
+                        <ellipse cx="18" cy="12" rx="16" ry="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+                    </svg>
+                    <span>Administration</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>GradLink System - UML Use Case Diagram | Graduation Project Documentation</p>
+            <p style="margin-top: 6px; font-size: 0.8rem; color: #6a737d;">Version 1.0 | Created: February 2026</p>
+            <button class="export-btn" onclick="exportAsPNG()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export as PNG
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function exportAsPNG() {
+            const svg = document.querySelector('svg');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            canvas.width = 2800;
+            canvas.height = 2200;
+            
+            img.onload = function() {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                const link = document.createElement('a');
+                link.download = 'GradLink_UseCase_Diagram.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+            
+            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+        }
+    </script>
+</body>
+</html>
+

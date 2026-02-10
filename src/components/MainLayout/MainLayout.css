@@ -1,0 +1,38 @@
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.main-content-area {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .main-layout {
+    padding-top: 0;
+  }
+  
+  .main-content-area {
+    padding: 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .main-content-area {
+    min-height: auto;
+  }
+}
+
+
+
+

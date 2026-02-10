@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradLink System - DFD Level 1</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0d1b2a 100%);
+            min-height: 100vh;
+            padding: 40px;
+            color: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d9ff, #00ff88, #ff00aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8892b0;
+            font-weight: 300;
+        }
+        
+        .diagram-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* External Entity - Square */
+        .entity {
+            fill: linear-gradient(135deg, #1e3a5f, #2d5a87);
+            stroke: #00d9ff;
+            stroke-width: 3;
+        }
+        
+        /* Process - Rounded Rectangle / Circle */
+        .process {
+            stroke-width: 3;
+        }
+        
+        /* Data Store - Open Rectangle */
+        .datastore {
+            stroke-width: 2;
+        }
+        
+        /* Data Flow - Arrow */
+        .flow {
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            fill: #ffffff;
+            text-anchor: middle;
+        }
+        
+        .label-small {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            fill: #8892b0;
+            text-anchor: middle;
+        }
+        
+        .flow-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            fill: #64ffda;
+        }
+        
+        .legend {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .legend-icon {
+            width: 50px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+        
+        .legend-text h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #64ffda;
+            margin-bottom: 4px;
+        }
+        
+        .legend-text p {
+            font-size: 0.8rem;
+            color: #8892b0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer p {
+            color: #5a6a8a;
+            font-size: 0.9rem;
+        }
+        
+        .export-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            color: #0f0f23;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes flowAnimation {
+            0% { stroke-dashoffset: 20; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .flow-animated {
+            stroke-dasharray: 10, 5;
+            animation: flowAnimation 1s linear infinite;
+        }
+        
+        /* Process colors */
+        .process-1 { fill: url(#grad-auth); stroke: #ff6b9d; }
+        .process-2 { fill: url(#grad-project); stroke: #ffd93d; }
+        .process-3 { fill: url(#grad-task); stroke: #6bcb77; }
+        .process-4 { fill: url(#grad-msg); stroke: #4d96ff; }
+        .process-5 { fill: url(#grad-job); stroke: #ff8c42; }
+        .process-6 { fill: url(#grad-ai); stroke: #c77dff; }
+        
+        .entity-box { fill: url(#grad-entity); stroke: #00d9ff; }
+        .datastore-box { fill: url(#grad-store); stroke: #64ffda; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GradLink System</h1>
+            <p class="subtitle">Data Flow Diagram - Level 1</p>
+        </header>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 1400 1000" xmlns="http://www.w3.org/2000/svg">
+                <!-- Gradients -->
+                <defs>
+                    <!-- Entity Gradient -->
+                    <linearGradient id="grad-entity" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e3a5f"/>
+                        <stop offset="100%" style="stop-color:#2d5a87"/>
+                    </linearGradient>
+                    
+                    <!-- Data Store Gradient -->
+                    <linearGradient id="grad-store" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a2744"/>
+                        <stop offset="100%" style="stop-color:#243b55"/>
+                    </linearGradient>
+                    
+                    <!-- Process Gradients -->
+                    <linearGradient id="grad-auth" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4a1942"/>
+                        <stop offset="100%" style="stop-color:#6b2d5c"/>
+                    </linearGradient>
+                    
+                    <linearGradient id="grad-project" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4a3f00"/>
+                        <stop offset="100%" style="stop-color:#6b5b00"/>
+                    </linearGradient>
+                    
+                    <linearGradient id="grad-task" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a4d2e"/>
+                        <stop offset="100%" style="stop-color:#2d6b47"/>
+                    </linearGradient>
+                    
+                    <linearGradient id="grad-msg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a3a5c"/>
+                        <stop offset="100%" style="stop-color:#2d5a8c"/>
+                    </linearGradient>
+                    
+                    <linearGradient id="grad-job" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#5c3a1a"/>
+                        <stop offset="100%" style="stop-color:#8c5a2d"/>
+                    </linearGradient>
+                    
+                    <linearGradient id="grad-ai" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#3d1a5c"/>
+                        <stop offset="100%" style="stop-color:#5c2d8c"/>
+                    </linearGradient>
+                    
+                    <!-- Arrow Markers -->
+                    <marker id="arrow-cyan" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#00d9ff"/>
+                    </marker>
+                    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#64ffda"/>
+                    </marker>
+                    <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#ff6b9d"/>
+                    </marker>
+                    <marker id="arrow-yellow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#ffd93d"/>
+                    </marker>
+                    <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#ff8c42"/>
+                    </marker>
+                    <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#c77dff"/>
+                    </marker>
+                    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#4d96ff"/>
+                    </marker>
+                </defs>
+                
+                <!-- ==================== EXTERNAL ENTITIES ==================== -->
+                
+                <!-- E1: Student/Graduate -->
+                <g class="entity" transform="translate(50, 100)">
+                    <rect class="entity-box" x="0" y="0" width="130" height="70" rx="8"/>
+                    <text class="label" x="65" y="30">Student /</text>
+                    <text class="label" x="65" y="50">Graduate</text>
+                    <text class="label-small" x="65" y="65">E1</text>
+                </g>
+                
+                <!-- E2: Supervisor/Admin -->
+                <g class="entity" transform="translate(50, 400)">
+                    <rect class="entity-box" x="0" y="0" width="130" height="70" rx="8"/>
+                    <text class="label" x="65" y="30">Supervisor /</text>
+                    <text class="label" x="65" y="50">Admin</text>
+                    <text class="label-small" x="65" y="65">E2</text>
+                </g>
+                
+                <!-- E3: Company/Employer -->
+                <g class="entity" transform="translate(50, 700)">
+                    <rect class="entity-box" x="0" y="0" width="130" height="70" rx="8"/>
+                    <text class="label" x="65" y="30">Company /</text>
+                    <text class="label" x="65" y="50">Employer</text>
+                    <text class="label-small" x="65" y="65">E3</text>
+                </g>
+                
+                <!-- E4: HR Manager -->
+                <g class="entity" transform="translate(1220, 700)">
+                    <rect class="entity-box" x="0" y="0" width="130" height="70" rx="8"/>
+                    <text class="label" x="65" y="30">HR</text>
+                    <text class="label" x="65" y="50">Manager</text>
+                    <text class="label-small" x="65" y="65">E4</text>
+                </g>
+                
+                <!-- ==================== PROCESSES ==================== -->
+                
+                <!-- P1: User Authentication & Account Management -->
+                <g class="process" transform="translate(280, 80)">
+                    <ellipse class="process-1" cx="90" cy="55" rx="90" ry="55"/>
+                    <text class="label" x="90" y="40" style="font-size:11px;">1.0</text>
+                    <text class="label" x="90" y="55" style="font-size:11px;">User Authentication</text>
+                    <text class="label" x="90" y="70" style="font-size:11px;">& Account Mgmt</text>
+                </g>
+                
+                <!-- P2: Project Management -->
+                <g class="process" transform="translate(550, 180)">
+                    <ellipse class="process-2" cx="90" cy="55" rx="90" ry="55"/>
+                    <text class="label" x="90" y="45" style="font-size:11px;">2.0</text>
+                    <text class="label" x="90" y="65" style="font-size:11px;">Project Management</text>
+                </g>
+                
+                <!-- P3: Task & Progress Tracking -->
+                <g class="process" transform="translate(850, 180)">
+                    <ellipse class="process-3" cx="90" cy="55" rx="90" ry="55"/>
+                    <text class="label" x="90" y="40" style="font-size:11px;">3.0</text>
+                    <text class="label" x="90" y="55" style="font-size:11px;">Task & Progress</text>
+                    <text class="label" x="90" y="70" style="font-size:11px;">Tracking</text>
+                </g>
+                
+                <!-- P4: Messaging & Notifications -->
+                <g class="process" transform="translate(1100, 280)">
+                    <ellipse class="process-4" cx="90" cy="55" rx="90" ry="55"/>
+                    <text class="label" x="90" y="40" style="font-size:11px;">4.0</text>
+                    <text class="label" x="90" y="55" style="font-size:11px;">Messaging &</text>
+                    <text class="label" x="90" y="70" style="font-size:11px;">Notifications</text>
+                </g>
+                
+                <!-- P5: Job-Based Projects Management -->
+                <g class="process" transform="translate(550, 450)">
+                    <ellipse class="process-5" cx="90" cy="55" rx="90" ry="55"/>
+                    <text class="label" x="90" y="40" style="font-size:11px;">5.0</text>
+                    <text class="label" x="90" y="55" style="font-size:11px;">Job-Based Projects</text>
+                    <text class="label" x="90" y="70" style="font-size:11px;">Management</text>
+                </g>
+                
+                <!-- P6: AI Resume Screening -->
+                <g class="process" transform="translate(900, 560)">
+                    <ellipse class="process-6" cx="90" cy="55" rx="90" ry="55"/>
+                    <text class="label" x="90" y="40" style="font-size:11px;">6.0</text>
+                    <text class="label" x="90" y="55" style="font-size:11px;">AI Resume</text>
+                    <text class="label" x="90" y="70" style="font-size:11px;">Screening</text>
+                </g>
+                
+                <!-- ==================== DATA STORES ==================== -->
+                
+                <!-- DS1: Users Database -->
+                <g class="datastore" transform="translate(280, 350)">
+                    <rect class="datastore-box" x="0" y="0" width="160" height="50" rx="0" stroke-width="2"/>
+                    <line x1="0" y1="0" x2="0" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <line x1="160" y1="0" x2="160" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <text class="label" x="80" y="25" style="font-size:10px;">D1</text>
+                    <text class="label" x="80" y="40" style="font-size:11px;">Users Database</text>
+                </g>
+                
+                <!-- DS2: Projects Database -->
+                <g class="datastore" transform="translate(700, 350)">
+                    <rect class="datastore-box" x="0" y="0" width="160" height="50" rx="0" stroke-width="2"/>
+                    <line x1="0" y1="0" x2="0" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <line x1="160" y1="0" x2="160" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <text class="label" x="80" y="25" style="font-size:10px;">D2</text>
+                    <text class="label" x="80" y="40" style="font-size:11px;">Projects Database</text>
+                </g>
+                
+                <!-- DS3: Tasks Database -->
+                <g class="datastore" transform="translate(1050, 450)">
+                    <rect class="datastore-box" x="0" y="0" width="160" height="50" rx="0" stroke-width="2"/>
+                    <line x1="0" y1="0" x2="0" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <line x1="160" y1="0" x2="160" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <text class="label" x="80" y="25" style="font-size:10px;">D3</text>
+                    <text class="label" x="80" y="40" style="font-size:11px;">Tasks Database</text>
+                </g>
+                
+                <!-- DS4: Jobs Database -->
+                <g class="datastore" transform="translate(380, 620)">
+                    <rect class="datastore-box" x="0" y="0" width="160" height="50" rx="0" stroke-width="2"/>
+                    <line x1="0" y1="0" x2="0" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <line x1="160" y1="0" x2="160" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <text class="label" x="80" y="25" style="font-size:10px;">D4</text>
+                    <text class="label" x="80" y="40" style="font-size:11px;">Jobs Database</text>
+                </g>
+                
+                <!-- DS5: Resume Analysis Database -->
+                <g class="datastore" transform="translate(900, 750)">
+                    <rect class="datastore-box" x="0" y="0" width="180" height="50" rx="0" stroke-width="2"/>
+                    <line x1="0" y1="0" x2="0" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <line x1="180" y1="0" x2="180" y2="50" stroke="#64ffda" stroke-width="2"/>
+                    <text class="label" x="90" y="25" style="font-size:10px;">D5</text>
+                    <text class="label" x="90" y="40" style="font-size:11px;">Resume Analysis DB</text>
+                </g>
+                
+                <!-- ==================== DATA FLOWS ==================== -->
+                
+                <!-- E1 (Student) -> P1 (Authentication) -->
+                <path d="M 180 130 L 280 130" class="flow" stroke="#ff6b9d" marker-end="url(#arrow-pink)"/>
+                <text class="flow-label" x="215" y="122">Login credentials</text>
+                
+                <!-- P1 -> E1 (Auth response) -->
+                <path d="M 280 145 L 180 145" class="flow" stroke="#ff6b9d" marker-end="url(#arrow-pink)"/>
+                <text class="flow-label" x="210" y="160">Auth token/status</text>
+                
+                <!-- P1 -> D1 (Store user data) -->
+                <path d="M 360 190 L 360 350" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="375" y="270">User data</text>
+                
+                <!-- D1 -> P1 (Retrieve user data) -->
+                <path d="M 380 350 L 380 190" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="395" y="270">User info</text>
+                
+                <!-- E1 -> P2 (Project creation) -->
+                <path d="M 180 150 Q 350 200 550 220" class="flow" stroke="#ffd93d" marker-end="url(#arrow-yellow)"/>
+                <text class="flow-label" x="330" y="175">Project details</text>
+                
+                <!-- P2 -> D2 (Store project) -->
+                <path d="M 640 280 L 780 350" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="685" y="300">Project data</text>
+                
+                <!-- D2 -> P2 (Retrieve project) -->
+                <path d="M 760 350 L 660 280" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="720" y="330">Project info</text>
+                
+                <!-- E2 (Supervisor) -> P1 -->
+                <path d="M 180 420 Q 220 300 280 160" class="flow" stroke="#ff6b9d" marker-end="url(#arrow-pink)"/>
+                <text class="flow-label" x="195" y="300">Admin login</text>
+                
+                <!-- E2 -> P2 (Project supervision) -->
+                <path d="M 180 435 L 550 235" class="flow" stroke="#ffd93d" marker-end="url(#arrow-yellow)"/>
+                <text class="flow-label" x="320" y="310">Supervision data</text>
+                
+                <!-- P2 -> P3 (Task assignment) -->
+                <path d="M 730 235 L 850 235" class="flow" stroke="#6bcb77" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="780" y="225">Task assignment</text>
+                
+                <!-- P3 -> D3 (Store tasks) -->
+                <path d="M 1030 235 L 1130 450" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="1095" y="340">Task data</text>
+                
+                <!-- D3 -> P3 (Retrieve tasks) -->
+                <path d="M 1100 450 L 1010 270" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="1015" y="380">Task info</text>
+                
+                <!-- P3 -> P4 (Notification trigger) -->
+                <path d="M 1030 260 L 1100 300" class="flow" stroke="#4d96ff" marker-end="url(#arrow-blue)"/>
+                <text class="flow-label" x="1040" y="270">Notify event</text>
+                
+                <!-- P4 -> E1 (Send notification) -->
+                <path d="M 1100 320 Q 800 50 180 120" class="flow" stroke="#4d96ff" marker-end="url(#arrow-blue)"/>
+                <text class="flow-label" x="650" y="55">Notifications</text>
+                
+                <!-- P4 -> E2 (Admin notifications) -->
+                <path d="M 1100 350 Q 600 380 180 445" class="flow" stroke="#4d96ff" marker-end="url(#arrow-blue)"/>
+                <text class="flow-label" x="600" y="395">Admin alerts</text>
+                
+                <!-- E3 (Company) -> P1 (Company login) -->
+                <path d="M 180 710 Q 250 500 280 180" class="flow" stroke="#ff6b9d" marker-end="url(#arrow-pink)"/>
+                <text class="flow-label" x="205" y="550">Company login</text>
+                
+                <!-- E3 -> P5 (Job posting) -->
+                <path d="M 180 735 L 550 505" class="flow" stroke="#ff8c42" marker-end="url(#arrow-orange)"/>
+                <text class="flow-label" x="330" y="605">Job/internship details</text>
+                
+                <!-- P5 -> D4 (Store jobs) -->
+                <path d="M 570 505 L 500 620" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="505" y="565">Job data</text>
+                
+                <!-- D4 -> P5 (Retrieve jobs) -->
+                <path d="M 540 640 L 600 520" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="595" y="590">Job listings</text>
+                
+                <!-- P5 -> E1 (Job opportunities) -->
+                <path d="M 550 470 Q 350 350 180 160" class="flow" stroke="#ff8c42" marker-end="url(#arrow-orange)"/>
+                <text class="flow-label" x="350" y="380">Job opportunities</text>
+                
+                <!-- E1 -> P6 (Resume submission) -->
+                <path d="M 180 165 Q 400 450 900 580" class="flow" stroke="#c77dff" marker-end="url(#arrow-purple)"/>
+                <text class="flow-label" x="480" y="425">Resume upload</text>
+                
+                <!-- P6 -> D5 (Store analysis) -->
+                <path d="M 990 660 L 990 750" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="1005" y="705">Analysis results</text>
+                
+                <!-- D5 -> P6 (Retrieve analysis) -->
+                <path d="M 970 750 L 970 660" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="925" y="705">Historical data</text>
+                
+                <!-- P6 -> E1 (Resume feedback) -->
+                <path d="M 900 580 Q 500 600 180 170" class="flow" stroke="#c77dff" marker-end="url(#arrow-purple)"/>
+                <text class="flow-label" x="420" y="520">Resume score & feedback</text>
+                
+                <!-- P5 -> P6 (Job requirements) -->
+                <path d="M 730 505 L 900 580" class="flow" stroke="#c77dff" marker-end="url(#arrow-purple)"/>
+                <text class="flow-label" x="790" y="530">Job requirements</text>
+                
+                <!-- E4 (HR) -> P6 (Resume requests) -->
+                <path d="M 1220 735 L 1080 615" class="flow" stroke="#c77dff" marker-end="url(#arrow-purple)"/>
+                <text class="flow-label" x="1160" y="660">Screening requests</text>
+                
+                <!-- P6 -> E4 (Screening results) -->
+                <path d="M 1070 640 L 1220 720" class="flow" stroke="#c77dff" marker-end="url(#arrow-purple)"/>
+                <text class="flow-label" x="1125" y="695">Screening results</text>
+                
+                <!-- D1 -> P4 (User contacts) -->
+                <path d="M 440 365 Q 750 330 1100 330" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="750" y="320">User contacts</text>
+                
+                <!-- P2 -> D1 (Team members) -->
+                <path d="M 550 250 L 440 360" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="460" y="295">Team member refs</text>
+                
+                <!-- D2 -> P3 (Project context) -->
+                <path d="M 860 360 L 920 235" class="flow" stroke="#64ffda" marker-end="url(#arrow-green)"/>
+                <text class="flow-label" x="900" y="305">Project context</text>
+                
+                <!-- E3 -> P4 (Messages) -->
+                <path d="M 180 720 Q 700 600 1100 360" class="flow" stroke="#4d96ff" marker-end="url(#arrow-blue)"/>
+                <text class="flow-label" x="650" y="530">Company messages</text>
+                
+            </svg>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <svg class="legend-icon" viewBox="0 0 50 40">
+                    <rect x="5" y="5" width="40" height="30" rx="5" fill="url(#)" stroke="#00d9ff" stroke-width="2" style="fill: #2d5a87"/>
+                </svg>
+                <div class="legend-text">
+                    <h3>External Entity</h3>
+                    <p>Users interacting with the system</p>
+                </div>
+            </div>
+            
+            <div class="legend-item">
+                <svg class="legend-icon" viewBox="0 0 50 40">
+                    <ellipse cx="25" cy="20" rx="20" ry="15" fill="#4a1942" stroke="#ff6b9d" stroke-width="2"/>
+                </svg>
+                <div class="legend-text">
+                    <h3>Process</h3>
+                    <p>Data transformation activities</p>
+                </div>
+            </div>
+            
+            <div class="legend-item">
+                <svg class="legend-icon" viewBox="0 0 50 40">
+                    <rect x="5" y="10" width="40" height="20" fill="#243b55" stroke="#64ffda" stroke-width="2"/>
+                    <line x1="5" y1="10" x2="5" y2="30" stroke="#64ffda" stroke-width="2"/>
+                    <line x1="45" y1="10" x2="45" y2="30" stroke="#64ffda" stroke-width="2"/>
+                </svg>
+                <div class="legend-text">
+                    <h3>Data Store</h3>
+                    <p>Persistent data repositories</p>
+                </div>
+            </div>
+            
+            <div class="legend-item">
+                <svg class="legend-icon" viewBox="0 0 50 40">
+                    <defs>
+                        <marker id="arrow-legend" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L6,3 z" fill="#64ffda"/>
+                        </marker>
+                    </defs>
+                    <line x1="5" y1="20" x2="40" y2="20" stroke="#64ffda" stroke-width="2" marker-end="url(#arrow-legend)"/>
+                </svg>
+                <div class="legend-text">
+                    <h3>Data Flow</h3>
+                    <p>Direction of data movement</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>GradLink System - Data Flow Diagram Level 1 | Graduation Project Documentation</p>
+            <button class="export-btn" onclick="exportAsPNG()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export as PNG
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function exportAsPNG() {
+            const svg = document.querySelector('svg');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            // Set canvas size (high resolution)
+            canvas.width = 2800;
+            canvas.height = 2000;
+            
+            img.onload = function() {
+                // Fill background
+                ctx.fillStyle = '#0f0f23';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Download
+                const link = document.createElement('a');
+                link.download = 'GradLink_DFD_Level1.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+            
+            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

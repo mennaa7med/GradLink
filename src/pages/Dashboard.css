@@ -12,4 +12,42 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Small Laptop */
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 18px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .dashboard-containerr {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    padding: 16px;
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 12px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .main-content {
+    padding: 10px;
+  }
 }

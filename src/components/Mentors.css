@@ -180,3 +180,168 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Small Laptop */
+@media (max-width: 1200px) {
+  .mentors-container {
+    padding: 35px 18px;
+  }
+  
+  .mentors-header h1 {
+    font-size: 32px;
+  }
+  
+  .mentor-cards {
+    gap: 20px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .mentors-container {
+    padding: 30px 15px;
+    border-radius: 12px;
+  }
+  
+  .mentors-header h1 {
+    font-size: 28px;
+  }
+  
+  .mentors-header p {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .mentor-card {
+    max-width: 280px;
+    padding: 18px;
+  }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+  .mentors-container {
+    padding: 25px 12px;
+    border-radius: 10px;
+  }
+  
+  .mentors-header h1 {
+    font-size: 26px;
+  }
+  
+  .mentors-header p {
+    font-size: 15px;
+    margin-bottom: 25px;
+    padding: 0 10px;
+  }
+  
+  .mentor-cards {
+    gap: 18px;
+  }
+  
+  .mentor-card {
+    max-width: 100%;
+    width: calc(50% - 12px);
+    min-width: 240px;
+  }
+  
+  .mentor-img {
+    width: 85px;
+    height: 85px;
+  }
+  
+  .mentor-card h2 {
+    font-size: 18px;
+  }
+  
+  .become-mentor {
+    margin-top: 40px;
+  }
+  
+  .become-mentor h2 {
+    font-size: 20px;
+  }
+  
+  .popup-content {
+    padding: 25px;
+    width: 95%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .mentors-container {
+    padding: 20px 10px;
+  }
+  
+  .mentors-header h1 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  
+  .mentors-header p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .mentor-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .mentor-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: unset;
+    padding: 16px;
+  }
+  
+  .mentor-img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .mentor-card h2 {
+    font-size: 17px;
+  }
+  
+  .mentor-field {
+    font-size: 13px;
+  }
+  
+  .mentor-desc {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  
+  .mentor-buttons .btn {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+  
+  .become-mentor {
+    margin-top: 30px;
+  }
+  
+  .become-mentor h2 {
+    font-size: 18px;
+  }
+  
+  .apply-bbtn {
+    padding: 9px 18px;
+    font-size: 14px;
+  }
+  
+  .popup-content {
+    padding: 20px;
+  }
+  
+  .apply-form input,
+  .apply-form textarea {
+    padding: 9px;
+    font-size: 14px;
+  }
+}

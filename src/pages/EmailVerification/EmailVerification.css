@@ -1,0 +1,209 @@
+.email-verification-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 40px 20px;
+}
+
+.verification-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.verification-content {
+  background: white;
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f0f2f5;
+  border-top-color: #f0ad4e;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+.loading-spinner.large {
+  width: 60px;
+  height: 60px;
+  border-width: 4px;
+  margin-bottom: 30px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.status-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-icon svg {
+  font-size: 50px;
+  color: white;
+}
+
+.status-icon.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.status-icon.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.status-icon.expired {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.status-icon.pending {
+  background: linear-gradient(135deg, #0c2737 0%, #1a3a4a 100%);
+}
+
+.verification-content h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0c2737;
+  margin: 0 0 16px;
+}
+
+.verification-content > p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0 0 30px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f0ad4e 0%, #d9891c 100%);
+  color: #0c2737;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(240, 173, 78, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  color: #374151;
+  border: 1px solid #e2e5e9;
+}
+
+.btn-secondary:hover {
+  background: #f8f9fa;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.resend-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  background: #ecfdf5;
+  border-radius: 12px;
+  color: #059669;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.email-tips {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.email-tips h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 12px;
+}
+
+.email-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.email-tips li {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 500px) {
+  .verification-content {
+    padding: 40px 24px;
+  }
+  
+  .verification-content h1 {
+    font-size: 24px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

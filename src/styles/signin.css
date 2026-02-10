@@ -1,0 +1,142 @@
+.signin-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.signin-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: -1;
+}
+
+.signin-box {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  padding: 3rem 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  width: 400px;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.8s ease;
+}
+
+.signin-logo {
+  width: 90px;
+  margin-bottom: 15px;
+}
+
+.signin-title {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.signin-subtitle {
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  color: #ccc;
+}
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.input-group input::placeholder {
+  color: #ccc;
+}
+
+.user-type-group {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.user-type-group label {
+  cursor: pointer;
+  padding: 8px 18px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.user-type-group label.selected {
+  background: #0C2737;
+  color: white;
+  border-color: #0C2737;
+}
+
+.signin-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0C2737;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 188, 212, 0.6);
+}
+
+.signin-footer {
+  margin-top: 18px;
+}
+
+.forgot {
+  color: #00bcd4;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

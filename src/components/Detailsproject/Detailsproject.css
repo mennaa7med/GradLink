@@ -69,3 +69,55 @@
 .download-btnn:hover {
   background-color: #e6b65c;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .project-ccard {
+    padding: 25px 20px;
+    border-radius: 16px;
+  }
+
+  .label {
+    font-size: 20px;
+  }
+
+  .project-title {
+    font-size: 22px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-page {
+    padding: 15px 10px;
+  }
+
+  .project-ccard {
+    padding: 20px 15px;
+    border-radius: 14px;
+  }
+
+  .label {
+    font-size: 18px;
+  }
+
+  .project-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .descriptionn {
+    font-size: 14px;
+  }
+
+  .download-btnn {
+    width: 100%;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}

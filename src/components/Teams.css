@@ -630,15 +630,65 @@
 }
 
 /* Responsive styles */
+
+/* Small Laptop */
+@media (max-width: 1200px) {
+  .teams-page {
+    padding: 20px;
+  }
+  
+  .team-members-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .teams-page {
+    padding: 18px;
+    border-radius: 12px;
+  }
+  
+  .teams-title {
+    font-size: 24px;
+  }
+  
+  .team-members-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  
+  .member-card {
+    padding: 16px;
+  }
+}
+
 @media (max-width: 768px) {
+  .teams-page {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  
   .teams-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
   
+  .teams-title {
+    font-size: 22px;
+  }
+  
   .header-actions {
     width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .add-member-btn, .filter-toggle-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 140px;
   }
   
   .filter-section {
@@ -668,6 +718,10 @@
     width: 100%;
   }
   
+  .team-members-grid {
+    grid-template-columns: 1fr;
+  }
+  
   .member-profile {
     flex-direction: column;
     align-items: center;
@@ -676,5 +730,82 @@
   
   .profile-info {
     width: 100%;
+  }
+  
+  .add-member-modal, .member-details-modal {
+    padding: 18px;
+    width: 95%;
+  }
+  
+  .modal-header h2 {
+    font-size: 18px;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .teams-page {
+    padding: 10px;
+  }
+  
+  .teams-title {
+    font-size: 20px;
+  }
+  
+  .teams-subtitle {
+    font-size: 13px;
+  }
+  
+  .add-member-btn, .filter-toggle-btn {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+  
+  .member-card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  
+  .member-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .member-name {
+    font-size: 16px;
+  }
+  
+  .member-role {
+    font-size: 13px;
+  }
+  
+  .member-actions {
+    flex-direction: column;
+  }
+  
+  .view-details-btn, .message-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .large-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .profile-info h3 {
+    font-size: 18px;
+  }
+  
+  .add-task-form {
+    flex-direction: column;
   }
 }

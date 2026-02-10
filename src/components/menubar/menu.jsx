@@ -1,13 +1,12 @@
 import './menu.css';
-import 'TaskManager';
 import React, { useState, useRef } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   FiGrid, FiCheckSquare, FiCalendar, FiBarChart2,
   FiUsers, FiUserCheck, FiBriefcase, FiSettings,
   FiHelpCircle, FiLogOut, FiFileText
 } from 'react-icons/fi';
-import img11 from '../assets/images/site.png'; // تأكدي من مسار الصورة الصحيح
+import img11 from '../../assets/images/site.png'; // تأكدي من مسار الصورة الصحيح
 
 const Menu = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -27,7 +26,6 @@ const Menu = () => {
     { icon: <FiHelpCircle />, label: "Help" },
     { icon: <FiLogOut />, label: "Logout" }
   ];
-<link to="/TaskManager" > Tasks </link>
   return (
     <div className="dashboard-containerr">
       <div className="sidebar">

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradLink System - Entity Relationship Diagram (ERD)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #121820;
+            --bg-card: #1a2332;
+            --border-color: #2d3748;
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --text-muted: #718096;
+            
+            /* Entity colors by module */
+            --color-user: #f56565;
+            --color-project: #ed8936;
+            --color-task: #ecc94b;
+            --color-job: #48bb78;
+            --color-resume: #38b2ac;
+            --color-messaging: #4299e1;
+            --color-mentor: #9f7aea;
+            --color-material: #ed64a6;
+            --color-sponsor: #fc8181;
+            --color-system: #667eea;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 30px;
+        }
+        
+        .container {
+            max-width: 2000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f56565);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .info-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+            margin: 5px;
+        }
+        
+        .diagram-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        
+        svg {
+            display: block;
+            min-width: 1800px;
+            height: auto;
+        }
+        
+        /* Entity styling */
+        .entity {
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+        }
+        
+        .entity:hover {
+            filter: brightness(1.15);
+        }
+        
+        .entity-header {
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .entity-body {
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+        }
+        
+        .pk { fill: #fbbf24; }
+        .fk { fill: #60a5fa; }
+        .attr { fill: #e2e8f0; }
+        
+        /* Relationship lines */
+        .relationship {
+            stroke-width: 1.5;
+            fill: none;
+        }
+        
+        .rel-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 9px;
+            fill: var(--text-muted);
+        }
+        
+        /* Module sections */
+        .module-group {
+            opacity: 0.1;
+        }
+        
+        .module-label {
+            font-weight: 600;
+            font-size: 12px;
+            fill: var(--text-muted);
+        }
+        
+        /* Legend */
+        .legend {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .legend-section h3 {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+        
+        .legend-symbol {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-width: 40px;
+        }
+        
+        /* Notation section */
+        .notation {
+            margin-top: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .notation h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .notation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .notation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+        
+        .notation-item svg {
+            min-width: 80px;
+            height: 50px;
+        }
+        
+        .notation-item h4 {
+            font-size: 0.95rem;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+        
+        .notation-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .export-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GradLink System</h1>
+            <p class="subtitle">Entity Relationship Diagram (ERD) - Conceptual Level</p>
+            <div>
+                <span class="info-badge">📊 19 Main Entities</span>
+                <span class="info-badge">🔗 25+ Relationships</span>
+                <span class="info-badge">👥 4 User Roles</span>
+                <span class="info-badge">📦 7 Modules</span>
+            </div>
+        </header>
+        
+        <div class="diagram-container">
+            <svg viewBox="0 0 1900 1400" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Arrow markers for relationships -->
+                    <marker id="arrow-one" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                        <path d="M0,0 L0,12 L10,6 z" fill="#4a5568"/>
+                    </marker>
+                    <marker id="arrow-many" markerWidth="16" markerHeight="12" refX="14" refY="6" orient="auto">
+                        <path d="M0,6 L8,0 M0,6 L8,12 M8,0 L8,12" stroke="#4a5568" stroke-width="1.5" fill="none"/>
+                    </marker>
+                    <marker id="crow-foot" markerWidth="16" markerHeight="16" refX="12" refY="8" orient="auto">
+                        <path d="M0,8 L12,2 M0,8 L12,8 M0,8 L12,14" stroke="#4a5568" stroke-width="1.5" fill="none"/>
+                    </marker>
+                    
+                    <!-- Gradient definitions for entities -->
+                    <linearGradient id="grad-user" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#f56565"/>
+                        <stop offset="100%" style="stop-color:#c53030"/>
+                    </linearGradient>
+                    <linearGradient id="grad-project" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ed8936"/>
+                        <stop offset="100%" style="stop-color:#c05621"/>
+                    </linearGradient>
+                    <linearGradient id="grad-task" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ecc94b"/>
+                        <stop offset="100%" style="stop-color:#b7791f"/>
+                    </linearGradient>
+                    <linearGradient id="grad-job" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#48bb78"/>
+                        <stop offset="100%" style="stop-color:#276749"/>
+                    </linearGradient>
+                    <linearGradient id="grad-resume" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#38b2ac"/>
+                        <stop offset="100%" style="stop-color:#234e52"/>
+                    </linearGradient>
+                    <linearGradient id="grad-messaging" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4299e1"/>
+                        <stop offset="100%" style="stop-color:#2b6cb0"/>
+                    </linearGradient>
+                    <linearGradient id="grad-mentor" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#9f7aea"/>
+                        <stop offset="100%" style="stop-color:#6b46c1"/>
+                    </linearGradient>
+                    <linearGradient id="grad-material" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ed64a6"/>
+                        <stop offset="100%" style="stop-color:#97266d"/>
+                    </linearGradient>
+                    <linearGradient id="grad-sponsor" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#fc8181"/>
+                        <stop offset="100%" style="stop-color:#c53030"/>
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background module groups -->
+                <rect class="module-group" x="30" y="30" width="380" height="500" rx="12" fill="#f56565"/>
+                <rect class="module-group" x="440" y="30" width="380" height="350" rx="12" fill="#ed8936"/>
+                <rect class="module-group" x="440" y="400" width="380" height="300" rx="12" fill="#ecc94b"/>
+                <rect class="module-group" x="850" y="30" width="420" height="400" rx="12" fill="#48bb78"/>
+                <rect class="module-group" x="1300" y="30" width="380" height="300" rx="12" fill="#4299e1"/>
+                <rect class="module-group" x="850" y="460" width="420" height="350" rx="12" fill="#9f7aea"/>
+                <rect class="module-group" x="1300" y="360" width="380" height="300" rx="12" fill="#ed64a6"/>
+                <rect class="module-group" x="30" y="560" width="380" height="280" rx="12" fill="#fc8181"/>
+                <rect class="module-group" x="1300" y="690" width="380" height="280" rx="12" fill="#38b2ac"/>
+                
+                <!-- Module Labels -->
+                <text class="module-label" x="180" y="55" text-anchor="middle">USER MANAGEMENT</text>
+                <text class="module-label" x="630" y="55" text-anchor="middle">PROJECT MANAGEMENT</text>
+                <text class="module-label" x="630" y="425" text-anchor="middle">TASK MANAGEMENT</text>
+                <text class="module-label" x="1060" y="55" text-anchor="middle">JOBS & CAREER</text>
+                <text class="module-label" x="1490" y="55" text-anchor="middle">MESSAGING</text>
+                <text class="module-label" x="1060" y="485" text-anchor="middle">MENTORSHIP</text>
+                <text class="module-label" x="1490" y="385" text-anchor="middle">MATERIALS</text>
+                <text class="module-label" x="220" y="585" text-anchor="middle">SPONSORSHIP</text>
+                <text class="module-label" x="1490" y="715" text-anchor="middle">AI RESUME SCREENING</text>
+                
+                <!-- ==================== ENTITY: User (Central) ==================== -->
+                <g class="entity" transform="translate(100, 150)">
+                    <rect x="0" y="0" width="200" height="280" rx="8" fill="#1a2332" stroke="#f56565" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-user)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-user)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">User</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body attr" x="15" y="68">    Email</text>
+                    <text class="entity-body attr" x="15" y="84">    PasswordHash</text>
+                    <text class="entity-body attr" x="15" y="100">    FullName</text>
+                    <text class="entity-body attr" x="15" y="116">    Role</text>
+                    <text class="entity-body attr" x="15" y="132">    ProfilePicture</text>
+                    <text class="entity-body attr" x="15" y="148">    University</text>
+                    <text class="entity-body attr" x="15" y="164">    Major</text>
+                    <text class="entity-body attr" x="15" y="180">    GraduationYear</text>
+                    <text class="entity-body attr" x="15" y="196">    Skills</text>
+                    <text class="entity-body attr" x="15" y="212">    CompanyName</text>
+                    <text class="entity-body attr" x="15" y="228">    AccountStatus</text>
+                    <text class="entity-body attr" x="15" y="244">    CreatedAt</text>
+                    <text class="entity-body attr" x="15" y="260">    LastLoginAt</text>
+                </g>
+                
+                <!-- ==================== ENTITY: StudentProfile ==================== -->
+                <g class="entity" transform="translate(100, 450)">
+                    <rect x="0" y="0" width="200" height="120" rx="8" fill="#1a2332" stroke="#f56565" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-user)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-user)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">StudentProfile</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  UserId</text>
+                    <text class="entity-body attr" x="15" y="84">    ProjectTitle</text>
+                    <text class="entity-body attr" x="15" y="100">    SupervisorName</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Project ==================== -->
+                <g class="entity" transform="translate(480, 100)">
+                    <rect x="0" y="0" width="200" height="160" rx="8" fill="#1a2332" stroke="#ed8936" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-project)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-project)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">Project</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  OwnerId</text>
+                    <text class="entity-body attr" x="15" y="84">    Title</text>
+                    <text class="entity-body attr" x="15" y="100">    Description</text>
+                    <text class="entity-body attr" x="15" y="116">    Category</text>
+                    <text class="entity-body attr" x="15" y="132">    Status</text>
+                    <text class="entity-body attr" x="15" y="148">    CreatedAt</text>
+                </g>
+                
+                <!-- ==================== ENTITY: TeamMember ==================== -->
+                <g class="entity" transform="translate(480, 280)">
+                    <rect x="0" y="0" width="200" height="130" rx="8" fill="#1a2332" stroke="#ed8936" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-project)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-project)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">TeamMember</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  ProjectId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  UserId</text>
+                    <text class="entity-body attr" x="15" y="100">    Role</text>
+                    <text class="entity-body attr" x="15" y="116">    Skills</text>
+                </g>
+                
+                <!-- ==================== ENTITY: TaskItem ==================== -->
+                <g class="entity" transform="translate(480, 460)">
+                    <rect x="0" y="0" width="200" height="180" rx="8" fill="#1a2332" stroke="#ecc94b" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-task)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-task)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="#1a202c">TaskItem</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  UserId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  ProjectId</text>
+                    <text class="entity-body attr" x="15" y="100">    Name</text>
+                    <text class="entity-body attr" x="15" y="116">    Description</text>
+                    <text class="entity-body attr" x="15" y="132">    Priority</text>
+                    <text class="entity-body attr" x="15" y="148">    Status</text>
+                    <text class="entity-body attr" x="15" y="164">    DueDate</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Subtask ==================== -->
+                <g class="entity" transform="translate(480, 660)">
+                    <rect x="0" y="0" width="200" height="100" rx="8" fill="#1a2332" stroke="#ecc94b" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-task)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-task)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="#1a202c">Subtask</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  TaskItemId</text>
+                    <text class="entity-body attr" x="15" y="84">    Name</text>
+                </g>
+                
+                <!-- ==================== ENTITY: JobPosting ==================== -->
+                <g class="entity" transform="translate(890, 100)">
+                    <rect x="0" y="0" width="200" height="180" rx="8" fill="#1a2332" stroke="#48bb78" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-job)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-job)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">JobPosting</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  PostedById</text>
+                    <text class="entity-body attr" x="15" y="84">    Title</text>
+                    <text class="entity-body attr" x="15" y="100">    Description</text>
+                    <text class="entity-body attr" x="15" y="116">    Requirements</text>
+                    <text class="entity-body attr" x="15" y="132">    Location</text>
+                    <text class="entity-body attr" x="15" y="148">    EmploymentType</text>
+                    <text class="entity-body attr" x="15" y="164">    Status</text>
+                </g>
+                
+                <!-- ==================== ENTITY: JobApplication ==================== -->
+                <g class="entity" transform="translate(890, 300)">
+                    <rect x="0" y="0" width="200" height="130" rx="8" fill="#1a2332" stroke="#48bb78" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-job)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-job)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">JobApplication</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  JobPostingId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  ApplicantId</text>
+                    <text class="entity-body fk" x="15" y="100">FK  ResumeId</text>
+                    <text class="entity-body attr" x="15" y="116">    Status</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Internship ==================== -->
+                <g class="entity" transform="translate(1110, 100)">
+                    <rect x="0" y="0" width="180" height="160" rx="8" fill="#1a2332" stroke="#48bb78" stroke-width="2"/>
+                    <rect x="0" y="0" width="180" height="32" rx="8" fill="url(#grad-job)"/>
+                    <rect x="0" y="24" width="180" height="8" fill="url(#grad-job)"/>
+                    <text class="entity-header" x="90" y="22" text-anchor="middle" fill="white">Internship</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  PostedById</text>
+                    <text class="entity-body attr" x="15" y="84">    Title</text>
+                    <text class="entity-body attr" x="15" y="100">    CompanyName</text>
+                    <text class="entity-body attr" x="15" y="116">    Duration</text>
+                    <text class="entity-body attr" x="15" y="132">    Stipend</text>
+                    <text class="entity-body attr" x="15" y="148">    Status</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Conversation ==================== -->
+                <g class="entity" transform="translate(1340, 100)">
+                    <rect x="0" y="0" width="200" height="115" rx="8" fill="#1a2332" stroke="#4299e1" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-messaging)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-messaging)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">Conversation</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  User1Id</text>
+                    <text class="entity-body fk" x="15" y="84">FK  User2Id</text>
+                    <text class="entity-body attr" x="15" y="100">    LastMessageAt</text>
+                </g>
+                
+                <!-- ==================== ENTITY: ChatMessage ==================== -->
+                <g class="entity" transform="translate(1560, 100)">
+                    <rect x="0" y="0" width="180" height="130" rx="8" fill="#1a2332" stroke="#4299e1" stroke-width="2"/>
+                    <rect x="0" y="0" width="180" height="32" rx="8" fill="url(#grad-messaging)"/>
+                    <rect x="0" y="24" width="180" height="8" fill="url(#grad-messaging)"/>
+                    <text class="entity-header" x="90" y="22" text-anchor="middle" fill="white">ChatMessage</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  ConversationId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  SenderId</text>
+                    <text class="entity-body attr" x="15" y="100">    Content</text>
+                    <text class="entity-body attr" x="15" y="116">    SentAt</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Notification ==================== -->
+                <g class="entity" transform="translate(1340, 235)">
+                    <rect x="0" y="0" width="200" height="130" rx="8" fill="#1a2332" stroke="#4299e1" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-messaging)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-messaging)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">Notification</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  UserId</text>
+                    <text class="entity-body attr" x="15" y="84">    Type</text>
+                    <text class="entity-body attr" x="15" y="100">    Title</text>
+                    <text class="entity-body attr" x="15" y="116">    IsRead</text>
+                </g>
+                
+                <!-- ==================== ENTITY: MentorshipRelation ==================== -->
+                <g class="entity" transform="translate(890, 510)">
+                    <rect x="0" y="0" width="200" height="145" rx="8" fill="#1a2332" stroke="#9f7aea" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-mentor)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-mentor)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">MentorshipRelation</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  MentorId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  MenteeId</text>
+                    <text class="entity-body attr" x="15" y="100">    Status</text>
+                    <text class="entity-body attr" x="15" y="116">    MenteeGoals</text>
+                    <text class="entity-body attr" x="15" y="132">    TotalHours</text>
+                </g>
+                
+                <!-- ==================== ENTITY: MentoringSession ==================== -->
+                <g class="entity" transform="translate(890, 680)">
+                    <rect x="0" y="0" width="200" height="145" rx="8" fill="#1a2332" stroke="#9f7aea" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-mentor)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-mentor)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">MentoringSession</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  MentorId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  MenteeId</text>
+                    <text class="entity-body attr" x="15" y="100">    Topic</text>
+                    <text class="entity-body attr" x="15" y="116">    ScheduledDate</text>
+                    <text class="entity-body attr" x="15" y="132">    Status</text>
+                </g>
+                
+                <!-- ==================== ENTITY: MentorReview ==================== -->
+                <g class="entity" transform="translate(1110, 510)">
+                    <rect x="0" y="0" width="180" height="130" rx="8" fill="#1a2332" stroke="#9f7aea" stroke-width="2"/>
+                    <rect x="0" y="0" width="180" height="32" rx="8" fill="url(#grad-mentor)"/>
+                    <rect x="0" y="24" width="180" height="8" fill="url(#grad-mentor)"/>
+                    <text class="entity-header" x="90" y="22" text-anchor="middle" fill="white">MentorReview</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  MentorId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  ReviewerId</text>
+                    <text class="entity-body attr" x="15" y="100">    Rating</text>
+                    <text class="entity-body attr" x="15" y="116">    Comment</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Material ==================== -->
+                <g class="entity" transform="translate(1340, 410)">
+                    <rect x="0" y="0" width="200" height="165" rx="8" fill="#1a2332" stroke="#ed64a6" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-material)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-material)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">Material</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  SubmittedById</text>
+                    <text class="entity-body attr" x="15" y="84">    Title</text>
+                    <text class="entity-body attr" x="15" y="100">    Type</text>
+                    <text class="entity-body attr" x="15" y="116">    Field</text>
+                    <text class="entity-body attr" x="15" y="132">    Link</text>
+                    <text class="entity-body attr" x="15" y="148">    Downloads</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Favorite ==================== -->
+                <g class="entity" transform="translate(1560, 410)">
+                    <rect x="0" y="0" width="180" height="100" rx="8" fill="#1a2332" stroke="#ed64a6" stroke-width="2"/>
+                    <rect x="0" y="0" width="180" height="32" rx="8" fill="url(#grad-material)"/>
+                    <rect x="0" y="24" width="180" height="8" fill="url(#grad-material)"/>
+                    <text class="entity-header" x="90" y="22" text-anchor="middle" fill="white">Favorite</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  UserId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  MaterialId</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Sponsor ==================== -->
+                <g class="entity" transform="translate(60, 620)">
+                    <rect x="0" y="0" width="200" height="130" rx="8" fill="#1a2332" stroke="#fc8181" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-sponsor)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-sponsor)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">Sponsor</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body attr" x="15" y="68">    Name</text>
+                    <text class="entity-body attr" x="15" y="84">    Field</text>
+                    <text class="entity-body attr" x="15" y="100">    SupportedProject</text>
+                    <text class="entity-body attr" x="15" y="116">    Logo</text>
+                </g>
+                
+                <!-- ==================== ENTITY: SponsoredProject ==================== -->
+                <g class="entity" transform="translate(60, 770)">
+                    <rect x="0" y="0" width="200" height="145" rx="8" fill="#1a2332" stroke="#fc8181" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-sponsor)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-sponsor)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">SponsoredProject</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  SponsorProfileId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  ProjectId</text>
+                    <text class="entity-body attr" x="15" y="100">    FundingAmount</text>
+                    <text class="entity-body attr" x="15" y="116">    Status</text>
+                    <text class="entity-body attr" x="15" y="132">    CurrentMilestone</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Resume ==================== -->
+                <g class="entity" transform="translate(1340, 740)">
+                    <rect x="0" y="0" width="200" height="165" rx="8" fill="#1a2332" stroke="#38b2ac" stroke-width="2"/>
+                    <rect x="0" y="0" width="200" height="32" rx="8" fill="url(#grad-resume)"/>
+                    <rect x="0" y="24" width="200" height="8" fill="url(#grad-resume)"/>
+                    <text class="entity-header" x="100" y="22" text-anchor="middle" fill="white">Resume</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  UserId</text>
+                    <text class="entity-body attr" x="15" y="84">    FileName</text>
+                    <text class="entity-body attr" x="15" y="100">    ExtractedText</text>
+                    <text class="entity-body attr" x="15" y="116">    Skills</text>
+                    <text class="entity-body attr" x="15" y="132">    QualityScore</text>
+                    <text class="entity-body attr" x="15" y="148">    AnalysisStatus</text>
+                </g>
+                
+                <!-- ==================== ENTITY: Match (AI Screening) ==================== -->
+                <g class="entity" transform="translate(1560, 740)">
+                    <rect x="0" y="0" width="180" height="130" rx="8" fill="#1a2332" stroke="#38b2ac" stroke-width="2"/>
+                    <rect x="0" y="0" width="180" height="32" rx="8" fill="url(#grad-resume)"/>
+                    <rect x="0" y="24" width="180" height="8" fill="url(#grad-resume)"/>
+                    <text class="entity-header" x="90" y="22" text-anchor="middle" fill="white">Match</text>
+                    
+                    <text class="entity-body pk" x="15" y="52">PK  Id</text>
+                    <text class="entity-body fk" x="15" y="68">FK  ResumeId</text>
+                    <text class="entity-body fk" x="15" y="84">FK  JobPostingId</text>
+                    <text class="entity-body attr" x="15" y="100">    Score</text>
+                    <text class="entity-body attr" x="15" y="116">    MatchedAt</text>
+                </g>
+                
+                <!-- ==================== RELATIONSHIPS ==================== -->
+                
+                <!-- User -> Project (1:M) -->
+                <path d="M 300 240 L 370 240 Q 400 240 400 200 L 400 160 L 480 160" 
+                      class="relationship" stroke="#ed8936" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="385" y="195">owns</text>
+                
+                <!-- User -> StudentProfile (1:1) -->
+                <path d="M 200 430 L 200 450" 
+                      class="relationship" stroke="#f56565"/>
+                <text class="rel-label" x="210" y="445">has</text>
+                
+                <!-- User -> TaskItem (1:M) -->
+                <path d="M 300 320 L 420 320 Q 450 320 450 400 L 450 520 L 480 520" 
+                      class="relationship" stroke="#ecc94b" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="410" y="410">creates</text>
+                
+                <!-- Project -> TaskItem (1:M) -->
+                <path d="M 580 260 L 580 460" 
+                      class="relationship" stroke="#ecc94b" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="590" y="370">contains</text>
+                
+                <!-- Project -> TeamMember (1:M) -->
+                <path d="M 580 260 L 580 280" 
+                      class="relationship" stroke="#ed8936" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="590" y="275">has</text>
+                
+                <!-- TaskItem -> Subtask (1:M) -->
+                <path d="M 580 640 L 580 660" 
+                      class="relationship" stroke="#ecc94b" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="590" y="655">has</text>
+                
+                <!-- User -> JobPosting (1:M) -->
+                <path d="M 300 200 L 800 200 Q 830 200 830 180 L 830 150 Q 830 130 860 130 L 890 150" 
+                      class="relationship" stroke="#48bb78" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="550" y="190">posts</text>
+                
+                <!-- JobPosting -> JobApplication (1:M) -->
+                <path d="M 990 280 L 990 300" 
+                      class="relationship" stroke="#48bb78" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1000" y="295">receives</text>
+                
+                <!-- User -> JobApplication (1:M) -->
+                <path d="M 300 280 L 780 280 Q 820 280 820 320 L 820 365 L 890 365" 
+                      class="relationship" stroke="#48bb78" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="560" y="270">applies</text>
+                
+                <!-- User -> Conversation (M:M through User1/User2) -->
+                <path d="M 300 170 L 1200 170 Q 1240 170 1240 150 L 1340 150" 
+                      class="relationship" stroke="#4299e1" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="760" y="162">participates</text>
+                
+                <!-- Conversation -> ChatMessage (1:M) -->
+                <path d="M 1540 150 L 1560 150" 
+                      class="relationship" stroke="#4299e1" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1545" y="142">has</text>
+                
+                <!-- User -> Notification (1:M) -->
+                <path d="M 300 220 L 1250 220 Q 1280 220 1280 260 L 1280 300 L 1340 300" 
+                      class="relationship" stroke="#4299e1" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="800" y="212">receives</text>
+                
+                <!-- User -> MentorshipRelation (as Mentor) (1:M) -->
+                <path d="M 300 360 L 760 360 Q 800 360 800 450 L 800 560 L 890 560" 
+                      class="relationship" stroke="#9f7aea" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="820" y="470">mentors</text>
+                
+                <!-- User -> MentorshipRelation (as Mentee) (1:M) -->
+                <path d="M 300 380 L 740 380 Q 780 380 780 480 L 780 600 L 890 600" 
+                      class="relationship" stroke="#9f7aea" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="790" y="530">learns from</text>
+                
+                <!-- MentorshipRelation -> MentoringSession (1:M) -->
+                <path d="M 990 655 L 990 680" 
+                      class="relationship" stroke="#9f7aea" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1000" y="672">schedules</text>
+                
+                <!-- User -> MentorReview (1:M) -->
+                <path d="M 300 340 L 1050 340 Q 1080 340 1080 420 L 1080 520 L 1110 560" 
+                      class="relationship" stroke="#9f7aea" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1065" y="470">reviews</text>
+                
+                <!-- User -> Material (1:M) -->
+                <path d="M 300 260 L 1220 260 Q 1260 260 1260 380 L 1260 490 L 1340 490" 
+                      class="relationship" stroke="#ed64a6" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1230" y="380">submits</text>
+                
+                <!-- User -> Favorite (1:M) -->
+                <path d="M 300 300 L 1540 300 Q 1580 300 1580 390 L 1640 410" 
+                      class="relationship" stroke="#ed64a6" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1580" y="360">favorites</text>
+                
+                <!-- Material -> Favorite (1:M) -->
+                <path d="M 1540 460 L 1560 460" 
+                      class="relationship" stroke="#ed64a6" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1548" y="452">has</text>
+                
+                <!-- User -> Resume (1:M) -->
+                <path d="M 300 400 L 1300 400 Q 1320 400 1320 600 L 1320 800 L 1340 800" 
+                      class="relationship" stroke="#38b2ac" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1300" y="600">uploads</text>
+                
+                <!-- Resume -> Match (1:M) -->
+                <path d="M 1540 820 L 1560 820" 
+                      class="relationship" stroke="#38b2ac" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1548" y="810">generates</text>
+                
+                <!-- JobPosting -> Match (1:M) -->
+                <path d="M 1090 200 L 1700 200 Q 1720 200 1720 450 L 1720 720 L 1680 740" 
+                      class="relationship" stroke="#38b2ac" marker-end="url(#crow-foot)"/>
+                <text class="rel-label" x="1700" y="470">matched with</text>
+                
+                <!-- SponsoredProject -> Project (M:1) -->
+                <path d="M 260 830 L 520 830 Q 560 830 560 680 L 560 260" 
+                      class="relationship" stroke="#fc8181"/>
+                <text class="rel-label" x="400" y="700">sponsors</text>
+                
+                <!-- Cardinality labels -->
+                <text class="rel-label" x="305" y="235">1</text>
+                <text class="rel-label" x="470" y="155">M</text>
+                
+            </svg>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-section">
+                <h3>🎨 Module Colors</h3>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f56565;"></div>
+                    <span>User Management</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ed8936;"></div>
+                    <span>Project Management</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ecc94b;"></div>
+                    <span>Task Management</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #48bb78;"></div>
+                    <span>Jobs & Career</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>🎨 Module Colors (cont.)</h3>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4299e1;"></div>
+                    <span>Messaging & Notifications</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #9f7aea;"></div>
+                    <span>Mentorship</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ed64a6;"></div>
+                    <span>Materials/Resources</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #38b2ac;"></div>
+                    <span>AI Resume Screening</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>🔑 Attribute Types</h3>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #fbbf24;">PK</span>
+                    <span>Primary Key</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #60a5fa;">FK</span>
+                    <span>Foreign Key</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #e2e8f0;">   </span>
+                    <span>Regular Attribute</span>
+                </div>
+            </div>
+            
+            <div class="legend-section">
+                <h3>👥 User Roles</h3>
+                <div class="legend-item">
+                    <span>🎓</span>
+                    <span>Student / Graduate</span>
+                </div>
+                <div class="legend-item">
+                    <span>👨‍🏫</span>
+                    <span>Mentor / Supervisor</span>
+                </div>
+                <div class="legend-item">
+                    <span>🏢</span>
+                    <span>Company / Employer</span>
+                </div>
+                <div class="legend-item">
+                    <span>⚙️</span>
+                    <span>Admin</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ERD Notation Reference -->
+        <div class="notation">
+            <h2>📐 ERD Notation (Crow's Foot)</h2>
+            <div class="notation-grid">
+                <div class="notation-item">
+                    <svg viewBox="0 0 80 50">
+                        <rect x="5" y="10" width="70" height="30" rx="4" fill="#1a2332" stroke="#667eea" stroke-width="2"/>
+                        <rect x="5" y="10" width="70" height="12" rx="4" fill="#667eea"/>
+                        <text x="40" y="20" text-anchor="middle" fill="white" font-size="8" font-weight="600">Entity</text>
+                    </svg>
+                    <div>
+                        <h4>Entity (Table)</h4>
+                        <p>Represents a table in the database with attributes</p>
+                    </div>
+                </div>
+                
+                <div class="notation-item">
+                    <svg viewBox="0 0 80 50">
+                        <line x1="10" y1="25" x2="70" y2="25" stroke="#4a5568" stroke-width="2"/>
+                        <circle cx="15" cy="25" r="4" fill="#4a5568"/>
+                    </svg>
+                    <div>
+                        <h4>One (1)</h4>
+                        <p>Exactly one instance in the relationship</p>
+                    </div>
+                </div>
+                
+                <div class="notation-item">
+                    <svg viewBox="0 0 80 50">
+                        <line x1="10" y1="25" x2="55" y2="25" stroke="#4a5568" stroke-width="2"/>
+                        <path d="M55,25 L70,15 M55,25 L70,25 M55,25 L70,35" stroke="#4a5568" stroke-width="2" fill="none"/>
+                    </svg>
+                    <div>
+                        <h4>Many (M)</h4>
+                        <p>Zero, one, or many instances</p>
+                    </div>
+                </div>
+                
+                <div class="notation-item">
+                    <svg viewBox="0 0 80 50">
+                        <line x1="10" y1="25" x2="70" y2="25" stroke="#4a5568" stroke-width="2"/>
+                    </svg>
+                    <div>
+                        <h4>Relationship Line</h4>
+                        <p>Shows connection between entities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>GradLink System - Entity Relationship Diagram | Graduation Project Documentation</p>
+            <p style="margin-top: 8px; font-size: 0.8rem;">Version 1.0 | Created: February 2026</p>
+            <button class="export-btn" onclick="exportAsPNG()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export as PNG
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function exportAsPNG() {
+            const svg = document.querySelector('svg');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            canvas.width = 3800;
+            canvas.height = 2800;
+            
+            img.onload = function() {
+                ctx.fillStyle = '#0a0e14';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                const link = document.createElement('a');
+                link.download = 'GradLink_ERD.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+            
+            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

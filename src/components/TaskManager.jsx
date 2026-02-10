@@ -3,6 +3,9 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import * as tasksApi from '../api/tasks';
 import './TaskManager.css';
 
 Modal.setAppElement('#root');
@@ -30,7 +33,7 @@ const TaskItem = ({ task, index, status, moveTask, onDelete, onEdit, onAddSubtas
     accept: ItemTypes.TASK,
     hover: (item) => {
       if (item.id === task.id && item.status === status) return;
-      moveTask(item.status, status, item.index, index);
+      moveTask(item.status, status, item.index, index, item.id);
       item.status = status;
       item.index = index;
     },
@@ -106,7 +109,7 @@ const TaskItem = ({ task, index, status, moveTask, onDelete, onEdit, onAddSubtas
           <input
             type="date"
             className="modal-input"
-            value={editTask.dueDate}
+            value={editTask.dueDate ? editTask.dueDate.split('T')[0] : ''}
             onChange={(e) => setEditTask({ ...editTask, dueDate: e.target.value })}
             required
           />
@@ -159,7 +162,7 @@ const TaskItem = ({ task, index, status, moveTask, onDelete, onEdit, onAddSubtas
         <div className="task-content">
           <h3 className="task-name">{task.name}</h3>
           <p className="task-detail">Person: {task.person}</p>
-          <p className="task-detail">Due: {task.dueDate || '-'}</p>
+          <p className="task-detail">Due: {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : '-'}</p>
           <p className="task-detail">Category: {task.category}</p>
           <p className="task-detail">Priority: {task.priority}</p>
           {task.tags.length > 0 && (
@@ -241,61 +244,15 @@ const TaskItem = ({ task, index, status, moveTask, onDelete, onEdit, onAddSubtas
     </motion.li>
   );
 };
-const TaskManager = () => {
-  const [tasks, setTasks] = useState(() => {
-    const saved = localStorage.getItem('tasks');
-    return saved
-      ? JSON.parse(saved)
-      : [
-          {
-            id: 1,
-            name: 'Design UI',
-            status: 'In Progress',
-            person: 'Alice',
-            dueDate: '2025-06-25',
-            category: 'Frontend',
-            priority: 'Medium',
-            description: 'Create wireframes for the dashboard',
-            notes: 'Discuss with UX team on June 22',
-            tags: ['UI', 'Urgent'],
-            subtasks: [
-              { id: 1, name: 'Create wireframe', completed: true },
-              { id: 2, name: 'Review design', completed: false },
-            ],
-          },
-          {
-            id: 2,
-            name: 'Setup API',
-            status: 'Pending',
-            person: 'Bob',
-            dueDate: '2025-06-30',
-            category: 'Backend',
-            priority: 'High',
-            description: 'Configure REST endpoints',
-            notes: 'Check OAuth integration',
-            tags: ['API', 'Blocked'],
-            subtasks: [],
-          },
-          {
-            id: 3,
-            name: 'Create Slides',
-            status: 'Completed',
-            person: 'Charlie',
-            dueDate: '2025-06-20',
-            category: 'Presentation',
-            priority: 'Low',
-            description: 'Prepare presentation for stakeholders',
-            notes: 'Include Q2 metrics',
-            tags: ['Presentation'],
-            subtasks: [
-              { id: 1, name: 'Draft slides', completed: true },
-              { id: 2, name: 'Finalize content', completed: true },
-            ],
-          },
-        ];
-  });
 
-  // ✅ ✅ هنا الإضافة الجديدة
+const TaskManager = () => {
+  const { user, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
+
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [newTask, setNewTask] = useState({
     name: '',
     description: '',
@@ -306,7 +263,6 @@ const TaskManager = () => {
     category: 'Other',
     notes: '',
     tags: '',
-    subtasks: [],
   });
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -314,18 +270,33 @@ const TaskManager = () => {
   const [filterStatus, setFilterStatus] = useState('All');
   const [filterPerson, setFilterPerson] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [theme, setTheme] = useState('light');
 
-
+  // Check authentication and load tasks
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
+    if (!authLoading && !user) {
+      navigate('/login');
+      return;
+    }
+    if (user) {
+      loadTasks();
+    }
+  }, [user, authLoading, navigate]);
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+  const loadTasks = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await tasksApi.listTasks();
+      setTasks(data);
+    } catch (err) {
+      console.error('Failed to load tasks:', err);
+      setError('Failed to load tasks. Please make sure you are logged in.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const uniquePeople = [...new Set(tasks.map((task) => task.person))];
+  const uniquePeople = [...new Set(tasks.map((task) => task.person).filter(Boolean))];
 
   const filteredTasks = tasks.filter(
     (task) =>
@@ -333,98 +304,137 @@ const TaskManager = () => {
       (filterPerson === '' || task.person === filterPerson) &&
       (searchQuery === '' ||
         task.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        task.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        task.notes.toLowerCase().includes(searchQuery.toLowerCase()))
+        (task.description && task.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (task.notes && task.notes.toLowerCase().includes(searchQuery.toLowerCase())))
   );
 
-  const handleAddTask = (e) => {
+  const handleAddTask = async (e) => {
     e.preventDefault();
     if (newTask.name && newTask.person && newTask.dueDate) {
-      setTasks([
-        ...tasks,
-        {
-          id: Date.now(),
+      try {
+        await tasksApi.createTask({
           name: newTask.name,
-          status: newTask.status,
-          person: newTask.person,
-          dueDate: newTask.dueDate,
-          category: newTask.category || 'Other',
-          priority: newTask.priority,
           description: newTask.description,
           notes: newTask.notes,
-          tags: newTask.tags.split(',').map((tag) => tag.trim()).filter((tag) => tag),
-          subtasks: newTask.subtasks,
-        },
-      ]);
-      setNewTask({
-        name: '',
-        description: '',
-        dueDate: '',
-        priority: 'Medium',
-        person: '',
-        status: 'Pending',
-        category: 'Other',
-        notes: '',
-        tags: '',
-        subtasks: [],
-      });
-      setIsAddModalOpen(false);
+          tags: newTask.tags,
+          dueDate: newTask.dueDate,
+          priority: newTask.priority,
+          person: newTask.person,
+          status: newTask.status,
+          category: newTask.category,
+        });
+        await loadTasks(); // Refresh tasks from server
+        setNewTask({
+          name: '',
+          description: '',
+          dueDate: '',
+          priority: 'Medium',
+          person: '',
+          status: 'Pending',
+          category: 'Other',
+          notes: '',
+          tags: '',
+        });
+        setIsAddModalOpen(false);
+        // Notify sidebar to update task count
+        window.dispatchEvent(new Event('taskUpdated'));
+      } catch (err) {
+        console.error('Failed to add task:', err);
+        alert(err.response?.data?.error || 'Failed to add task. Please try again.');
+      }
     }
   };
 
-  const deleteTask = (taskId) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
-    setIsDeleteModalOpen(null);
+  const deleteTask = async (taskId) => {
+    try {
+      await tasksApi.deleteTask(taskId);
+      setTasks(tasks.filter((task) => task.id !== taskId));
+      setIsDeleteModalOpen(null);
+      // Notify sidebar to update task count
+      window.dispatchEvent(new Event('taskUpdated'));
+    } catch (err) {
+      console.error('Failed to delete task:', err);
+      alert('Failed to delete task. Please try again.');
+    }
   };
 
-  const editTask = (taskId, updatedTask) => {
-    setTasks(tasks.map((task) => (task.id === taskId ? { ...task, ...updatedTask } : task)));
+  const editTask = async (taskId, updatedTask) => {
+    try {
+      await tasksApi.updateTask(taskId, {
+        name: updatedTask.name,
+        description: updatedTask.description,
+        notes: updatedTask.notes,
+        tags: updatedTask.tags.join(','),
+        dueDate: updatedTask.dueDate,
+        priority: updatedTask.priority,
+        person: updatedTask.person,
+        status: updatedTask.status,
+        category: updatedTask.category,
+      });
+      await loadTasks(); // Refresh from server
+      // Notify sidebar to update task count
+      window.dispatchEvent(new Event('taskUpdated'));
+    } catch (err) {
+      console.error('Failed to update task:', err);
+      alert('Failed to update task. Please try again.');
+    }
   };
 
-  const addSubtask = (taskId, subtaskName) => {
-    setTasks(tasks.map((task) =>
-      task.id === taskId
-        ? {
-            ...task,
-            subtasks: [...task.subtasks, { id: Date.now(), name: subtaskName, completed: false }],
-          }
-        : task
-    ));
+  const addSubtask = async (taskId, subtaskName) => {
+    try {
+      await tasksApi.createSubtask(taskId, subtaskName);
+      await loadTasks(); // Refresh from server
+    } catch (err) {
+      console.error('Failed to add subtask:', err);
+      alert('Failed to add subtask. Please try again.');
+    }
   };
 
-  const toggleSubtask = (taskId, subtaskId) => {
-    setTasks(tasks.map((task) =>
-      task.id === taskId
-        ? {
-            ...task,
-            subtasks: task.subtasks.map((subtask) =>
-              subtask.id === subtaskId ? { ...subtask, completed: !subtask.completed } : subtask
-            ),
-          }
-        : task
-    ));
+  const toggleSubtask = async (taskId, subtaskId) => {
+    const task = tasks.find(t => t.id === taskId);
+    const subtask = task?.subtasks.find(s => s.id === subtaskId);
+    if (subtask) {
+      try {
+        await tasksApi.updateSubtask(taskId, subtaskId, { completed: !subtask.completed });
+        await loadTasks(); // Refresh from server
+      } catch (err) {
+        console.error('Failed to toggle subtask:', err);
+        alert('Failed to update subtask. Please try again.');
+      }
+    }
   };
 
-  const deleteSubtask = (taskId, subtaskId) => {
-    setTasks(tasks.map((task) =>
-      task.id === taskId
-        ? { ...task, subtasks: task.subtasks.filter((subtask) => subtask.id !== subtaskId) }
-        : task
-    ));
+  const deleteSubtask = async (taskId, subtaskId) => {
+    try {
+      await tasksApi.deleteSubtask(taskId, subtaskId);
+      await loadTasks(); // Refresh from server
+    } catch (err) {
+      console.error('Failed to delete subtask:', err);
+      alert('Failed to delete subtask. Please try again.');
+    }
   };
 
-  const moveTask = (fromStatus, toStatus, fromIndex, toIndex) => {
+  const moveTask = async (fromStatus, toStatus, fromIndex, toIndex, taskId) => {
+    // Optimistically update UI
     setTasks((prev) => {
-      const task = prev.find((t) => t.status === fromStatus && prev.indexOf(t) === fromIndex);
+      const task = prev.find((t) => t.id === taskId);
       if (!task) return prev;
-      const newTasks = prev.filter((t) => t.id !== task.id);
-      task.status = toStatus;
-      const statusTasks = newTasks.filter((t) => t.status === toStatus);
-      const insertIndex = statusTasks.length > toIndex ? toIndex : statusTasks.length;
-      const before = newTasks.slice(0, newTasks.filter((t) => t.status !== toStatus).length + insertIndex);
-      const after = newTasks.slice(newTasks.filter((t) => t.status !== toStatus).length + insertIndex);
-      return [...before, task, ...after];
+      const newTasks = prev.map(t => 
+        t.id === taskId ? { ...t, status: toStatus } : t
+      );
+      return newTasks;
     });
+
+    // Update on server
+    try {
+      await tasksApi.updateTask(taskId, { status: toStatus });
+      // Notify sidebar to update task count
+      window.dispatchEvent(new Event('taskUpdated'));
+    } catch (err) {
+      console.error('Failed to move task:', err);
+      // Revert on error
+      await loadTasks();
+    }
   };
 
   const exportTasks = () => {
@@ -438,9 +448,22 @@ const TaskManager = () => {
     URL.revokeObjectURL(url);
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+  if (loading || authLoading) {
+    return (
+      <div className="task-manager">
+        <div className="loading">Loading tasks...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="task-manager">
+        <div className="error-message">{error}</div>
+        <button onClick={() => navigate('/login')} className="retry-button">Go to Login</button>
+      </div>
+    );
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -452,7 +475,6 @@ const TaskManager = () => {
       >
         <div className="header-container">
           <h1 className="task-title">Task Management</h1>
-          
         </div>
         <div className="filter-container">
           <input
@@ -487,7 +509,9 @@ const TaskManager = () => {
           <button className="add-task-button" onClick={() => setIsAddModalOpen(true)}>
             Add Task
           </button>
-          
+          <button className="export-button" onClick={exportTasks}>
+            Export Tasks
+          </button>
         </div>
         <div className="kanban-board">
           {['Pending', 'In Progress', 'Completed'].map((status) => (
@@ -498,7 +522,7 @@ const TaskManager = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <h2 className="column-title">{status}</h2>
+              <h2 className="column-title">{status === 'Pending' ? 'Not Started' : status}</h2>
               <ul className="task-list">
                 <AnimatePresence>
                   {filteredTasks

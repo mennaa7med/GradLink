@@ -1,0 +1,322 @@
+/* ===================================
+   GRADLINK DARK MODE STYLES
+   =================================== */
+
+:root {
+  /* Light Mode (Default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f0f2f5;
+  --bg-card: #ffffff;
+  
+  --text-primary: #0c2737;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --text-light: #9ca3af;
+  
+  --border-color: #e2e5e9;
+  --border-light: #f0f2f5;
+  
+  --accent-primary: #f0ad4e;
+  --accent-secondary: #d9891c;
+  --accent-gradient: linear-gradient(135deg, #f0ad4e 0%, #d9891c 100%);
+  
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+  
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+}
+
+/* Dark Mode Variables */
+html.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-card: #1e293b;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+  
+  --border-color: #334155;
+  --border-light: #475569;
+  
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Global Dark Mode Styles */
+html.dark body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Card Styles */
+html.dark .stat-card,
+html.dark .flex-item,
+html.dark .skeleton-card,
+html.dark .skeleton-stat-card,
+html.dark .item-card,
+html.dark .profile-section,
+html.dark .editor-section,
+html.dark .legal-content {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+/* Form Elements */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: var(--text-light);
+}
+
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+  border-color: var(--accent-primary);
+  background: var(--bg-secondary);
+}
+
+/* Buttons */
+html.dark .btn-secondary,
+html.dark .nav-btn.prev,
+html.dark .template-btn:not(.active) {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+html.dark .btn-secondary:hover,
+html.dark .nav-btn.prev:hover:not(:disabled) {
+  background: var(--border-color);
+}
+
+/* Headers & Text */
+html.dark h1, 
+html.dark h2, 
+html.dark h3, 
+html.dark h4 {
+  color: var(--text-primary);
+}
+
+html.dark p {
+  color: var(--text-secondary);
+}
+
+html.dark .content-subtitle,
+html.dark .text-muted,
+html.dark .stat-link {
+  color: var(--text-muted);
+}
+
+/* Navigation & Sidebar */
+html.dark .sidebar {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+html.dark .menu-item {
+  color: var(--text-muted);
+}
+
+html.dark .menu-item:hover,
+html.dark .menu-item.active {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+/* Topbar */
+html.dark .topbar {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+html.dark .search-box {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+html.dark .search-input {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+/* Dropdowns */
+html.dark .dropdown-menu,
+html.dark .notifications-dropdown,
+html.dark .messages-dropdown {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+html.dark .dropdown-item:hover {
+  background: var(--bg-tertiary);
+}
+
+/* Tables */
+html.dark table {
+  background: var(--bg-card);
+}
+
+html.dark th {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+
+html.dark td {
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+html.dark tr:hover {
+  background: var(--bg-tertiary);
+}
+
+/* Charts */
+html.dark .recharts-text {
+  fill: var(--text-muted);
+}
+
+html.dark .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Modals */
+html.dark .modal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+html.dark .modal-content,
+html.dark .badge-modal,
+html.dark .onboarding-modal {
+  background: var(--bg-card);
+}
+
+/* Badges & Tags */
+html.dark .skill-tag,
+html.dark .interest-tag:not(.selected),
+html.dark .category-tab:not(.active) {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* Status Badges */
+html.dark .status-badge {
+  background: var(--bg-tertiary);
+}
+
+/* Progress Bars */
+html.dark .progress-bar {
+  background: var(--bg-tertiary);
+}
+
+/* Scrollbars */
+html.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}
+
+/* Skeleton Loaders */
+html.dark .skeleton {
+  background: linear-gradient(90deg, var(--bg-tertiary) 0%, var(--border-color) 50%, var(--bg-tertiary) 100%);
+  background-size: 200% 100%;
+}
+
+/* Page Backgrounds */
+html.dark .legal-page,
+html.dark .public-profile-page,
+html.dark .complete-profile-page,
+html.dark .email-verification-page,
+html.dark .not-found-page,
+html.dark .dashboard-content,
+html.dark .content-wrapperr {
+  background: var(--bg-primary);
+}
+
+/* Specific Components */
+html.dark .resume-preview {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+html.dark .achievement-badges {
+  background: var(--bg-primary);
+}
+
+html.dark .badge-card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+html.dark .badge-card.earned {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+  border-color: var(--accent-primary);
+}
+
+/* Links */
+html.dark a {
+  color: var(--accent-primary);
+}
+
+html.dark a:hover {
+  color: var(--accent-secondary);
+}
+
+/* Empty States */
+html.dark .empty-state {
+  color: var(--text-muted);
+}
+
+/* Footer */
+html.dark .footer {
+  background: var(--bg-secondary);
+}
+
+/* Transitions */
+html.dark * {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

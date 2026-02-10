@@ -1,0 +1,124 @@
+.install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0c2737;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  max-width: 90%;
+  width: 450px;
+}
+
+.install-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.install-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.install-text h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.install-text p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.install-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.install-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: white;
+  color: #0c2737;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.install-btn:hover {
+  transform: scale(1.05);
+}
+
+.dismiss-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .install-prompt {
+    flex-direction: column;
+    text-align: center;
+    width: calc(100% - 40px);
+    bottom: 10px;
+  }
+
+  .install-content {
+    flex-direction: column;
+  }
+
+  .install-actions {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

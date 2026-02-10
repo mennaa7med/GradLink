@@ -1,0 +1,68 @@
+.language-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(12, 39, 55, 0.05);
+  border: 1px solid rgba(12, 39, 55, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  color: #0c2737;
+}
+
+.language-toggle:hover {
+  background: rgba(12, 39, 55, 0.1);
+  border-color: #0c2737;
+}
+
+.language-toggle.compact {
+  padding: 6px 10px;
+  min-width: 40px;
+  justify-content: center;
+}
+
+.lang-icon {
+  font-size: 18px;
+}
+
+.lang-text {
+  font-weight: 500;
+}
+
+.lang-abbr {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* RTL Support */
+body.rtl .language-toggle {
+  direction: ltr;
+}
+
+/* Dark mode support */
+.dark .language-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.dark .language-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

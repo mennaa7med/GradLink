@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Analyzer AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Marked.js for rendering Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+    }
+    .navbar {
+      background-color: #0d6efd;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: #fff;
+    }
+    .container {
+      margin-top: 60px;
+    }
+    .card {
+      border: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .footer {
+      margin-top: 50px;
+      padding: 20px 0;
+      text-align: center;
+      background-color: #f1f1f1;
+      color: #777;
+    }
+    .spinner {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    #markdown-result h1, h2, h3, h4 {
+      margin-top: 1rem;
+    }
+    #markdown-result ul {
+      padding-left: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#">Resume Analyzer AI</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card p-4">
+          <h3 class="mb-4 text-center">Analyze Your Resume with AI</h3>
+          <form id="analyzeForm" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Upload Resume (PDF only)</label>
+              <input class="form-control" type="file" name="resume" accept=".pdf" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Paste Job Description</label>
+              <textarea class="form-control" name="job_description" rows="6" required></textarea>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Analyze Resume</button>
+            </div>
+          </form>
+
+          <!-- Spinner -->
+          <div class="spinner" id="spinner">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Processing...</span>
+            </div>
+            <p class="mt-2">Analyzing... please wait</p>
+          </div>
+        </div>
+
+        {% if result %}
+        <div class="card mt-4 p-4">
+          <h4>Analysis Result</h4>
+          <div id="markdown-result"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Show Spinner on Form Submit -->
+  <script>
+    const form = document.getElementById("analyzeForm");
+    const spinner = document.getElementById("spinner");
+    form.addEventListener("submit", function () {
+      spinner.style.display = "block";
+    });
+  </script>
+
+  <!-- Render Markdown -->
+  {% if result %}
+  <script>
+    const markdown = {{ result | tojson | safe }};
+    document.getElementById("markdown-result").innerHTML = marked.parse(markdown);
+  </script>
+  {% endif %}
+</body>
+</html>

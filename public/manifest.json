@@ -1,0 +1,63 @@
+{
+  "name": "GradLink - Graduate Career Platform",
+  "short_name": "GradLink",
+  "description": "Your gateway to career success. Connect with mentors, find opportunities, and build your professional network.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c2737",
+  "theme_color": "#0c2737",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/site.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/site.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "business", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "url": "/dashboard",
+      "icons": [{ "src": "/site.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Tasks",
+      "short_name": "Tasks",
+      "url": "/dashboard/tasks",
+      "icons": [{ "src": "/site.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Messages",
+      "short_name": "Messages",
+      "url": "/dashboard/messages",
+      "icons": [{ "src": "/site.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

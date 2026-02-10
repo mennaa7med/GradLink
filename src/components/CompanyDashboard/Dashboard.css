@@ -1,0 +1,335 @@
+/* =============================================
+   Company Dashboard - Main Layout
+   ============================================= */
+
+:root {
+  --company-primary: #0C2737;
+  --company-accent: #FFCB66;
+  --company-bg: #f8fafc;
+  --company-card: #ffffff;
+  --company-text: #1e293b;
+  --company-text-muted: #6b7280;
+  --company-border: #e2e8f0;
+  --company-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --company-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Container */
+.dashboard-main {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--company-bg);
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Flex Layout - Sidebar + Content */
+.dashboard-main-flex {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* =============================================
+   Sidebar Container
+   ============================================= */
+.sidebar-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 100;
+  background-color: var(--company-card);
+  border-right: none;
+  box-shadow: none;
+}
+
+/* =============================================
+   Main Content Area
+   ============================================= */
+.dashboard-content {
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--company-bg);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* =============================================
+   Page Content
+   ============================================= */
+.dashboard-page-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  margin: 0;
+}
+
+/* =============================================
+   Dashboard Overview
+   ============================================= */
+.dashboard-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-overview-header {
+  margin-bottom: 0;
+}
+
+.dashboard-overview-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--company-text);
+  margin: 0 0 6px 0;
+}
+
+.dashboard-overview-description {
+  color: var(--company-text-muted);
+  margin: 0;
+  font-size: 14px;
+}
+
+/* =============================================
+   KPI Cards
+   ============================================= */
+.dashboard-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.dashboard-kpi-card {
+  background: var(--company-card);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--company-shadow);
+  border: 1px solid var(--company-border);
+  transition: all 0.2s ease;
+}
+
+.dashboard-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--company-shadow-hover);
+}
+
+.dashboard-kpi-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-kpi-info {
+  flex: 1;
+}
+
+.dashboard-kpi-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--company-text-muted);
+  margin: 0 0 8px 0;
+}
+
+.dashboard-kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--company-text);
+  margin: 0 0 4px 0;
+  line-height: 1.1;
+}
+
+.dashboard-kpi-change {
+  font-size: 13px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.dashboard-kpi-change.positive {
+  color: #10b981;
+}
+
+.dashboard-kpi-change.negative {
+  color: #ef4444;
+}
+
+.dashboard-kpi-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.dashboard-kpi-icon.blue {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.dashboard-kpi-icon.green {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.dashboard-kpi-icon.purple {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.dashboard-kpi-icon.orange {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+/* =============================================
+   Charts Section
+   ============================================= */
+.dashboard-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.dashboard-chart-card {
+  background: var(--company-card);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--company-shadow);
+  border: 1px solid var(--company-border);
+}
+
+.dashboard-chart-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--company-text);
+  margin: 0 0 16px 0;
+}
+
+.dashboard-chart-container {
+  height: 260px;
+}
+
+/* =============================================
+   Activity Feed
+   ============================================= */
+.dashboard-activity-card {
+  background: var(--company-card);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--company-shadow);
+  border: 1px solid var(--company-border);
+}
+
+.dashboard-activity-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--company-text);
+  margin: 0 0 16px 0;
+}
+
+.dashboard-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+  transition: background-color 0.2s;
+}
+
+.dashboard-activity-item:hover {
+  background-color: #f1f5f9;
+}
+
+.dashboard-activity-dot {
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dashboard-activity-content {
+  flex: 1;
+}
+
+.dashboard-activity-text {
+  font-size: 14px;
+  color: var(--company-text);
+  margin: 0 0 2px 0;
+  font-weight: 500;
+}
+
+.dashboard-activity-project {
+  font-size: 13px;
+  color: var(--company-text-muted);
+  margin: 0;
+}
+
+.dashboard-activity-time {
+  font-size: 12px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+/* =============================================
+   Responsive Design
+   ============================================= */
+@media (max-width: 1400px) {
+  .dashboard-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .dashboard-charts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-page-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    margin-left: 80px !important;
+  }
+  
+  .dashboard-page-content {
+    padding: 16px;
+  }
+  
+  .dashboard-kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .dashboard-overview {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-content {
+    margin-left: 0 !important;
+  }
+  
+  .sidebar-container {
+    display: none;
+  }
+}

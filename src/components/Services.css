@@ -69,7 +69,68 @@
 
 
 /* Responsive Design */
+
+/* Small Laptop */
+@media (max-width: 1200px) {
+  .services-page {
+    padding: 2.5rem 1.5rem;
+    border-bottom-right-radius: 120px;
+  }
+  
+  .main-section-title h1 {
+    margin-top: 8rem;
+    font-size: 2.5rem;
+  }
+  
+  .service-card {
+    padding: 3rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .services-page {
+    padding: 2rem 1.5rem;
+    border-bottom-right-radius: 100px;
+  }
+  
+  .main-section-title h1 {
+    margin-top: 6rem;
+    font-size: 2.2rem;
+  }
+  
+  .services-container {
+    gap: 1.5rem;
+  }
+  
+  .service-column {
+    min-width: 280px;
+  }
+  
+  .service-card {
+    padding: 2.5rem;
+  }
+  
+  .service-title {
+    font-size: 1.75rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .services-page {
+    padding: 1.5rem 1rem;
+    border-bottom-right-radius: 80px;
+  }
+  
+  .main-section-title {
+    margin-bottom: 3rem;
+  }
+  
+  .main-section-title h1 {
+    margin-top: 4rem;
+    font-size: 2rem;
+  }
+  
   .services-container {
     flex-direction: column;
     align-items: center;
@@ -77,19 +138,54 @@
 
   .service-column {
     max-width: 100%;
+    min-width: 100%;
   }
 
   .service-card {
     width: 100%;
     text-align: left;
+    padding: 2rem;
   }
 
   .service-title,
   .service-title.right {
     text-align: left;
+    font-size: 1.5rem;
   }
+}
 
+/* Mobile */
+@media (max-width: 480px) {
+  .services-page {
+    padding: 1rem 0.75rem;
+    border-bottom-right-radius: 60px;
+  }
+  
+  .main-section-title {
+    margin-bottom: 2rem;
+  }
+  
   .main-section-title h1 {
-    font-size: 2rem;
+    margin-top: 3rem;
+    font-size: 1.75rem;
+  }
+  
+  .services-container {
+    gap: 1rem;
+    padding: 0;
+  }
+  
+  .service-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .service-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .service-title {
+    font-size: 1.25rem;
   }
 }

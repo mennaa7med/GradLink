@@ -1,0 +1,402 @@
+/* Applicants Page Styles */
+.applicants-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.applicants-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.applicants-page-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.applicants-page-description {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Filter Buttons */
+.applicants-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.applicants-filter-button {
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.applicants-filter-button.active {
+  background-color: #2563eb;
+  color: white;
+}
+
+.applicants-filter-button:not(.active) {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+.applicants-filter-button:not(.active):hover {
+  background-color: #e5e7eb;
+}
+
+/* Stats Cards */
+.applicants-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.applicants-stat-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f3f4f6;
+}
+
+.applicants-stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.applicants-stat-label {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Applicants Grid */
+.applicants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.applicant-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f3f4f6;
+  transition: box-shadow 0.2s;
+}
+
+.applicant-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Applicant Header */
+.applicant-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.applicant-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.applicant-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.applicant-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.applicant-name {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.applicant-field {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Status Badge */
+.applicant-status {
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.applicant-status.accepted {
+  background-color: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.applicant-status.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.applicant-status.rejected {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.applicant-status-icon {
+  font-size: 14px;
+}
+
+/* Match Percentage */
+.applicant-match {
+  margin-bottom: 16px;
+}
+
+.applicant-match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.applicant-match-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.applicant-match-percentage {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.applicant-match-percentage.high {
+  color: #059669;
+}
+
+.applicant-match-percentage.medium {
+  color: #2563eb;
+}
+
+.applicant-match-percentage.low {
+  color: #f59e0b;
+}
+
+.applicant-match-percentage.very-low {
+  color: #dc2626;
+}
+
+.applicant-match-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.applicant-match-progress {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+.applicant-match-progress.high {
+  background-color: #059669;
+}
+
+.applicant-match-progress.medium {
+  background-color: #2563eb;
+}
+
+.applicant-match-progress.low {
+  background-color: #f59e0b;
+}
+
+.applicant-match-progress.very-low {
+  background-color: #dc2626;
+}
+
+/* Applicant Details */
+.applicant-details-section {
+  margin-bottom: 16px;
+}
+
+.applicant-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.applicant-detail-icon {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.applicant-project {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.applicant-project-name {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* Skills */
+.applicant-skills {
+  margin-bottom: 16px;
+}
+
+.applicant-skills-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  margin: 0 0 8px 0;
+}
+
+.applicant-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.applicant-skill-tag {
+  padding: 2px 8px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+/* Actions */
+.applicant-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.applicant-action-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.applicant-action-button.primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.applicant-action-button.primary:hover {
+  background-color: #1d4ed8;
+}
+
+.applicant-action-button.secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.applicant-action-button.secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.applicant-action-icon {
+  font-size: 16px;
+}
+
+/* Empty State */
+.applicants-empty {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.applicants-empty-icon {
+  width: 96px;
+  height: 96px;
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 48px;
+  color: #9ca3af;
+}
+
+.applicants-empty-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.applicants-empty-description {
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .applicants-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .applicants-filters {
+    flex-wrap: wrap;
+  }
+  
+  .applicants-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .applicant-card {
+    padding: 16px;
+  }
+  
+  .applicant-actions {
+    flex-direction: column;
+  }
+}

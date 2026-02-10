@@ -1,46 +1,459 @@
-.all-features-container {
-  padding: 50px 20px;
-  max-width: 1200px;
-  margin: auto;
+/* ===================================
+   AllFeatures Page Styles
+   Modern, Clean, Minimalistic Design
+   =================================== */
+
+/* Page Container */
+.all-features-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  overflow-x: hidden;
+}
+
+/* ===================================
+   Hero Header Section
+   =================================== */
+.features-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0C2737 0%, #1a3a4f 50%, #0C2737 100%);
+  padding: 120px 24px 80px;
   text-align: center;
+  overflow: hidden;
 }
 
-.all-features-title {
-  font-size: 36px;
-  font-weight: bold;
-  margin-bottom: 40px;
-  color: #0c2737;
+.features-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 203, 102, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 203, 102, 0.1) 0%, transparent 40%);
+  pointer-events: none;
 }
 
+.features-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.features-hero-title {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.features-hero-subtitle {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  line-height: 1.7;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* Hero Decorative Circles */
+.features-hero-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 203, 102, 0.2), rgba(255, 203, 102, 0.05));
+  animation: floatCircle 20s ease-in-out infinite;
+}
+
+.hero-circle-1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  right: -50px;
+  animation-delay: 0s;
+}
+
+.hero-circle-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -50px;
+  left: 10%;
+  animation-delay: -7s;
+}
+
+.hero-circle-3 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  left: 5%;
+  animation-delay: -14s;
+}
+
+@keyframes floatCircle {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(20px, -20px) scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(0, 20px) scale(0.95);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(-20px, -10px) scale(1.02);
+    opacity: 0.7;
+  }
+}
+
+/* ===================================
+   Main Features Section
+   =================================== */
+.features-main-section {
+  padding: 80px 24px;
+  background: #ffffff;
+}
+
+.features-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Features Grid */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 
+/* Feature Card */
 .feature-card {
-  background-color: #ffffff;
+  background: #ffffff;
   border-radius: 20px;
-  padding: 25px;
-  text-align: left;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 1px solid #e0e0e0;
-}
-
-.feature-card h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #0c2737;
-}
-
-.feature-card p {
-  font-size: 16px;
-  color: #4a4a4a;
-  line-height: 1.6;
+  padding: 32px 28px;
+  box-shadow: 0 4px 24px rgba(12, 39, 55, 0.06);
+  border: 1px solid rgba(12, 39, 55, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.6s ease-out both;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(12, 39, 55, 0.12);
+  border-color: rgba(255, 203, 102, 0.3);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Feature Icon */
+.feature-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #FFF8E7 0%, #FFF0D4 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon-wrapper {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.feature-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* Feature Title */
+.feature-title {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0C2737;
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+/* Feature Description */
+.feature-description {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.95rem;
+  color: #5a6a7a;
+  line-height: 1.7;
+  margin: 0 0 20px;
+  flex-grow: 1;
+}
+
+/* Learn More Button */
+.feature-learn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: #FFCB66;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  text-decoration: none;
+}
+
+.feature-learn-more:hover {
+  color: #e5b55c;
+}
+
+.feature-learn-more:hover .learn-more-arrow {
+  transform: translateX(4px);
+}
+
+.learn-more-arrow {
+  transition: transform 0.3s ease;
+}
+
+/* ===================================
+   Call to Action Section
+   =================================== */
+.features-cta {
+  background: linear-gradient(135deg, #0C2737 0%, #153347 100%);
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.features-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 70%, rgba(255, 203, 102, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(255, 203, 102, 0.08) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.cta-description {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 32px;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.cta-btn-primary {
+  background: linear-gradient(135deg, #FFCB66 0%, #f5bc4c 100%);
+  color: #0C2737;
+  box-shadow: 0 4px 20px rgba(255, 203, 102, 0.3);
+}
+
+.cta-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 203, 102, 0.4);
+}
+
+.cta-btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+
+/* Tablets & Medium Screens */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .features-hero {
+    padding: 100px 20px 60px;
+  }
+
+  .features-main-section {
+    padding: 60px 20px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .features-hero {
+    padding: 90px 16px 50px;
+  }
+
+  .features-hero-title {
+    font-size: 2rem;
+  }
+
+  .features-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .features-main-section {
+    padding: 48px 16px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .feature-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .feature-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .feature-icon {
+    font-size: 28px;
+  }
+
+  .feature-title {
+    font-size: 1.1rem;
+  }
+
+  .feature-description {
+    font-size: 0.9rem;
+  }
+
+  .features-cta {
+    padding: 60px 16px;
+  }
+
+  .cta-title {
+    font-size: 1.5rem;
+  }
+
+  .cta-description {
+    font-size: 1rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 28px;
+  }
+
+  .hero-circle-1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-circle-2 {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hero-circle-3 {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .features-hero {
+    padding: 80px 12px 40px;
+  }
+
+  .features-hero-title {
+    font-size: 1.75rem;
+  }
+
+  .features-main-section {
+    padding: 40px 12px;
+  }
+
+  .feature-card {
+    padding: 20px 16px;
+  }
 }

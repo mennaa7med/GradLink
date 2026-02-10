@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080;https://+:8081
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/gradlink.db
+      - Jwt__Secret=${JWT_SECRET}
+      - Gemini__ApiKey=${GEMINI_API_KEY}
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  # Optional: SQL Server
+  # sqlserver:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=YourStrong@Passw0rd
+  #   ports:
+  #     - "1433:1433"
+  #   volumes:
+  #     - sqlserver_data:/var/opt/mssql
+  #   restart: unless-stopped
+
+# volumes:
+#   sqlserver_data:
+
