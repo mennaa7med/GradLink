@@ -141,8 +141,8 @@ const FlaskResumeAnalyzer = () => {
     setCurrentStep('Uploading resume...');
 
     try {
-      // Send directly to Flask API on port 5005
-      const flaskUrl = 'http://127.0.0.1:5005';
+      // Send to Flask API - uses environment variable in production
+      const flaskUrl = import.meta.env.VITE_FLASK_API_URL || 'http://127.0.0.1:5005';
       const formData = new FormData();
       formData.append('resume', resumeFile);
       formData.append('job_description', jobDescription);
@@ -185,7 +185,7 @@ const FlaskResumeAnalyzer = () => {
         throw new Error(data.message || 'Analysis failed');
       }
     } catch (err) {
-      setError(`Failed to connect to the analyzer. Make sure Flask server is running on port 5005. Error: ${err.message}`);
+      setError(`Failed to connect to the Resume Analyzer service. Error: ${err.message}`);
       console.error('Error:', err);
       setIsAnalyzing(false);
     }
