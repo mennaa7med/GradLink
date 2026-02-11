@@ -293,6 +293,23 @@
   color: #9ca3af;
 }
 
+/* Fix autofill styling */
+.input-group input:-webkit-autofill,
+.input-group input:-webkit-autofill:hover,
+.input-group input:-webkit-autofill:focus,
+.input-group input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+  -webkit-text-fill-color: #0c2737 !important;
+  box-shadow: 0 0 0 30px #fff inset !important;
+  caret-color: #0c2737;
+}
+
+/* Ensure text is always visible */
+.input-group input {
+  color: #0c2737 !important;
+  -webkit-text-fill-color: #0c2737 !important;
+}
+
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus {
