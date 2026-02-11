@@ -1,6 +1,25 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+// Production Railway URL - fallback when env var is not set
+const PRODUCTION_API_URL = 'https://gradlink-production-7fdd.up.railway.app';
+
+// Use environment variable, or production URL if on vercel/production, otherwise localhost
+const getApiBaseUrl = () => {
+  // Check for environment variable first
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  // If we're on a production domain (not localhost), use production API
+  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
+    return PRODUCTION_API_URL;
+  }
+  
+  // Default to localhost for development
+  return 'http://localhost:5000';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 let isRefreshing = false;
 let failedQueue = [];
