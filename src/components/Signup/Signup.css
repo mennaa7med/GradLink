@@ -275,39 +275,54 @@
   color: #9ca3af;
 }
 
-.input-group input,
-.input-group select,
-.input-group textarea {
+.signup-form-side .input-group input,
+.signup-form-side .input-group select,
+.signup-form-side .input-group textarea,
+.signup-form-side .user-type-select {
   width: 100%;
   padding: 14px 16px;
   border: 2px solid #d1d5db;
   border-radius: 12px;
   font-size: 0.95rem;
-  color: #0c2737;
-  background: #fff;
+  color: #0c2737 !important;
+  -webkit-text-fill-color: #0c2737 !important;
+  background: #fff !important;
   transition: all 0.2s ease;
   box-sizing: border-box;
+  caret-color: #0c2737;
 }
 
-.input-group input::placeholder {
-  color: #9ca3af;
+.signup-form-side .input-group input::placeholder,
+.signup-form-side .input-group textarea::placeholder {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
 }
 
 /* Fix autofill styling */
-.input-group input:-webkit-autofill,
-.input-group input:-webkit-autofill:hover,
-.input-group input:-webkit-autofill:focus,
-.input-group input:-webkit-autofill:active {
+.signup-form-side .input-group input:-webkit-autofill,
+.signup-form-side .input-group input:-webkit-autofill:hover,
+.signup-form-side .input-group input:-webkit-autofill:focus,
+.signup-form-side .input-group input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #fff inset !important;
   -webkit-text-fill-color: #0c2737 !important;
   box-shadow: 0 0 0 30px #fff inset !important;
   caret-color: #0c2737;
 }
 
-/* Ensure text is always visible */
-.input-group input {
+/* Override dark mode for signup form */
+html.dark .signup-form-side .input-group input,
+html.dark .signup-form-side .input-group select,
+html.dark .signup-form-side .input-group textarea,
+html.dark .signup-form-side .user-type-select {
   color: #0c2737 !important;
   -webkit-text-fill-color: #0c2737 !important;
+  background: #fff !important;
+}
+
+html.dark .signup-form-side .input-group input::placeholder,
+html.dark .signup-form-side .input-group textarea::placeholder {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
 }
 
 .input-group input:focus,
