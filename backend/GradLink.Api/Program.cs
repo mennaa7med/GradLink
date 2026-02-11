@@ -343,19 +343,37 @@ app.UseSwaggerUI(c =>
 
 app.UseSerilogRequestLogging();
 
+// CORS MUST be first - before any other middleware
+// This handles OPTIONS preflight requests
+app.UseCors("AllowAll");
+
+// Handle OPTIONS requests explicitly before other middleware
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.StatusCode = 204;
+        context.Response.Headers.Append("Access-Control-Allow-Origin", context.Request.Headers["Origin"].ToString());
+        context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+        context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+        context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
+        context.Response.Headers.Append("Access-Control-Max-Age", "86400");
+        return;
+    }
+    await next();
+});
+
 // Only redirect to HTTPS in production
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
 }
 
-// Use permissive CORS for all environments to avoid preflight issues
-app.UseCors("AllowAll");
-
-app.UseIpRateLimiting();
-
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Rate limiting after auth to avoid blocking preflight
+app.UseIpRateLimiting();
 
 app.MapControllers();
 app.MapHub<ChatHub>("/hubs/chat");
