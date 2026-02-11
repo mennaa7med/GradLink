@@ -1,21 +1,34 @@
 import axios from 'axios';
 
-// Production Railway URL - fallback when env var is not set
+// Production/External API URLs
 const PRODUCTION_API_URL = 'https://gradlink-production-7fdd.up.railway.app';
+const NGROK_API_URL = 'https://auctorial-heterotrophic-aditya.ngrok-free.dev';
 
-// Use environment variable, or production URL if on vercel/production, otherwise localhost
+// Determine the API base URL based on current hostname
 const getApiBaseUrl = () => {
   // Check for environment variable first
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // If we're on a production domain (not localhost), use production API
-  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    
+    // If running on localhost, use localhost backend
+    if (hostname.includes('localhost') || hostname === '127.0.0.1') {
+      return 'http://localhost:5000';
+    }
+    
+    // If running on ngrok, use ngrok backend
+    if (hostname.includes('ngrok')) {
+      return NGROK_API_URL;
+    }
+    
+    // If running on Vercel or other production, use Railway
     return PRODUCTION_API_URL;
   }
   
-  // Default to localhost for development
+  // Default to localhost for SSR/build time
   return 'http://localhost:5000';
 };
 
