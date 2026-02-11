@@ -20,5 +20,6 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
+# *.sln - removed to allow backend solution file
+!backend/*.sln
 *.sw?
