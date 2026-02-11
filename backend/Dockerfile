@@ -5,8 +5,8 @@ WORKDIR /src
 # Copy backend folder contents
 COPY backend/. .
 
-# Restore dependencies
-RUN dotnet restore GradLink.sln
+# Restore dependencies using the API project
+RUN dotnet restore GradLink.Api/GradLink.Api.csproj
 
 # Publish the API project
 RUN dotnet publish GradLink.Api/GradLink.Api.csproj -c Release -o /app/publish /p:UseAppHost=false
