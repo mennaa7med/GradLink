@@ -6,6 +6,8 @@ export default defineConfig({
   base: "/",
   server: {
     port: 5176,
+    allowedHosts: true,
+    host: true,
     hmr: {
       overlay: true
     }
