@@ -277,6 +277,30 @@ services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// CRITICAL: Handle CORS/OPTIONS FIRST - before ANY other middleware
+app.Use(async (context, next) =>
+{
+    var origin = context.Request.Headers["Origin"].ToString();
+    
+    // Always add CORS headers
+    if (!string.IsNullOrEmpty(origin))
+    {
+        context.Response.Headers["Access-Control-Allow-Origin"] = origin;
+        context.Response.Headers["Access-Control-Allow-Credentials"] = "true";
+        context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD";
+        context.Response.Headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin, X-CSRF-Token";
+    }
+    
+    // Handle OPTIONS preflight immediately
+    if (context.Request.Method.Equals("OPTIONS", StringComparison.OrdinalIgnoreCase))
+    {
+        context.Response.StatusCode = 204;
+        return;
+    }
+    
+    await next();
+});
+
 // Seed database
 using (var scope = app.Services.CreateScope())
 {
@@ -341,33 +365,9 @@ app.UseSwaggerUI(c =>
     ";
 });
 
-// CRITICAL: Handle OPTIONS preflight FIRST - before anything else
-app.Use(async (context, next) =>
-{
-    // Add CORS headers to ALL responses
-    var origin = context.Request.Headers["Origin"].ToString();
-    if (!string.IsNullOrEmpty(origin))
-    {
-        context.Response.Headers["Access-Control-Allow-Origin"] = origin;
-        context.Response.Headers["Access-Control-Allow-Credentials"] = "true";
-    }
-    
-    if (context.Request.Method == "OPTIONS")
-    {
-        context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD";
-        context.Response.Headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin";
-        context.Response.Headers["Access-Control-Max-Age"] = "86400";
-        context.Response.StatusCode = 200;
-        await context.Response.CompleteAsync();
-        return;
-    }
-    
-    await next();
-});
-
 app.UseSerilogRequestLogging();
 
-// CORS policy as backup
+// CORS policy as additional layer
 app.UseCors("AllowAll");
 
 // Only redirect to HTTPS in production
