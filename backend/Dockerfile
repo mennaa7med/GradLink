@@ -2,18 +2,18 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy solution and project files from backend folder
-COPY backend/GradLink.sln ./
-COPY backend/GradLink.Domain/GradLink.Domain.csproj ./GradLink.Domain/
-COPY backend/GradLink.Application/GradLink.Application.csproj ./GradLink.Application/
-COPY backend/GradLink.Infrastructure/GradLink.Infrastructure.csproj ./GradLink.Infrastructure/
-COPY backend/GradLink.Api/GradLink.Api.csproj ./GradLink.Api/
+# Copy solution and project files
+COPY GradLink.sln ./
+COPY GradLink.Domain/GradLink.Domain.csproj ./GradLink.Domain/
+COPY GradLink.Application/GradLink.Application.csproj ./GradLink.Application/
+COPY GradLink.Infrastructure/GradLink.Infrastructure.csproj ./GradLink.Infrastructure/
+COPY GradLink.Api/GradLink.Api.csproj ./GradLink.Api/
 
 # Restore dependencies
 RUN dotnet restore
 
-# Copy everything else from backend
-COPY backend/. .
+# Copy everything else
+COPY . .
 
 # Build
 WORKDIR /src/GradLink.Api
