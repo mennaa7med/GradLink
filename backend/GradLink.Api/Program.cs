@@ -341,27 +341,34 @@ app.UseSwaggerUI(c =>
     ";
 });
 
-app.UseSerilogRequestLogging();
-
-// CORS MUST be first - before any other middleware
-// This handles OPTIONS preflight requests
-app.UseCors("AllowAll");
-
-// Handle OPTIONS requests explicitly before other middleware
+// CRITICAL: Handle OPTIONS preflight FIRST - before anything else
 app.Use(async (context, next) =>
 {
+    // Add CORS headers to ALL responses
+    var origin = context.Request.Headers["Origin"].ToString();
+    if (!string.IsNullOrEmpty(origin))
+    {
+        context.Response.Headers["Access-Control-Allow-Origin"] = origin;
+        context.Response.Headers["Access-Control-Allow-Credentials"] = "true";
+    }
+    
     if (context.Request.Method == "OPTIONS")
     {
-        context.Response.StatusCode = 204;
-        context.Response.Headers.Append("Access-Control-Allow-Origin", context.Request.Headers["Origin"].ToString());
-        context.Response.Headers.Append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-        context.Response.Headers.Append("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
-        context.Response.Headers.Append("Access-Control-Allow-Credentials", "true");
-        context.Response.Headers.Append("Access-Control-Max-Age", "86400");
+        context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD";
+        context.Response.Headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin";
+        context.Response.Headers["Access-Control-Max-Age"] = "86400";
+        context.Response.StatusCode = 200;
+        await context.Response.CompleteAsync();
         return;
     }
+    
     await next();
 });
+
+app.UseSerilogRequestLogging();
+
+// CORS policy as backup
+app.UseCors("AllowAll");
 
 // Only redirect to HTTPS in production
 if (!app.Environment.IsDevelopment())
