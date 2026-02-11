@@ -146,17 +146,30 @@ services.AddCors(options =>
 {
     options.AddPolicy("DefaultPolicy", policy =>
     {
-        var allowedOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
-            ?? new[] { "http://localhost:5173", "http://localhost:3000", "https://mennaa7med.github.io" };
+        // Get origins from config, environment, or use defaults
+        var configOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
         
-        policy.WithOrigins(allowedOrigins)
+        // Always include these production URLs
+        var defaultOrigins = new[] 
+        { 
+            "http://localhost:5173", 
+            "http://localhost:5176",
+            "http://localhost:3000", 
+            "https://mennaa7med.github.io",
+            "https://grad-link-x3ls.vercel.app",
+            "https://gradlink-production-7fdd.up.railway.app"
+        };
+        
+        var allOrigins = configOrigins.Concat(defaultOrigins).Distinct().ToArray();
+        
+        policy.WithOrigins(allOrigins)
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
     });
     
-    // Fallback policy for development - more permissive
-    options.AddPolicy("Development", policy =>
+    // Permissive policy for all environments (Railway/Production)
+    options.AddPolicy("AllowAll", policy =>
     {
         policy.SetIsOriginAllowed(_ => true)
             .AllowAnyMethod()
@@ -336,15 +349,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
-// Use more permissive CORS in development
-if (app.Environment.IsDevelopment())
-{
-    app.UseCors("Development");
-}
-else
-{
-    app.UseCors("DefaultPolicy");
-}
+// Use permissive CORS for all environments to avoid preflight issues
+app.UseCors("AllowAll");
 
 app.UseIpRateLimiting();
 
