@@ -326,6 +326,22 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Demo mode only: synthetic demo data (never runs unless Demo:Enabled=true)
+if (configuration.GetValue<bool>("Demo:Enabled"))
+{
+    using var demoScope = app.Services.CreateScope();
+    try
+    {
+        await GradLink.Api.DemoData.EnsureSeededAsync(
+            demoScope.ServiceProvider.GetRequiredService<AppDbContext>(),
+            demoScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>());
+    }
+    catch (Exception ex)
+    {
+        demoScope.ServiceProvider.GetRequiredService<ILogger<Program>>().LogError(ex, "Demo data seeding failed.");
+    }
+}
+
 // Configure the HTTP request pipeline.
 // Enable Swagger in all environments for Railway
 app.UseSwagger();
@@ -370,6 +386,9 @@ app.UseSerilogRequestLogging();
 // CORS policy as additional layer
 app.UseCors("AllowAll");
 
+// Optional read-only demo mode (off unless Demo:Enabled=true)
+app.UseMiddleware<GradLink.Api.DemoModeMiddleware>();
+
 // Only redirect to HTTPS in production
 if (!app.Environment.IsDevelopment())
 {
@@ -386,3 +405,6 @@ app.MapControllers();
 app.MapHub<ChatHub>("/hubs/chat");
 
 app.Run();
+
+// Needed so integration tests can start the app
+public partial class Program { }
