@@ -247,6 +247,9 @@ function Signin() {
         </form>
         {demoEnabled && (
           <div className="demo-box">
+            <p role="note" style={{ margin: '0 0 10px', padding: '10px 12px', background: '#fff7e0', border: '1px solid #f0c36d', borderRadius: 8, color: '#5c4400', fontSize: 14, lineHeight: 1.4, textAlign: 'left' }}>
+              <strong>Demo with sample data.</strong> Read-only: nothing you do is saved. Some pages are unavailable.
+            </p>
             <button type="button" className="signin-btn" onClick={handleDemo}>Try demo (read-only, sample data)</button>
             {demoError && <p role="alert">{demoError}</p>}
           </div>
