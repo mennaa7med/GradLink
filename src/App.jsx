@@ -14,6 +14,9 @@ import Detailsproject from './components/Detailsproject/Detailsproject';
 import Matchmaking from './components/Matchmaking';
 import Opportunities from './components/Opportunities';
 import GeminiChatButton from './components/GeminiChatButton';
+import { DEMO_MODE, DemoBanner, DemoUnavailable, installDemoGuards } from './demo/demoMode';
+
+installDemoGuards();
 import Chat from './components/Chat';
 import DashboardLayout from './components/DashboardLayout/DashboardLayout';
 import Dashboard from './pages/Dashboard';
@@ -63,6 +66,7 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider>
         <Router basename="/">
+          <DemoBanner />
           <Routes>
             {/* Dashboard Routes - WITHOUT Navbar */}
             <Route path="/dashboard" element={<RequireAuth><DashboardLayout /></RequireAuth>}>
@@ -76,8 +80,8 @@ function App() {
               <Route path="mentors" element={<Mentors />} />
               <Route path="sponsors" element={<Sponsors />} />
               <Route path="notifications" element={<NotificationsPage />} />
-              <Route path="messages" element={<MessagesPage />} />
-              <Route path="resume-builder" element={<ResumeBuilder />} />
+              <Route path="messages" element={<DemoUnavailable><MessagesPage /></DemoUnavailable>} />
+              <Route path="resume-builder" element={<DemoUnavailable><ResumeBuilder /></DemoUnavailable>} />
               <Route path="achievements" element={<AchievementBadges />} />
               <Route path="settings" element={<Settings />} />
               <Route path="help" element={<Help />} />
@@ -85,17 +89,17 @@ function App() {
             </Route>
             
             {/* Other Dashboard Pages - WITHOUT Navbar */}
-            <Route path="/company-dashboard-new" element={<RequireAuth><CompanyDashboardNew /></RequireAuth>} />
-            <Route path="/sponsor-dashboard" element={<RequireAuth><SponsorDashboard /></RequireAuth>} />
-            <Route path="/mentor-dashboard" element={<RequireAuth><MentorDashboard /></RequireAuth>} />
-            <Route path="/admin-dashboard" element={<RequireAuth><AdminDashboard /></RequireAuth>} />
+            <Route path="/company-dashboard-new" element={<DemoUnavailable><RequireAuth><CompanyDashboardNew /></RequireAuth></DemoUnavailable>} />
+            <Route path="/sponsor-dashboard" element={<DemoUnavailable><RequireAuth><SponsorDashboard /></RequireAuth></DemoUnavailable>} />
+            <Route path="/mentor-dashboard" element={<DemoUnavailable><RequireAuth><MentorDashboard /></RequireAuth></DemoUnavailable>} />
+            <Route path="/admin-dashboard" element={<DemoUnavailable><RequireAuth><AdminDashboard /></RequireAuth></DemoUnavailable>} />
 
             {/* Auth Pages - WITHOUT Navbar */}
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={<DemoUnavailable><Signup /></DemoUnavailable>} />
             <Route path="/signin" element={<Signin />} />
-            <Route path="/verify-otp" element={<VerifyOtp />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/verify-otp" element={<DemoUnavailable><VerifyOtp /></DemoUnavailable>} />
+            <Route path="/forgot-password" element={<DemoUnavailable><ForgotPassword /></DemoUnavailable>} />
+            <Route path="/reset-password" element={<DemoUnavailable><ResetPassword /></DemoUnavailable>} />
             <Route path="/oauth/callback/:provider" element={<OAuthCallback />} />
 
             {/* Pages WITH Navbar */}
@@ -106,23 +110,23 @@ function App() {
               <Route path="/Detailsproject" element={<Detailsproject />} />
               <Route path="/Opportunities" element={<Opportunities />} />
               <Route path="/GeminiChatButton" element={<GeminiChatButton />} />
-              <Route path="/chat" element={<RequireAuth><Chat /></RequireAuth>} />
+              <Route path="/chat" element={<DemoUnavailable><RequireAuth><Chat /></RequireAuth></DemoUnavailable>} />
               <Route path="/Settings" element={<Settings />} />
               <Route path="/Help" element={<Help />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/AllFeatures" element={<AllFeatures />} />
               <Route path="/feature/:id" element={<FeatureDetails />} />
-              <Route path="/job-form" element={<JobForm />} />
-              <Route path="/resume-screener" element={<ResumeScreener />} />
-              <Route path="/upload-resume" element={<UploadResume />} />
-              <Route path="/job-description" element={<JobDescription />} />
-              <Route path="/delete-resumes" element={<DeleteResumes />} />
-              <Route path="/job-description-analysis" element={<JobDescriptionAnalysis />} />
-              <Route path="/matching-candidates" element={<MatchingCandidates />} />
-              <Route path="/screening-resume" element={<ScreeningResume />} />
+              <Route path="/job-form" element={<DemoUnavailable><JobForm /></DemoUnavailable>} />
+              <Route path="/resume-screener" element={<DemoUnavailable><ResumeScreener /></DemoUnavailable>} />
+              <Route path="/upload-resume" element={<DemoUnavailable><UploadResume /></DemoUnavailable>} />
+              <Route path="/job-description" element={<DemoUnavailable><JobDescription /></DemoUnavailable>} />
+              <Route path="/delete-resumes" element={<DemoUnavailable><DeleteResumes /></DemoUnavailable>} />
+              <Route path="/job-description-analysis" element={<DemoUnavailable><JobDescriptionAnalysis /></DemoUnavailable>} />
+              <Route path="/matching-candidates" element={<DemoUnavailable><MatchingCandidates /></DemoUnavailable>} />
+              <Route path="/screening-resume" element={<DemoUnavailable><ScreeningResume /></DemoUnavailable>} />
               <Route path="/career" element={<Career />} />
-              <Route path="/apply-mentor" element={<ApplyMentor />} />
-              <Route path="/mentor-test" element={<MentorTest />} />
+              <Route path="/apply-mentor" element={<DemoUnavailable><ApplyMentor /></DemoUnavailable>} />
+              <Route path="/mentor-test" element={<DemoUnavailable><MentorTest /></DemoUnavailable>} />
               
               {/* Legal Pages */}
               <Route path="/terms-of-service" element={<TermsOfService />} />
@@ -144,7 +148,7 @@ function App() {
           </Routes>
           
           {/* Gemini Chatbot - يظهر في كل الصفحات */}
-          <GeminiChatButton />
+          {!DEMO_MODE && <GeminiChatButton />}
         </Router>
       </ThemeProvider>
     </ErrorBoundary>
