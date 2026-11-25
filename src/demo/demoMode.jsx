@@ -39,7 +39,7 @@ export function installDemoGuards() {
       if (!el || el.closest('[data-demo-allow]')) return;
       const label = (el.getAttribute('aria-label') || el.textContent || el.value || '').trim();
       const isDeleteOrEdit = el.className && /(delete|edit|remove)/i.test(String(el.className));
-      if (WRITE_LABEL.test(label) || isDeleteOrEdit || el.type === 'submit') {
+      if (WRITE_LABEL.test(label) || isDeleteOrEdit || (el.type === 'submit' && el.form)) {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
