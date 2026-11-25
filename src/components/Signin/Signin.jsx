@@ -6,6 +6,7 @@ import './Signin.css';
 import backgroundImg from '../../assets/images/signin.jpg';
 import logo from '../../assets/images/site.png';
 import { useAuth } from '../../contexts/AuthContext';
+import { startDemoSession } from '../../api/auth';
 import { getOAuthProviders, initiateGoogleLogin, initiateGitHubLogin } from '../../api/oauth';
 
 function Signin() {
@@ -16,7 +17,21 @@ function Signin() {
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const { login, loginWithToken } = useAuth();
+  // Demo button is shown only in builds made with VITE_DEMO_MODE=true (off by default)
+  const demoEnabled = import.meta.env.VITE_DEMO_MODE === 'true';
+  const [demoError, setDemoError] = useState('');
+
+  const handleDemo = async () => {
+    setDemoError('');
+    try {
+      const data = await startDemoSession();
+      loginWithToken(data.accessToken, data.refreshToken || '', data.user);
+      navigate('/dashboard', { replace: true });
+    } catch (err) {
+      setDemoError('The demo is unavailable right now.');
+    }
+  };
 
   // Load saved credentials on mount
   useEffect(() => {
@@ -230,6 +245,12 @@ function Signin() {
 
           <button type="submit" className="signin-btn">Sign In</button>
         </form>
+        {demoEnabled && (
+          <div className="demo-box">
+            <button type="button" className="signin-btn" onClick={handleDemo}>Try demo (read-only, sample data)</button>
+            {demoError && <p role="alert">{demoError}</p>}
+          </div>
+        )}
 
         <div className="social-divider">
           <span>or continue with</span>
