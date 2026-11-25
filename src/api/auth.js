@@ -52,3 +52,9 @@ export async function registerSponsor(sponsorData) {
   const { data } = await api.post('/api/auth/register/sponsor', sponsorData);
   return data;
 }
+
+// Read-only demo session (only works when the API runs with Demo:Enabled)
+export async function startDemoSession() {
+  const { data } = await api.post('/api/demo/session');
+  return data;
+}
